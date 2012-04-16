@@ -23,7 +23,9 @@ class adminWordCount
 {
 	public static function adminPageHTMLHead()
 	{
-		echo '<link rel="stylesheet" href="index.php?pf=wordCount/style.css" type="text/css" media="screen" />'."\n";
+		if ($core->blog->settings->wordcount->wc_active) {
+			echo '<link rel="stylesheet" href="index.php?pf=wordCount/style.css" type="text/css" media="screen" />'."\n";
+		}
 	}
 	
 	static function splitWords($str)
