@@ -1,0 +1,32 @@
+msgid "Word Count"
+msgstr "Compteur de mots"
+
+msgid "Configuration successfully updated."
+msgstr "La configuration a été correctement enregistrée"
+
+msgid "Plugin activation"
+msgstr "Activation de l'extension"
+
+msgid "Enable Word Count for this blog"
+msgstr "Activer l'extension pour ce blog"
+
+msgid "Save configuration"
+msgstr "Enregistrer la configuration"
+
+msgid "Counters:"
+msgstr "Compteurs :"
+
+msgid "%d characters - %d words - &frac12; folios"
+msgstr "%d signes - %d mots - &frac12; feuillet"
+
+msgid "%d characters - %d words - 1 folio"
+msgstr "%d signes - %d mots - 1 feuillet"
+
+msgid "%d characters - %d words - 1 &frac12; folios"
+msgstr "%d signes - %d mots - 1 feuillet &frac12;"
+
+msgid "%d characters - %d words - %d &frac12; folios"
+msgstr "%d signes - %d mots - %d feuillets &frac12;"
+
+msgid "%d characters - %d words - %d folios"
+msgstr "%d signes - %d mots - %d feuillets"
