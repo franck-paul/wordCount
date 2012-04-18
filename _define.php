@@ -16,7 +16,7 @@ $this->registerModule(
 	/* Name */				"Word Count",
 	/* Description*/		"Counts characters, words and folios of edited entry",
 	/* Author */			"Franck Paul",
-	/* Version */			'0.1',
+	/* Version */			'0.1.1',
 	/* Permissions */		'contentadmin'
 );
 ?>
