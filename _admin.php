@@ -23,6 +23,7 @@ class adminWordCount
 {
 	public static function adminPageHTMLHead()
 	{
+		global $core;
 		if ($core->blog->settings->wordcount->wc_active) {
 			echo '<link rel="stylesheet" href="index.php?pf=wordCount/style.css" type="text/css" media="screen" />'."\n";
 		}
@@ -32,9 +33,6 @@ class adminWordCount
 	{
 		$non_word = '\x{0000}-\x{002F}\x{003A}-\x{0040}\x{005b}-\x{0060}\x{007B}-\x{007E}\x{00A0}-\x{00BF}\s';
 		if (preg_match_all('/([^'.$non_word.']{1,})/msu',html::clean($str),$match)) {
-			foreach ($match[1] as $i => $v) {
-				$match[1][$i] = mb_strtolower($v);
-			}
 			return $match[1];
 		}
 		return array();
