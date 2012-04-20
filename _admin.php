@@ -38,29 +38,49 @@ class adminWordCount
 		return array();
 	}
 
+	static function showCounters($text)
+	{
+		$chars = mb_strlen(html::clean($text));
+		if ($chars > 0) {
+			$words = count(adminWordCount::splitWords($text));
+			$folios = round($chars / 750) / 2.0;
+			if ($folios <= 0.5 ) {
+				return sprintf(__('%d characters - %d words - &frac12; folios'),$chars,$words);
+			} elseif ($folios <= 1.0) {
+				return sprintf(__('%d characters - %d words - 1 folio'),$chars,$words);
+			} elseif ($folios < 2.0) {
+				return sprintf(__('%d characters - %d words - 1 &frac12; folios'),$chars,$words);
+			} elseif (floor($folios) != $folios) {
+				$folios = floor($folios);
+				return sprintf(__('%d characters - %d words - %d &frac12; folios'),$chars,$words,$folios);
+			} else {
+				return sprintf(__('%d characters - %d words - %d folios'),$chars,$words,$folios);
+			}
+		}
+		return '';
+	}
+
 	public static function wordCount($post)
 	{
 		global $core;
 		if ($core->blog->settings->wordcount->wc_active) {
 			if ($post != null) {
+				if ($core->blog->settings->wordcount->wc_details) {
+					$countersExcerpt = adminWordCount::showCounters($post->post_excerpt_xhtml);
+					$countersContent = adminWordCount::showCounters($post->post_content_xhtml);
+				}
 				$text = ($post->post_excerpt_xhtml != '' ? $post->post_excerpt_xhtml.' ' : '');
 				$text .= $post->post_content_xhtml;
-				$chars = mb_strlen(html::clean($text));
-				if ($chars > 0) {
-					$words = count(adminWordCount::splitWords($text));
-					$folios = round($chars / 750) / 2.0;
-					echo '<div class="wordcount"><p>'.__('Counters:').' ';
-					if ($folios <= 0.5 ) {
-						echo sprintf(__('%d characters - %d words - &frac12; folios'),$chars,$words);
-					} elseif ($folios <= 1.0) {
-						echo sprintf(__('%d characters - %d words - 1 folio'),$chars,$words);
-					} elseif ($folios < 2.0) {
-						echo sprintf(__('%d characters - %d words - 1 &frac12; folios'),$chars,$words);
-					} elseif (floor($folios) != $folios) {
-						$folios = floor($folios);
-						echo sprintf(__('%d characters - %d words - %d &frac12; folios'),$chars,$words,$folios);
+				$countersTotal = adminWordCount::showCounters($text);
+
+				if ($countersTotal != '') {
+					echo '<div class="wordcount"><p>';
+					if ($core->blog->settings->wordcount->wc_details && $countersExcerpt) {
+						echo __('Excerpt:').' '.$countersExcerpt.'<br />';
+						echo __('Content:').' '.$countersContent.'<br />';
+						echo __('Total:').' '.$countersTotal;
 					} else {
-						echo sprintf(__('%d characters - %d words - %d folios'),$chars,$words,$folios);
+						echo __('Counters:').' '.$countersTotal;
 					}
 					echo '</p></div>';
 				}

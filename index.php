@@ -14,6 +14,7 @@ if (!defined('DC_CONTEXT_ADMIN')) { exit; }
 
 // Getting current parameters
 $wc_active = (boolean)$core->blog->settings->wordcount->wc_active;
+$wc_details = (boolean)$core->blog->settings->wordcount->wc_details;
 
 // Saving new configuration
 if (!empty($_POST['saveconfig'])) {
@@ -22,7 +23,9 @@ if (!empty($_POST['saveconfig'])) {
 		$core->blog->settings->addNamespace('wordcount');
 
 		$wc_active = (empty($_POST['active']))?false:true;
+		$wc_details = (empty($_POST['details']))?false:true;
 		$core->blog->settings->wordcount->put('wc_active',$wc_active,'boolean');
+		$core->blog->settings->wordcount->put('wc_details',$wc_details,'boolean');
 		$core->blog->triggerBlog();
 		$msg = __('Configuration successfully updated.');
 	}
@@ -49,6 +52,13 @@ if (!empty($_POST['saveconfig'])) {
 		<p class="field">
 			<?php echo form::checkbox('active', 1, $wc_active); ?>
 			<label class="classic" for="active"><?php echo __('Enable Word Count for this blog'); ?></label>
+		</p>
+	</fieldset>
+	<fieldset>
+		<legend><?php echo __('Options'); ?></legend>
+		<p class="field">
+			<?php echo form::checkbox('details', 1, $wc_details); ?>
+			<label class="classic" for="details"><?php echo __('Show details (excerpt and content)'); ?></label>
 		</p>
 	</fieldset>
 

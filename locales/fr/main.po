@@ -10,11 +10,17 @@ msgstr "Activation de l'extension"
 msgid "Enable Word Count for this blog"
 msgstr "Activer l'extension pour ce blog"
 
+msgid "Show details (excerpt and content)"
+msgstr "Afficher les détails (extrait et contenu)"
+
 msgid "Save configuration"
 msgstr "Enregistrer la configuration"
 
 msgid "Counters:"
 msgstr "Compteurs :"
+
+msgid "Total:"
+msgstr "Total :"
 
 msgid "%d characters - %d words - &frac12; folios"
 msgstr "%d signes - %d mots - &frac12; feuillet"

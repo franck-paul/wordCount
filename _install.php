@@ -29,6 +29,7 @@ try
 
 	// Default state is active
 	$core->blog->settings->wordcount->put('wc_active',true,'boolean','Active',false,true);
+	$core->blog->settings->wordcount->put('wc_details',false,'boolean','Details',false,true);
 
 	$core->setVersion('wordCount',$new_version);
 	
