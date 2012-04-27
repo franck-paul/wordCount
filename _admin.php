@@ -38,10 +38,11 @@ class adminWordCount
 		return array();
 	}
 
-	static function showCounters($text)
+	static function showCounters($text,$double = false)
 	{
 		$chars = mb_strlen(html::clean($text));
 		if ($chars > 0) {
+			if ($double) $chars--;
 			$words = count(adminWordCount::splitWords($text));
 			$folios = round($chars / 750) / 2.0;
 			if ($folios <= 0.5 ) {
@@ -71,7 +72,7 @@ class adminWordCount
 				}
 				$text = ($post->post_excerpt_xhtml != '' ? $post->post_excerpt_xhtml.' ' : '');
 				$text .= $post->post_content_xhtml;
-				$countersTotal = adminWordCount::showCounters($text);
+				$countersTotal = adminWordCount::showCounters($text,($post->post_excerpt_xhtml != ''));
 
 				if ($countersTotal != '') {
 					echo '<div class="wordcount"><p>';
