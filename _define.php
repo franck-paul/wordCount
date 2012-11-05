@@ -13,8 +13,8 @@
 # -- END LICENSE BLOCK ------------------------------------
 
 $this->registerModule(
-	/* Name */				"Word Count",
-	/* Description*/		"Counts characters, words and folios of edited entry",
+	/* Name */				__("Word Count"),
+	/* Description*/		__("Counts characters, words and folios of edited entry"),
 	/* Author */			"Franck Paul",
 	/* Version */			'0.2.1',
 	/* Permissions */		'contentadmin'
