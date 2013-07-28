@@ -41,7 +41,7 @@ if (!empty($_POST['saveconfig'])) {
 </head>
 
 <body>
-<h2><?php echo html::escapeHTML($core->blog->name); ?> &gt; <?php echo __('Word Count'); ?></h2>
+<h2><?php echo html::escapeHTML($core->blog->name); ?> &rsaquo; <span class="page-title"><?php echo __('Word Count'); ?></span></h2>
 
 <?php if (!empty($msg)) dcPage::message($msg); ?>
 
