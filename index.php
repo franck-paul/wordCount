@@ -53,20 +53,15 @@ if (!empty($_POST['saveconfig'])) {
 
 <div id="wc_options">
 	<form method="post" action="plugin.php">
-	<div class="fieldset">
-		<h4><?php echo __('Plugin activation'); ?></h4>
-		<p>
-			<?php echo form::checkbox('active', 1, $wc_active); ?>
-			<label class="classic" for="active"><?php echo __('Enable Word Count for this blog'); ?></label>
-		</p>
-	</div>
-	<div class="fieldset">
-		<h4><?php echo __('Options'); ?></h4>
-		<p>
-			<?php echo form::checkbox('details', 1, $wc_details); ?>
-			<label class="classic" for="details"><?php echo __('Show details (excerpt and content)'); ?></label>
-		</p>
-	</div>
+	<p>
+		<?php echo form::checkbox('active', 1, $wc_active); ?>
+		<label class="classic" for="active"><?php echo __('Enable Word Count for this blog'); ?></label>
+	</p>
+	<h3><?php echo __('Options'); ?></h3>
+	<p>
+		<?php echo form::checkbox('details', 1, $wc_details); ?>
+		<label class="classic" for="details"><?php echo __('Show details (excerpt and content)'); ?></label>
+	</p>
 
 	<p><input type="hidden" name="p" value="wordCount" />
 	<?php echo $core->formNonce(); ?>
