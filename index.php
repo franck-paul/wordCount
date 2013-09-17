@@ -1,10 +1,10 @@
 <?php
 # -- BEGIN LICENSE BLOCK ----------------------------------
 # This file is part of wordCount, a plugin for Dotclear 2.
-# 
+#
 # Copyright (c) 2012 Franck Paul and contributors
 # carnet.franck.paul@gmail.com
-# 
+#
 # Licensed under the GPL version 2.0 license.
 # A copy of this license is available in LICENSE file or at
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
@@ -41,26 +41,32 @@ if (!empty($_POST['saveconfig'])) {
 </head>
 
 <body>
-<h2><?php echo html::escapeHTML($core->blog->name); ?> &rsaquo; <span class="page-title"><?php echo __('Word Count'); ?></span></h2>
+<?php
+	echo dcPage::breadcrumb(
+		array(
+			html::escapeHTML($core->blog->name) => '',
+			'<span class="page-title">'.__('Word Count').'</span>' => ''
+		));
+?>
 
-<?php if (!empty($msg)) dcPage::message($msg); ?>
+<?php if (!empty($msg)) dcPage::success($msg); ?>
 
 <div id="wc_options">
 	<form method="post" action="plugin.php">
-	<fieldset>
-		<legend><?php echo __('Plugin activation'); ?></legend>
-		<p class="field">
+	<div class="fieldset">
+		<h4><?php echo __('Plugin activation'); ?></h4>
+		<p>
 			<?php echo form::checkbox('active', 1, $wc_active); ?>
 			<label class="classic" for="active"><?php echo __('Enable Word Count for this blog'); ?></label>
 		</p>
-	</fieldset>
-	<fieldset>
-		<legend><?php echo __('Options'); ?></legend>
-		<p class="field">
+	</div>
+	<div class="fieldset">
+		<h4><?php echo __('Options'); ?></h4>
+		<p>
 			<?php echo form::checkbox('details', 1, $wc_details); ?>
 			<label class="classic" for="details"><?php echo __('Show details (excerpt and content)'); ?></label>
 		</p>
-	</fieldset>
+	</div>
 
 	<p><input type="hidden" name="p" value="wordCount" />
 	<?php echo $core->formNonce(); ?>

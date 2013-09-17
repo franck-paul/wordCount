@@ -1,21 +1,21 @@
 <?php
 # -- BEGIN LICENSE BLOCK ----------------------------------
 # This file is part of wordCount, a plugin for Dotclear 2.
-# 
-# Copyright (c) 2012 Franck Paul and contributors
+#
+# Copyright (c) 2013 Franck Paul and contributors
 # carnet.franck.paul@gmail.com
-# 
+#
 # Licensed under the GPL version 2.0 license.
 # A copy of this license is available in LICENSE file or at
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 # -- END LICENSE BLOCK ------------------------------------
 
-/* Add menu item in extension list */
-$_menu['Plugins']->addItem(__('Word Count'),'plugin.php?p=wordCount','index.php?pf=wordCount/icon.png',
+// Add menu item in blog menu
+$_menu['Blog']->addItem(__('Word Count'),'plugin.php?p=wordCount','index.php?pf=wordCount/icon.png',
 		preg_match('/plugin.php\?p=wordCount(&.*)?$/',$_SERVER['REQUEST_URI']),
 		$core->auth->check('contentadmin',$core->blog->id));
 
-/* Add behavior callback */
+// Add behavior callback
 $core->addBehavior('adminPostForm',array('adminWordCount','wordCount'));
 $core->addBehavior('adminPageHTMLHead',array('adminWordCount','adminPageHTMLHead'));
 
@@ -28,7 +28,7 @@ class adminWordCount
 			echo '<link rel="stylesheet" href="index.php?pf=wordCount/style.css" type="text/css" media="screen" />'."\n";
 		}
 	}
-	
+
 	static function splitWords($str)
 	{
 		$non_word = '\x{0000}-\x{002F}\x{003A}-\x{0040}\x{005b}-\x{0060}\x{007B}-\x{007E}\x{00A0}-\x{00BF}\s';
