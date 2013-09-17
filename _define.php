@@ -2,7 +2,7 @@
 # -- BEGIN LICENSE BLOCK ----------------------------------
 # This file is part of wordCount, a plugin for Dotclear 2.
 # 
-# Copyright (c) 2012 Franck Paul and contributors
+# Copyright (c) 2013 Franck Paul and contributors
 # carnet.franck.paul@gmail.com
 #
 # Icon from Faenza set by tiheum (http://tiheum.deviantart.com/art/Faenza-Icons-173323228)
@@ -16,7 +16,7 @@ $this->registerModule(
 	/* Name */				"Word Count",
 	/* Description*/		"Counts characters, words and folios of edited entry",
 	/* Author */			"Franck Paul",
-	/* Version */			'0.3',
+	/* Version */			'0.4',
 	/* Permissions */		'contentadmin'
 );
 ?>
