@@ -45,17 +45,30 @@ class adminWordCount
 			if ($double) $chars--;
 			$words = count(adminWordCount::splitWords($text));
 			$folios = round($chars / 750) / 2.0;
+
+			$l10n_chars = sprintf(__('%d character','%d characters',$chars),(integer)$chars);
+			$l10n_words = sprintf(__('%d word','%d words',$words),(integer)$words);
+			$l10n_folios = __('1 folio','n folios',1);
+
 			if ($folios <= 0.5 ) {
-				return sprintf(__('%d characters - %d words - &frac12; folios'),$chars,$words);
+				// Less or equal 1/2 folio
+				return sprintf(__('%s - %s - &frac12; %s'),$l10n_chars,$l10n_words,$l10n_folios);
 			} elseif ($folios <= 1.0) {
-				return sprintf(__('%d characters - %d words - 1 folio'),$chars,$words);
+				// Less or equal 1 folio
+				return sprintf(__('%s - %s - 1 %s'),$l10n_chars,$l10n_words,$l10n_folios);
 			} elseif ($folios < 2.0) {
-				return sprintf(__('%d characters - %d words - 1 &frac12; folios'),$chars,$words);
+				// Less than 2 folios
+				return sprintf(__('%s - %s - 1 &frac12; %s'),$l10n_chars,$l10n_words,$l10n_folios);
+
 			} elseif (floor($folios) != $folios) {
+				// Folios and a part of one
 				$folios = floor($folios);
-				return sprintf(__('%d characters - %d words - %d &frac12; folios'),$chars,$words,$folios);
+				$l10n_folios = sprintf(__('%d &frac12; folio','%d &frac12; folios',$folios),$folios);
+				return sprintf(__('%s - %s - %s'),$l10n_chars,$l10n_words,$l10n_folios);
 			} else {
-				return sprintf(__('%d characters - %d words - %d folios'),$chars,$words,$folios);
+				// Folios
+				$l10n_folios = sprintf(__('%d folio','%d folios',$folios),$folios);
+				return sprintf(__('%s - %s - %s'),$l10n_chars,$l10n_words,$l10n_folios);
 			}
 		}
 		return '';
