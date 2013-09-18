@@ -81,3 +81,6 @@ msgstr "Afficher les détails (extrait et contenu)"
 
 msgid "Save configuration"
 msgstr "Enregistrer la configuration"
+
+msgid "Counts characters, words and folios of edited entry"
+msgstr "Compteurs de caractères, mots et folios des entrées en cours d'édition"
