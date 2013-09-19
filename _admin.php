@@ -2,7 +2,7 @@
 # -- BEGIN LICENSE BLOCK ----------------------------------
 # This file is part of wordCount, a plugin for Dotclear 2.
 #
-# Copyright (c) 2013 Franck Paul and contributors
+# Copyright (c) Franck Paul and contributors
 # carnet.franck.paul@gmail.com
 #
 # Licensed under the GPL version 2.0 license.
@@ -11,9 +11,6 @@
 # -- END LICENSE BLOCK ------------------------------------
 
 if (!defined('DC_CONTEXT_ADMIN')) { return; }
-
-/* Name */			__('Word Count');
-/* Description*/	__('Counts characters, words and folios of edited entry');
 
 // Add menu item in blog menu
 $_menu['Blog']->addItem(__('Word Count'),'plugin.php?p=wordCount','index.php?pf=wordCount/icon.png',
