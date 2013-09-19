@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 wordCount module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-09-18 15:52+0200\n"
+"POT-Creation-Date: 2013-09-19 07:47+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,70 +17,74 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: ../hg-plugins/wordCount/_admin.php:14 ../hg-plugins/wordCount/index.php:40
-#: ../hg-plugins/wordCount/index.php:48
+#: ../hg-plugins/wordCount/_admin.php:15 ../hg-plugins/wordCount/_admin.php:19
+#: ../hg-plugins/wordCount/index.php:40 ../hg-plugins/wordCount/index.php:48
 msgid "Word Count"
 msgstr ""
 
-#: ../hg-plugins/wordCount/_admin.php:49
+#: ../hg-plugins/wordCount/_admin.php:16
+msgid "Counts characters, words and folios of edited entry"
+msgstr ""
+
+#: ../hg-plugins/wordCount/_admin.php:54
 #, php-format
 msgid "%d character"
 msgid_plural "%d characters"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../hg-plugins/wordCount/_admin.php:50
+#: ../hg-plugins/wordCount/_admin.php:55
 #, php-format
 msgid "%d word"
 msgid_plural "%d words"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../hg-plugins/wordCount/_admin.php:51
+#: ../hg-plugins/wordCount/_admin.php:56
 msgid "1 folio"
 msgid_plural "n folios"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../hg-plugins/wordCount/_admin.php:54
+#: ../hg-plugins/wordCount/_admin.php:60
 #, php-format
 msgid "%s - %s - &frac12; %s"
 msgstr ""
 
-#: ../hg-plugins/wordCount/_admin.php:56
+#: ../hg-plugins/wordCount/_admin.php:63
 #, php-format
 msgid "%s - %s - 1 %s"
 msgstr ""
 
-#: ../hg-plugins/wordCount/_admin.php:58
+#: ../hg-plugins/wordCount/_admin.php:66
 #, php-format
 msgid "%s - %s - 1 &frac12; %s"
 msgstr ""
 
-#: ../hg-plugins/wordCount/_admin.php:61
+#: ../hg-plugins/wordCount/_admin.php:71
 #, php-format
 msgid "%d &frac12; folio"
 msgid_plural "%d &frac12; folios"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../hg-plugins/wordCount/_admin.php:62 ../hg-plugins/wordCount/_admin.php:65
+#: ../hg-plugins/wordCount/_admin.php:72 ../hg-plugins/wordCount/_admin.php:76
 #, php-format
 msgid "%s - %s - %s"
 msgstr ""
 
-#: ../hg-plugins/wordCount/_admin.php:64
+#: ../hg-plugins/wordCount/_admin.php:75
 #, php-format
 msgid "%d folio"
 msgid_plural "%d folios"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../hg-plugins/wordCount/_admin.php:89
+#: ../hg-plugins/wordCount/_admin.php:100
 msgid "Total:"
 msgstr ""
 
-#: ../hg-plugins/wordCount/_admin.php:91
+#: ../hg-plugins/wordCount/_admin.php:102
 msgid "Counters:"
 msgstr ""
 
