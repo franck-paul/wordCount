@@ -20,17 +20,20 @@ $_menu['Blog']->addItem(__('Word Count'),'plugin.php?p=wordCount','index.php?pf=
 		preg_match('/plugin.php\?p=wordCount(&.*)?$/',$_SERVER['REQUEST_URI']),
 		$core->auth->check('contentadmin',$core->blog->id));
 
-// Add behavior callback
+// Add behaviour callback for post
 $core->addBehavior('adminPostForm',array('adminWordCount','wordCount'));
-$core->addBehavior('adminPageHTMLHead',array('adminWordCount','adminPageHTMLHead'));
+$core->addBehavior('adminPostHeaders',array('adminWordCount','adminPostHeaders'));
+// Add behaviour callback for page
+$core->addBehavior('adminPageForm',array('adminWordCount','wordCount'));
+$core->addBehavior('adminPageHeaders',array('adminWordCount','adminPostHeaders'));
 
 class adminWordCount
 {
-	public static function adminPageHTMLHead()
+	public static function adminPostHeaders()
 	{
 		global $core;
 		if ($core->blog->settings->wordcount->wc_active) {
-			echo '<link rel="stylesheet" href="index.php?pf=wordCount/style.css" type="text/css" media="screen" />'."\n";
+			return '<link rel="stylesheet" href="index.php?pf=wordCount/style.css" type="text/css" media="screen" />'."\n";
 		}
 	}
 
