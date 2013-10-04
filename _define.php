@@ -19,5 +19,8 @@ $this->registerModule(
 	/* Description*/		"Counts characters, words and folios of edited entry",
 	/* Author */			"Franck Paul",
 	/* Version */			'0.4',
-	/* Permissions */		'contentadmin'
+	array(
+		/* Permissions */	'permissions' =>	'contentadmin',
+		/* Type */			'type' =>			'plugin'
+	)
 );
