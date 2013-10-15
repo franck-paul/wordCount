@@ -75,7 +75,7 @@ msgid "Counters:"
 msgstr "Compteurs :"
 
 msgid "Configuration successfully updated."
-msgstr "La configuration a été enregistrée avec succès."
+msgstr "La configuration a été enregistrée."
 
 msgid "Enable Word Count for this blog"
 msgstr "Activer le compteur de mot pour ce blog"
