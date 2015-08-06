@@ -9,12 +9,12 @@
 # A copy of this license is available in LICENSE file or at
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 # -- END LICENSE BLOCK ------------------------------------
-
 if (!defined('DC_CONTEXT_ADMIN')) { exit; }
 
 // Getting current parameters
 $wc_active = (boolean)$core->blog->settings->wordcount->wc_active;
 $wc_details = (boolean)$core->blog->settings->wordcount->wc_details;
+$wc_wpm = (integer)$core->blog->settings->wordcount->wc_wpm;
 
 // Saving new configuration
 if (!empty($_POST['saveconfig'])) {
@@ -26,6 +26,12 @@ if (!empty($_POST['saveconfig'])) {
 		$wc_details = (empty($_POST['details']))?false:true;
 		$core->blog->settings->wordcount->put('wc_active',$wc_active,'boolean');
 		$core->blog->settings->wordcount->put('wc_details',$wc_details,'boolean');
+		if (!empty($_POST['wpm'])) {
+			$wc_wpm = (integer)$_POST['wpm'];
+		} else {
+			$wc_wpm = 0;
+		}
+		$core->blog->settings->wordcount->put('wc_wpm',($wc_wpm ? $wc_wpm : 230),'integer');
 		$core->blog->triggerBlog();
 		$msg = __('Configuration successfully updated.');
 	}
@@ -62,6 +68,11 @@ if (!empty($_POST['saveconfig'])) {
 		<?php echo form::checkbox('details', 1, $wc_details); ?>
 		<label class="classic" for="details"><?php echo __('Show details (excerpt and content)'); ?></label>
 	</p>
+	<p>
+		<label for="wpm" class="classic"><?php echo __('Average words per minute (reading):'); ?></label>
+		<?php echo form::field('wpm',3,4,(integer) $wc_wpm); ?>
+	</p>
+	<p class="form-note"><?php echo __('Leave empty for default (230 words per minute)'); ?></p>
 
 	<p><input type="hidden" name="p" value="wordCount" />
 	<?php echo $core->formNonce(); ?>

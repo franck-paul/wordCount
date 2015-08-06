@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 wordCount module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-09-24 13:22+0200\n"
+"POT-Creation-Date: 2015-08-06 15:22+0200\n"
 "PO-Revision-Date: 2013-09-18 16:03+0100\n"
 "Last-Translator: Franck Paul <carnet.franck.paul@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,6 +22,12 @@ msgstr "Compteurs de caractères, mots et folios des entrées en cours d'éditio
 
 msgid "Word Count"
 msgstr "Compteur de mots"
+
+msgid "Total:"
+msgstr "Total :"
+
+msgid "Counters:"
+msgstr "Compteurs :"
 
 #, php-format
 msgid "%d character"
@@ -41,26 +47,22 @@ msgstr[0] "folio"
 msgstr[1] "folios"
 
 #, php-format
-msgid "%s - %s - &frac12; %s"
-msgstr "%s - %s - &frac12; %s"
+msgid "&frac12; %s"
+msgstr "&frac12; %s"
 
 #, php-format
-msgid "%s - %s - 1 %s"
-msgstr "%s - %s - 1 %s"
+msgid "1 %s"
+msgstr ""
 
 #, php-format
-msgid "%s - %s - 1 &frac12; %s"
-msgstr "%s - %s - 1 &frac12; %s"
+msgid "1 &frac12; %s"
+msgstr "1 %s &frac12;"
 
-#, php-format
+#, fuzzy, php-format
 msgid "%d &frac12; folio"
 msgid_plural "%d &frac12; folios"
-msgstr[0] "%d &frac12; folio"
-msgstr[1] "%d &frac12; folios"
-
-#, php-format
-msgid "%s - %s - %s"
-msgstr "%s - %s - %s"
+msgstr[0] "%d folio &frac12;"
+msgstr[1] "%d folios &frac12;"
 
 #, php-format
 msgid "%d folio"
@@ -68,14 +70,14 @@ msgid_plural "%d folios"
 msgstr[0] "%d folio"
 msgstr[1] "%d folios"
 
-msgid "Total:"
-msgstr "Total :"
+msgid "less than one minute"
+msgstr "moins d'une minute"
 
-msgid "Counters:"
-msgstr "Compteurs :"
-
-msgid "Configuration successfully updated."
-msgstr "La configuration a été enregistrée."
+#, php-format
+msgid "%d minute"
+msgid_plural "%d minutes"
+msgstr[0] "%d minute"
+msgstr[1] "%d minutes"
 
 msgid "Enable Word Count for this blog"
 msgstr "Activer le compteur de mot pour ce blog"
@@ -83,5 +85,8 @@ msgstr "Activer le compteur de mot pour ce blog"
 msgid "Show details (excerpt and content)"
 msgstr "Afficher les détails (extrait et contenu)"
 
-msgid "Save configuration"
-msgstr "Enregistrer la configuration"
+msgid "Average words per minute (reading):"
+msgstr "Nombre de mot lus en moyenne par minute :"
+
+msgid "Leave empty for default (230 words per minute)"
+msgstr "Laisser vide pour utiliser la valeur par défaut (230 mots par minute)"

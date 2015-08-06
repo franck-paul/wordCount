@@ -9,7 +9,6 @@
 # A copy of this license is available in LICENSE file or at
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 # -- END LICENSE BLOCK ------------------------------------
-
 if (!defined('DC_CONTEXT_ADMIN')) { return; }
 
 $new_version = $core->plugins->moduleInfo('wordCount','version');
@@ -29,6 +28,7 @@ try
 	// Default state is active
 	$core->blog->settings->wordcount->put('wc_active',true,'boolean','Active',false,true);
 	$core->blog->settings->wordcount->put('wc_details',false,'boolean','Details',false,true);
+	$core->blog->settings->wordcount->put('wc_wpm',230,'integer','Average words per minute',false,true);
 
 	$core->setVersion('wordCount',$new_version);
 

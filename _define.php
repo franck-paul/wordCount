@@ -11,14 +11,13 @@
 # A copy of this license is available in LICENSE file or at
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 # -- END LICENSE BLOCK ------------------------------------
-
 if (!defined('DC_RC_PATH')) { return; }
 
 $this->registerModule(
 	/* Name */				"Word Count",
 	/* Description*/		"Counts characters, words and folios of edited entry",
 	/* Author */			"Franck Paul",
-	/* Version */			'0.4',
+	/* Version */			'0.5',
 	array(
 		/* Permissions */	'permissions' =>	'contentadmin',
 		/* Type */			'type' =>			'plugin'

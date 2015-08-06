@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 wordCount module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-09-19 07:47+0200\n"
+"POT-Creation-Date: 2015-08-06 14:57+0200\n"
 "PO-Revision-Date: 2013-09-18 16:06+0100\n"
 "Last-Translator: Franck Paul <carnet.franck.paul@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,71 +17,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 1.5.7\n"
 
-msgid "Word Count"
-msgstr ""
-
-msgid "Counts characters, words and folios of edited entry"
-msgstr ""
-
-#, php-format
-msgid "%d character"
-msgid_plural "%d characters"
-msgstr[0] ""
-msgstr[1] ""
-
-#, php-format
-msgid "%d word"
-msgid_plural "%d words"
-msgstr[0] ""
-msgstr[1] ""
-
 msgid "1 folio"
 msgid_plural "n folios"
 msgstr[0] "folio"
 msgstr[1] "folios"
-
-#, php-format
-msgid "%s - %s - &frac12; %s"
-msgstr ""
-
-#, php-format
-msgid "%s - %s - 1 %s"
-msgstr ""
-
-#, php-format
-msgid "%s - %s - 1 &frac12; %s"
-msgstr ""
-
-#, php-format
-msgid "%d &frac12; folio"
-msgid_plural "%d &frac12; folios"
-msgstr[0] ""
-msgstr[1] ""
-
-#, php-format
-msgid "%s - %s - %s"
-msgstr ""
-
-#, php-format
-msgid "%d folio"
-msgid_plural "%d folios"
-msgstr[0] ""
-msgstr[1] ""
-
-msgid "Total:"
-msgstr ""
-
-msgid "Counters:"
-msgstr ""
-
-msgid "Configuration successfully updated."
-msgstr ""
-
-msgid "Enable Word Count for this blog"
-msgstr ""
-
-msgid "Show details (excerpt and content)"
-msgstr ""
-
-msgid "Save configuration"
-msgstr ""
