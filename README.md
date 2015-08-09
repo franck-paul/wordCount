@@ -18,6 +18,7 @@ les attributs pouvant être :
 - folios="0|1" : affiche le nombre de folios (0 = défaut), 1 folio étant égal à 750 signes (espaces et ponctuations comprises)
 - time="0|1" : affiche le temps de lecture estimé en minutes (0 = défaut)
 - wpm="nnn" : nombre de mots lu en moyenne par minute (utilise les réglages du plugin par défaut)
+- list="0|1" : utilise une liste non ordonnée pour afficher les compteurs (0 = défaut)
 
 Example pour afficher le temps de lecture du billet (en minutes), avec une vitesse de 300 mots / minute :
 

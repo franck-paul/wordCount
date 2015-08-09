@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 wordCount module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-06 15:22+0200\n"
+"POT-Creation-Date: 2015-08-09 12:07+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,73 +22,119 @@ msgid "Counts characters, words and folios of edited entry"
 msgstr ""
 
 #: ../hg-plugins/wordCount//_admin.php:15
-#: ../hg-plugins/wordCount//_admin.php:18 ../hg-plugins/wordCount//index.php:46
-#: ../hg-plugins/wordCount//index.php:54
+#: ../hg-plugins/wordCount//_admin.php:18
+#: ../hg-plugins/wordCount//_widgets.php:21
+#: ../hg-plugins/wordCount//index.php:46 ../hg-plugins/wordCount//index.php:54
 msgid "Word Count"
 msgstr ""
 
-#: ../hg-plugins/wordCount//_admin.php:60
+#: ../hg-plugins/wordCount//_admin.php:62
 msgid "Total:"
 msgstr ""
 
-#: ../hg-plugins/wordCount//_admin.php:62
+#: ../hg-plugins/wordCount//_admin.php:64
 msgid "Counters:"
 msgstr ""
 
-#: ../hg-plugins/wordCount//inc/lib.wordcount.php:38
+#: ../hg-plugins/wordCount//_widgets.php:22
+msgid "Statistics"
+msgstr ""
+
+#: ../hg-plugins/wordCount//_widgets.php:24
+msgid "Display for:"
+msgstr ""
+
+#: ../hg-plugins/wordCount//_widgets.php:26
+msgid "Posts and pages"
+msgstr ""
+
+#: ../hg-plugins/wordCount//_widgets.php:27
+msgid "Posts only"
+msgstr ""
+
+#: ../hg-plugins/wordCount//_widgets.php:28
+msgid "Page only"
+msgstr ""
+
+#: ../hg-plugins/wordCount//_widgets.php:31
+msgid "Number of characters"
+msgstr ""
+
+#: ../hg-plugins/wordCount//_widgets.php:32
+msgid "Number of words"
+msgstr ""
+
+#: ../hg-plugins/wordCount//_widgets.php:33
+msgid "Number of folios"
+msgstr ""
+
+#: ../hg-plugins/wordCount//_widgets.php:34
+msgid "Reading time"
+msgstr ""
+
+#: ../hg-plugins/wordCount//_widgets.php:35
+#: ../hg-plugins/wordCount//index.php:72
+msgid "Average words per minute (reading):"
+msgstr ""
+
+#: ../hg-plugins/wordCount//_widgets.php:37
+msgid "Use <ul>/<li> markup"
+msgstr ""
+
+#: ../hg-plugins/wordCount//inc/lib.wordcount.php:41
 #, php-format
 msgid "%d character"
 msgid_plural "%d characters"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../hg-plugins/wordCount//inc/lib.wordcount.php:41
+#: ../hg-plugins/wordCount//inc/lib.wordcount.php:46
 #, php-format
 msgid "%d word"
 msgid_plural "%d words"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../hg-plugins/wordCount//inc/lib.wordcount.php:44
+#: ../hg-plugins/wordCount//inc/lib.wordcount.php:51
 msgid "1 folio"
 msgid_plural "n folios"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../hg-plugins/wordCount//inc/lib.wordcount.php:47
+#: ../hg-plugins/wordCount//inc/lib.wordcount.php:54
 #, php-format
 msgid "&frac12; %s"
 msgstr ""
 
-#: ../hg-plugins/wordCount//inc/lib.wordcount.php:50
+#: ../hg-plugins/wordCount//inc/lib.wordcount.php:57
 #, php-format
 msgid "1 %s"
 msgstr ""
 
-#: ../hg-plugins/wordCount//inc/lib.wordcount.php:53
+#: ../hg-plugins/wordCount//inc/lib.wordcount.php:60
 #, php-format
 msgid "1 &frac12; %s"
 msgstr ""
 
-#: ../hg-plugins/wordCount//inc/lib.wordcount.php:57
+#: ../hg-plugins/wordCount//inc/lib.wordcount.php:64
 #, php-format
 msgid "%d &frac12; folio"
 msgid_plural "%d &frac12; folios"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../hg-plugins/wordCount//inc/lib.wordcount.php:60
+#: ../hg-plugins/wordCount//inc/lib.wordcount.php:67
 #, php-format
 msgid "%d folio"
 msgid_plural "%d folios"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../hg-plugins/wordCount//inc/lib.wordcount.php:65
+#: ../hg-plugins/wordCount//inc/lib.wordcount.php:74
 msgid "less than one minute"
 msgstr ""
 
-#: ../hg-plugins/wordCount//inc/lib.wordcount.php:68
+#: ../hg-plugins/wordCount//inc/lib.wordcount.php:77
 #, php-format
 msgid "%d minute"
 msgid_plural "%d minutes"
@@ -101,10 +147,6 @@ msgstr ""
 
 #: ../hg-plugins/wordCount//index.php:69
 msgid "Show details (excerpt and content)"
-msgstr ""
-
-#: ../hg-plugins/wordCount//index.php:72
-msgid "Average words per minute (reading):"
 msgstr ""
 
 #: ../hg-plugins/wordCount//index.php:75

@@ -22,7 +22,8 @@ class libWordCount
 	}
 
 	static function getCounters($text,$wpm = 230,$double = false,
-		$show_chars = true,$show_words = true,$show_folios = true,$show_time = true)
+		$show_chars = true,$show_words = true,$show_folios = true,$show_time = true,
+		$use_list = false)
 	{
 		$ret = '';
 
@@ -78,7 +79,15 @@ class libWordCount
 			}
 
 			if (count($counters)) {
-				$ret = implode(' - ',$counters);
+				if ($use_list) {
+					$ret = '<ul>';
+					foreach ($counters as $value) {
+						$ret .= '<li>'.$value.'</li>';
+					}
+					$ret .= '</ul>';
+				} else {
+					$ret = implode(' - ',$counters);
+				}
 			}
 		}
 		return $ret;

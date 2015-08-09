@@ -19,6 +19,8 @@ $_menu['Blog']->addItem(__('Word Count'),'plugin.php?p=wordCount','index.php?pf=
 		preg_match('/plugin.php\?p=wordCount(&.*)?$/',$_SERVER['REQUEST_URI']),
 		$core->auth->check('contentadmin',$core->blog->id));
 
+require dirname(__FILE__).'/_widgets.php';
+
 // Add behaviour callback for post
 $core->addBehavior('adminPostForm',array('adminWordCount','wordCount'));
 $core->addBehavior('adminPostHeaders',array('adminWordCount','adminPostHeaders'));
