@@ -15,7 +15,7 @@ if (!defined('DC_RC_PATH')) { return; }
 
 $this->registerModule(
 	/* Name */				"Word Count",
-	/* Description*/		"Counts characters, words and folios of edited entry",
+	/* Description*/		"Counts characters, words and folios, reading time of entry",
 	/* Author */			"Franck Paul",
 	/* Version */			'0.5',
 	array(
