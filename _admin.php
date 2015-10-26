@@ -15,7 +15,9 @@ if (!defined('DC_CONTEXT_ADMIN')) { return; }
 __('Word Count').__('Counts characters, words and folios, reading time of entry');
 
 // Add menu item in blog menu
-$_menu['Blog']->addItem(__('Word Count'),'plugin.php?p=wordCount','index.php?pf=wordCount/icon.png',
+$_menu['Blog']->addItem(__('Word Count'),
+		'plugin.php?p=wordCount',
+		urldecode(dcPage::getPF('wordCount/icon.png')),
 		preg_match('/plugin.php\?p=wordCount(&.*)?$/',$_SERVER['REQUEST_URI']),
 		$core->auth->check('contentadmin',$core->blog->id));
 
@@ -35,7 +37,7 @@ class adminWordCount
 		global $core;
 
 		if ($core->blog->settings->wordcount->wc_active) {
-			return '<link rel="stylesheet" href="index.php?pf=wordCount/style.css" type="text/css" media="screen" />'."\n";
+			return dcPage::cssLoad(urldecode(dcPage::getPF('wordCount/style.css')),'screen',$core->getVersion('wordCount'));
 		}
 	}
 
