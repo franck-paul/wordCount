@@ -28,7 +28,7 @@ if (!defined('DC_RC_PATH')) {return;}
 
 require dirname(__FILE__) . '/_widgets.php';
 
-$core->tpl->addValue('WordCount', array('tplWordCount', 'WordCount'));
+$core->tpl->addValue('WordCount', ['tplWordCount', 'WordCount']);
 
 class tplWordCount
 {

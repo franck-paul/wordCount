@@ -13,22 +13,22 @@
 
 if (!defined('DC_RC_PATH')) {return;}
 
-$core->addBehavior('initWidgets', array('widgetsWordCount', 'initWidgets'));
+$core->addBehavior('initWidgets', ['widgetsWordCount', 'initWidgets']);
 
 class widgetsWordCount
 {
     public static function initWidgets($w)
     {
         // Widget for all series
-        $w->create('wordcount', __('Word Count'), array('tplWordCount', 'widgetWordCount'), null, __('Word Count'));
+        $w->create('wordcount', __('Word Count'), ['tplWordCount', 'widgetWordCount'], null, __('Word Count'));
         $w->wordcount->setting('title', __('Title:'), __('Statistics'));
 
         $w->wordcount->setting('where', __('Display for:'), 0, 'combo',
-            array(
+            [
                 __('Posts and pages') => 0,
                 __('Posts only')      => 1,
                 __('Page only')       => 2
-            )
+            ]
         );
         $w->wordcount->setting('chars', __('Number of characters'), 0, 'check');
         $w->wordcount->setting('words', __('Number of words'), 1, 'check');

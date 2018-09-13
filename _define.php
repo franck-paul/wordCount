@@ -17,9 +17,10 @@ $this->registerModule(
     "Word Count",                                                 // Name
     "Counts characters, words and folios, reading time of entry", // Description
     "Franck Paul",                                                // Author
-    '0.5',                                                        // Version
-    array(
-        'permissions' => 'contentadmin', // Permissions
-        'type'        => 'plugin'       // Type
-    )
+    '0.6',                                                        // Version
+    [
+        'requires'    => [['core', '2.13']], // Dependencies
+        'permissions' => 'contentadmin',     // Permissions
+        'type'        => 'plugin'           // Type
+    ]
 );

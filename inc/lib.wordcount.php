@@ -19,7 +19,7 @@ class libWordCount
         if (preg_match_all('/([^' . $non_word . ']{1,})/msu', html::clean($str), $match)) {
             return $match[1];
         }
-        return array();
+        return [];
     }
 
     public static function getCounters($text, $wpm = 230, $double = false,
@@ -37,7 +37,7 @@ class libWordCount
             $folios  = round($chars / 750) / 2.0;
             $reading = $words / $wpm;
 
-            $counters = array();
+            $counters = [];
 
             if ($show_chars) {
                 // Characters

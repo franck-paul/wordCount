@@ -26,11 +26,11 @@ $_menu['Blog']->addItem(__('Word Count'),
 require dirname(__FILE__) . '/_widgets.php';
 
 // Add behaviour callback for post
-$core->addBehavior('adminPostForm', array('adminWordCount', 'wordCount'));
-$core->addBehavior('adminPostHeaders', array('adminWordCount', 'adminPostHeaders'));
+$core->addBehavior('adminPostForm', ['adminWordCount', 'wordCount']);
+$core->addBehavior('adminPostHeaders', ['adminWordCount', 'adminPostHeaders']);
 // Add behaviour callback for page
-$core->addBehavior('adminPageForm', array('adminWordCount', 'wordCount'));
-$core->addBehavior('adminPageHeaders', array('adminWordCount', 'adminPostHeaders'));
+$core->addBehavior('adminPageForm', ['adminWordCount', 'wordCount']);
+$core->addBehavior('adminPageHeaders', ['adminWordCount', 'adminPostHeaders']);
 
 class adminWordCount
 {
