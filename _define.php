@@ -19,8 +19,11 @@ $this->registerModule(
     "Franck Paul",                                                // Author
     '0.6',                                                        // Version
     [
-        'requires'    => [['core', '2.13']], // Dependencies
-        'permissions' => 'contentadmin',     // Permissions
-        'type'        => 'plugin'           // Type
+        'requires'    => [['core', '2.16']],                         // Dependencies
+        'permissions' => 'contentadmin',                             // Permissions
+        'type'        => 'plugin',                                   // Type
+        'details'     => 'https://open-time.net/?q=wordCount',       // Details URL
+        'support'     => 'https://github.com/franck-paul/wordCount', // Support URL
+        'settings'    => []
     ]
 );
