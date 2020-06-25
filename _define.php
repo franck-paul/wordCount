@@ -17,10 +17,10 @@ $this->registerModule(
     "Word Count",                                                 // Name
     "Counts characters, words and folios, reading time of entry", // Description
     "Franck Paul",                                                // Author
-    '0.6',                                                        // Version
+    '0.6.1',                                                      // Version
     [
         'requires'    => [['core', '2.16']],                         // Dependencies
-        'permissions' => 'contentadmin',                             // Permissions
+        'permissions' => 'usage,contentadmin',                       // Permissions
         'type'        => 'plugin',                                   // Type
         'details'     => 'https://open-time.net/?q=wordCount',       // Details URL
         'support'     => 'https://github.com/franck-paul/wordCount', // Support URL
