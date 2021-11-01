@@ -27,6 +27,6 @@ $this->registerModule(
 
         'details'    => 'https://open-time.net/?q=wordCount',        // Details URL
         'support'    => 'https://github.com/franck-paul/wordCount',  // Support URL
-        'repository' => 'https://raw.githubusercontent.com/franck-paul/wordCount/main/dcstore.xml'
+        'repository' => 'https://raw.githubusercontent.com/franck-paul/wordCount/master/dcstore.xml'
     ]
 );
