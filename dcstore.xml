@@ -1,10 +1,13 @@
 <modules xmlns:da="http://dotaddict.org/da/">
   <module id="wordCount">
     <name>Counts characters, words and folios, reading time of entry</name>
-    <version>0.6.1</version>
+    <version>, // Description
+    </version>
     <author>Counts characters, words and folios, reading time of entry</author>
     <desc>Counts characters, words and folios, reading time of entry</desc>
-    <file>https://github.com/franck-paul/wordCount/releases/download/0.6.1/plugin-wordCount-0.6.1.zip</file>
+    <file>https://github.com/franck-paul/wordCount/releases/download/, // Description
+    /plugin-wordCount-, // Description
+    .zip</file>
     <da:dcmin>2.16</da:dcmin>
     <da:details>https://open-time.net/?q=wordCount</da:details>
     <da:support>https://github.com/franck-paul/wordCount</da:support>
