@@ -121,3 +121,6 @@ msgstr "Afficher les détails (extrait et contenu)"
 
 msgid "Leave empty for default (230 words per minute)"
 msgstr "Laisser vide pour utiliser la valeur par défaut (230 mots par minute)"
+
+msgid "Auto refresh counters"
+msgstr "Rafraichissement automatique des compteurs"

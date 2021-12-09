@@ -18,7 +18,7 @@ $this->registerModule(
     'Word Count',                                                 // Name
     'Counts characters, words and folios, reading time of entry', // Description
     'Franck Paul',                                                // Author
-    '0.6.1',                                                      // Version
+    '0.7',                                                        // Version
     [
         'requires'    => [['core', '2.16']],                         // Dependencies
         'permissions' => 'usage,contentadmin',                       // Permissions
@@ -27,6 +27,6 @@ $this->registerModule(
 
         'details'    => 'https://open-time.net/?q=wordCount',        // Details URL
         'support'    => 'https://github.com/franck-paul/wordCount',  // Support URL
-        'repository' => 'https://raw.githubusercontent.com/franck-paul/wordCount/master/dcstore.xml'
+        'repository' => 'https://raw.githubusercontent.com/franck-paul/wordCount/master/dcstore.xml',
     ]
 );

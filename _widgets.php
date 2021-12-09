@@ -10,8 +10,9 @@
  * @copyright Franck Paul carnet.franck.paul@gmail.com
  * @copyright GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
  */
-
-if (!defined('DC_RC_PATH')) {return;}
+if (!defined('DC_RC_PATH')) {
+    return;
+}
 
 $core->addBehavior('initWidgets', ['widgetsWordCount', 'initWidgets']);
 
@@ -23,12 +24,17 @@ class widgetsWordCount
         $w
             ->create('wordcount', __('Word Count'), ['tplWordCount', 'widgetWordCount'], null, __('Word Count'))
             ->addTitle(__('Statistics'))
-            ->setting('where', __('Display for:'), 0, 'combo',
-            [
-                __('Posts and pages') => 0,
-                __('Posts only')      => 1,
-                __('Page only')       => 2
-            ])
+            ->setting(
+                'where',
+                __('Display for:'),
+                0,
+                'combo',
+                [
+                    __('Posts and pages') => 0,
+                    __('Posts only')      => 1,
+                    __('Page only')       => 2,
+                ]
+            )
             ->setting('chars', __('Number of characters'), 0, 'check')
             ->setting('words', __('Number of words'), 1, 'check')
             ->setting('folios', __('Number of folios'), 0, 'check')

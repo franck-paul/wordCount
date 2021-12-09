@@ -10,18 +10,21 @@
  * @copyright Franck Paul carnet.franck.paul@gmail.com
  * @copyright GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
  */
-
-if (!defined('DC_CONTEXT_ADMIN')) {return;}
+if (!defined('DC_CONTEXT_ADMIN')) {
+    return;
+}
 
 // dead but useful code, in order to have translations
 __('Word Count') . __('Counts characters, words and folios, reading time of entry');
 
 // Add menu item in blog menu
-$_menu['Blog']->addItem(__('Word Count'),
+$_menu['Blog']->addItem(
+    __('Word Count'),
     'plugin.php?p=wordCount',
     urldecode(dcPage::getPF('wordCount/icon.png')),
     preg_match('/plugin.php\?p=wordCount(&.*)?$/', $_SERVER['REQUEST_URI']),
-    $core->auth->check('contentadmin', $core->blog->id));
+    $core->auth->check('contentadmin', $core->blog->id)
+);
 
 require dirname(__FILE__) . '/_widgets.php';
 
@@ -32,6 +35,11 @@ $core->addBehavior('adminPostHeaders', ['adminWordCount', 'adminPostHeaders']);
 $core->addBehavior('adminPageForm', ['adminWordCount', 'wordCount']);
 $core->addBehavior('adminPageHeaders', ['adminWordCount', 'adminPostHeaders']);
 
+if ($core->blog->settings->wordcount->wc_active && $core->blog->settings->wordcount->wc_autorefresh) {
+    // Register REST methods
+    $core->rest->addFunction('wordCountGetCounters', ['restWordCount', 'getCounters']);
+}
+
 class adminWordCount
 {
     public static function adminPostHeaders()
@@ -39,7 +47,12 @@ class adminWordCount
         global $core;
 
         if ($core->blog->settings->wordcount->wc_active) {
-            return dcPage::cssLoad(urldecode(dcPage::getPF('wordCount/style.css')), 'screen', $core->getVersion('wordCount'));
+            $ret = dcPage::cssLoad(urldecode(dcPage::getPF('wordCount/style.css')), 'screen', $core->getVersion('wordCount'));
+            if ($core->blog->settings->wordcount->wc_autorefresh) {
+                $ret .= dcPage::jsLoad(urldecode(dcPage::getPF('wordCount/js/service.js')), $core->getVersion('wordCount'));
+            }
+
+            return $ret;
         }
     }
 
@@ -48,28 +61,27 @@ class adminWordCount
         global $core;
 
         if ($core->blog->settings->wordcount->wc_active) {
+            $details = $core->blog->settings->wordcount->wc_details;
+            echo '<div class="wordcount"><details open><summary>' . __('Word Count') . '</summary><p>';
             if ($post != null) {
-                $wpm = $core->blog->settings->wordcount->wc_wpm;
-                if ($core->blog->settings->wordcount->wc_details) {
-                    $countersExcerpt = libWordCount::getCounters($post->post_excerpt_xhtml, $wpm);
-                    $countersContent = libWordCount::getCounters($post->post_content_xhtml, $wpm);
-                }
-                $text = ($post->post_excerpt_xhtml != '' ? $post->post_excerpt_xhtml . ' ' : '');
+                $wpm             = $core->blog->settings->wordcount->wc_wpm;
+                $countersExcerpt = $details ? libWordCount::getCounters($post->post_excerpt_xhtml, $wpm) : '';
+                $countersContent = $details ? libWordCount::getCounters($post->post_content_xhtml, $wpm) : '';
+                $text            = ($post->post_excerpt_xhtml != '' ? $post->post_excerpt_xhtml . ' ' : '');
                 $text .= $post->post_content_xhtml;
                 $countersTotal = libWordCount::getCounters($text, $wpm, ($post->post_excerpt_xhtml != ''));
 
-                if ($countersTotal != '') {
-                    echo '<div class="wordcount"><p>';
-                    if ($core->blog->settings->wordcount->wc_details && $countersExcerpt) {
-                        echo __('Excerpt:') . ' ' . $countersExcerpt . '<br />';
-                        echo __('Content:') . ' ' . $countersContent . '<br />';
-                        echo __('Total:') . ' ' . $countersTotal;
-                    } else {
-                        echo __('Counters:') . ' ' . $countersTotal;
-                    }
-                    echo '</p></div>';
+                if ($details) {
+                    echo __('Excerpt:') . ' ' . ($countersExcerpt ?: '0') . '<br />';
+                    echo __('Content:') . ' ' . ($countersContent ?: '0') . '<br />';
+                    echo __('Total:') . ' ' . ($countersTotal ?: '0');
+                } else {
+                    echo __('Counters:') . ' ' . ($countersTotal ?: '0');
                 }
+            } else {
+                echo __('Counters:') . ' ' . '0';
             }
+            echo '</p></details></div>';
         }
     }
 }

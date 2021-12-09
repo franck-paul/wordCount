@@ -10,8 +10,9 @@
  * @copyright Franck Paul carnet.franck.paul@gmail.com
  * @copyright GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
  */
-
-if (!defined('DC_RC_PATH')) {return;}
+if (!defined('DC_RC_PATH')) {
+    return;
+}
 
 // Register template tag
 //
@@ -35,12 +36,12 @@ class tplWordCount
     public static function WordCount($attr)
     {
         // Check attributes
-        $chars  = isset($attr['chars']) ? (integer) $attr['chars'] : 0;
-        $words  = isset($attr['words']) ? (integer) $attr['words'] : 1;
-        $folios = isset($attr['folios']) ? (integer) $attr['folios'] : 0;
-        $time   = isset($attr['time']) ? (integer) $attr['time'] : 0;
-        $wpm    = isset($attr['wpm']) ? (integer) $attr['wpm'] : 0;
-        $list   = isset($attr['list']) ? (integer) $attr['list'] : 0;
+        $chars  = isset($attr['chars']) ? (int) $attr['chars'] : 0;
+        $words  = isset($attr['words']) ? (int) $attr['words'] : 1;
+        $folios = isset($attr['folios']) ? (int) $attr['folios'] : 0;
+        $time   = isset($attr['time']) ? (int) $attr['time'] : 0;
+        $wpm    = isset($attr['wpm']) ? (int) $attr['wpm'] : 0;
+        $list   = isset($attr['list']) ? (int) $attr['list'] : 0;
         // Get filters formatter string
         $f = $GLOBALS['core']->tpl->getFilters($attr);
 
@@ -54,9 +55,8 @@ class tplWordCount
     {
         global $core, $_ctx;
 
-        if ($w->offline)
-        // Widget offline
-        {
+        if ($w->offline) {
+            // Widget offline
             return;
         }
 
@@ -66,12 +66,14 @@ class tplWordCount
                     // Don't display for post
                     return;
                 }
+
                 break;
             case 'pages':
                 if ($w->where != 0 && $w->where != 2) {
                     // Don't display for page
                     return;
                 }
+
                 break;
             default:
                 // Other contexts, not managed here
@@ -83,9 +85,15 @@ class tplWordCount
 
         // Get counters
         $counters = libWordCount::getCounters(
-            $_ctx->posts->getExcerpt() . " " . $_ctx->posts->getContent(),
-            ($w->wpm ? (integer) $w->wpm : $core->blog->settings->wordcount->wc_wpm),
-            true, $w->chars, $w->words, $w->folios, $w->time, $w->list);
+            $_ctx->posts->getExcerpt() . ' ' . $_ctx->posts->getContent(),
+            ($w->wpm ? (int) $w->wpm : $core->blog->settings->wordcount->wc_wpm),
+            true,
+            $w->chars,
+            $w->words,
+            $w->folios,
+            $w->time,
+            $w->list
+        );
 
         // Assemble
         if (!$w->list) {

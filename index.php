@@ -10,18 +10,19 @@
  * @copyright Franck Paul carnet.franck.paul@gmail.com
  * @copyright GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
  */
-
-if (!defined('DC_CONTEXT_ADMIN')) {exit;}
+if (!defined('DC_CONTEXT_ADMIN')) {
+    exit;
+}
 
 // Getting current parameters
-$wc_active  = (boolean) $core->blog->settings->wordcount->wc_active;
-$wc_details = (boolean) $core->blog->settings->wordcount->wc_details;
-$wc_wpm     = (integer) $core->blog->settings->wordcount->wc_wpm;
+$wc_active      = (bool) $core->blog->settings->wordcount->wc_active;
+$wc_details     = (bool) $core->blog->settings->wordcount->wc_details;
+$wc_wpm         = (int) $core->blog->settings->wordcount->wc_wpm;
+$wc_autorefresh = (bool) $core->blog->settings->wordcount->wc_autorefresh;
 
 // Saving new configuration
 if (!empty($_POST['saveconfig'])) {
-    try
-    {
+    try {
         $core->blog->settings->addNamespace('wordcount');
 
         $wc_active  = (empty($_POST['active'])) ? false : true;
@@ -29,11 +30,12 @@ if (!empty($_POST['saveconfig'])) {
         $core->blog->settings->wordcount->put('wc_active', $wc_active, 'boolean');
         $core->blog->settings->wordcount->put('wc_details', $wc_details, 'boolean');
         if (!empty($_POST['wpm'])) {
-            $wc_wpm = (integer) $_POST['wpm'];
+            $wc_wpm = (int) $_POST['wpm'];
         } else {
             $wc_wpm = 0;
         }
         $core->blog->settings->wordcount->put('wc_wpm', ($wc_wpm ?: 230), 'integer');
+        $core->blog->settings->wordcount->put('wc_autorefresh', $wc_autorefresh, 'boolean');
         $core->blog->triggerBlog();
         $msg = __('Configuration successfully updated.');
     } catch (Exception $e) {
@@ -51,8 +53,9 @@ if (!empty($_POST['saveconfig'])) {
 echo dcPage::breadcrumb(
     [
         html::escapeHTML($core->blog->name) => '',
-        __('Word Count')                    => ''
-    ]);
+        __('Word Count')                    => '',
+    ]
+);
 ?>
 
 <?php if (!empty($msg)) {
@@ -73,9 +76,13 @@ echo dcPage::breadcrumb(
   </p>
   <p>
     <label for="wpm" class="classic"><?php echo __('Average words per minute (reading):'); ?></label>
-    <?php echo form::field('wpm', 3, 4, (integer) $wc_wpm); ?>
+    <?php echo form::field('wpm', 3, 4, (int) $wc_wpm); ?>
   </p>
   <p class="form-note"><?php echo __('Leave empty for default (230 words per minute)'); ?></p>
+  <p>
+    <?php echo form::checkbox('autorefresh', 1, $wc_autorefresh); ?>
+    <label class="classic" for="autorefresh"><?php echo __('Auto refresh counters'); ?></label>
+  </p>
 
   <p><input type="hidden" name="p" value="wordCount" />
   <?php echo $core->formNonce(); ?>

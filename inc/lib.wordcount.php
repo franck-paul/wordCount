@@ -10,7 +10,6 @@
  * @copyright Franck Paul carnet.franck.paul@gmail.com
  * @copyright GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
  */
-
 class libWordCount
 {
     public static function splitWords($str)
@@ -19,12 +18,20 @@ class libWordCount
         if (preg_match_all('/([^' . $non_word . ']{1,})/msu', html::clean($str), $match)) {
             return $match[1];
         }
+
         return [];
     }
 
-    public static function getCounters($text, $wpm = 230, $double = false,
-        $show_chars = true, $show_words = true, $show_folios = true, $show_time = true,
-        $use_list = false) {
+    public static function getCounters(
+        $text,
+        $wpm = 230,
+        $double = false,
+        $show_chars = true,
+        $show_words = true,
+        $show_folios = true,
+        $show_time = true,
+        $use_list = false
+    ) {
         $ret = '';
 
         $chars = mb_strlen(html::clean($text));
@@ -35,18 +42,18 @@ class libWordCount
 
             $words   = count(self::splitWords($text));
             $folios  = round($chars / 750) / 2.0;
-            $reading = $words / $wpm;
+            $reading = $words              / $wpm;
 
             $counters = [];
 
             if ($show_chars) {
                 // Characters
-                $counters[] = sprintf(__('%d character', '%d characters', $chars), (integer) $chars);
+                $counters[] = sprintf(__('%d character', '%d characters', $chars), (int) $chars);
             }
 
             if ($show_words) {
                 // Words
-                $counters[] = sprintf(__('%d word', '%d words', $words), (integer) $words);
+                $counters[] = sprintf(__('%d word', '%d words', $words), (int) $words);
             }
 
             if ($show_folios) {
@@ -63,10 +70,11 @@ class libWordCount
                     $counters[] = sprintf(__('1 &frac12; %s'), $l10n_folios);
                 } elseif (floor($folios) != $folios) {
                     // Folios and a part of one
-                    $folios     = floor($folios);
+                    $folios     = (int) floor($folios);
                     $counters[] = sprintf(__('%d &frac12; folio', '%d &frac12; folios', $folios), $folios);
                 } else {
                     // Folios
+                    $folios     = (int) $folios;
                     $counters[] = sprintf(__('%d folio', '%d folios', $folios), $folios);
                 }
             }
@@ -76,7 +84,7 @@ class libWordCount
                 if ($reading < 1) {
                     $counters[] = sprintf(__('less than one minute'));
                 } else {
-                    $reading    = round($reading);
+                    $reading    = (int) round($reading);
                     $counters[] = sprintf(__('%d minute', '%d minutes', $reading), $reading);
                 }
             }
@@ -93,6 +101,7 @@ class libWordCount
                 }
             }
         }
+
         return $ret;
     }
 }
