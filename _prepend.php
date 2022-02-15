@@ -14,5 +14,5 @@ if (!defined('DC_RC_PATH')) {
     return;
 }
 
-$__autoload['libWordCount']  = dirname(__FILE__) . '/inc/lib.wordcount.php';
-$__autoload['restWordCount'] = dirname(__FILE__) . '/_services.php';
+$__autoload['libWordCount']  = __DIR__ . '/inc/lib.wordcount.php';
+$__autoload['restWordCount'] = __DIR__ . '/_services.php';

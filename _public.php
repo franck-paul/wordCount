@@ -27,7 +27,7 @@ if (!defined('DC_RC_PATH')) {
 //
 // Example : <p><strong>{{tpl:lang reading time:}}</strong> {{tpl:WordCount words="0" time="1"}}</p>
 
-require dirname(__FILE__) . '/_widgets.php';
+require __DIR__ . '/_widgets.php';
 
 $core->tpl->addValue('WordCount', ['tplWordCount', 'WordCount']);
 

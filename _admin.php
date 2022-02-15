@@ -21,12 +21,12 @@ __('Word Count') . __('Counts characters, words and folios, reading time of entr
 $_menu['Blog']->addItem(
     __('Word Count'),
     'plugin.php?p=wordCount',
-    urldecode(dcPage::getPF('wordCount/icon.png')),
+    [urldecode(dcPage::getPF('wordCount/icon.svg')), urldecode(dcPage::getPF('wordCount/icon-dark.svg'))],
     preg_match('/plugin.php\?p=wordCount(&.*)?$/', $_SERVER['REQUEST_URI']),
     $core->auth->check('contentadmin', $core->blog->id)
 );
 
-require dirname(__FILE__) . '/_widgets.php';
+require __DIR__ . '/_widgets.php';
 
 // Add behaviour callback for post
 $core->addBehavior('adminPostForm', ['adminWordCount', 'wordCount']);
@@ -47,9 +47,9 @@ class adminWordCount
         global $core;
 
         if ($core->blog->settings->wordcount->wc_active) {
-            $ret = dcPage::cssLoad(urldecode(dcPage::getPF('wordCount/style.css')), 'screen', $core->getVersion('wordCount'));
+            $ret = dcPage::cssModuleLoad('wordCount/style.css', 'screen', $core->getVersion('wordCount'));
             if ($core->blog->settings->wordcount->wc_autorefresh) {
-                $ret .= dcPage::jsLoad(urldecode(dcPage::getPF('wordCount/js/service.js')), $core->getVersion('wordCount'));
+                $ret .= dcPage::jsModuleLoad('wordCount/js/service.js', $core->getVersion('wordCount'));
             }
 
             return $ret;
