@@ -19,8 +19,7 @@ window.addEventListener('load', () => {
             }
           }
         } else {
-          // DEBUG: console.log(response?.message);
-          console.log('Dotclear REST server error');
+          console.log(dotclear.debug && response?.message ? response.message : 'Dotclear REST server error');
           return;
         }
       },

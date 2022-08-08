@@ -19,12 +19,11 @@ class restWordCount
     /**
      * Serve method to update current counters.
      *
-     * @param      dcCore  $core   The core
      * @param      array   $get    The get
      *
      * @return     The payload.
      */
-    public static function getCounters($core = null, $get)
+    public static function getCounters($get)
     {
         $payload = [
             'ret' => false,
@@ -33,9 +32,9 @@ class restWordCount
         if (dcCore::app()->blog->settings->wordcount->wc_active) {
             $details = dcCore::app()->blog->settings->wordcount->wc_details;
 
-            $excerpt = $_GET['excerpt'] ?? null;
-            $content = $_GET['content'] ?? null;
-            $format  = $_GET['format']  ?? 'xhtml';
+            $excerpt = $get['excerpt'] ?? null;
+            $content = $get['content'] ?? null;
+            $format  = $get['format']  ?? 'xhtml';
 
             // Convert textarea's content to HTML
             switch ($format) {
