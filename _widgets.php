@@ -14,7 +14,7 @@ if (!defined('DC_RC_PATH')) {
     return;
 }
 
-$core->addBehavior('initWidgets', ['widgetsWordCount', 'initWidgets']);
+dcCore::app()->addBehavior('initWidgets', ['widgetsWordCount', 'initWidgets']);
 
 class widgetsWordCount
 {

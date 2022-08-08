@@ -15,31 +15,30 @@ if (!defined('DC_CONTEXT_ADMIN')) {
 }
 
 // Getting current parameters
-$wc_active      = (bool) $core->blog->settings->wordcount->wc_active;
-$wc_details     = (bool) $core->blog->settings->wordcount->wc_details;
-$wc_wpm         = (int) $core->blog->settings->wordcount->wc_wpm;
-$wc_autorefresh = (bool) $core->blog->settings->wordcount->wc_autorefresh;
+$wc_active      = (bool) dcCore::app()->blog->settings->wordcount->wc_active;
+$wc_details     = (bool) dcCore::app()->blog->settings->wordcount->wc_details;
+$wc_wpm         = (int) (dcCore::app()->blog->settings->wordcount->wc_wpm ?? 230);
+$wc_autorefresh = (bool) dcCore::app()->blog->settings->wordcount->wc_autorefresh;
+$wc_interval    = (int) (dcCore::app()->blog->settings->wordcount->wc_interval ?? 60);
 
 // Saving new configuration
 if (!empty($_POST['saveconfig'])) {
     try {
-        $core->blog->settings->addNamespace('wordcount');
+        dcCore::app()->blog->settings->addNamespace('wordcount');
 
-        $wc_active  = (empty($_POST['active'])) ? false : true;
-        $wc_details = (empty($_POST['details'])) ? false : true;
-        $core->blog->settings->wordcount->put('wc_active', $wc_active, 'boolean');
-        $core->blog->settings->wordcount->put('wc_details', $wc_details, 'boolean');
-        if (!empty($_POST['wpm'])) {
-            $wc_wpm = (int) $_POST['wpm'];
-        } else {
-            $wc_wpm = 0;
-        }
-        $core->blog->settings->wordcount->put('wc_wpm', ($wc_wpm ?: 230), 'integer');
-        $core->blog->settings->wordcount->put('wc_autorefresh', $wc_autorefresh, 'boolean');
-        $core->blog->triggerBlog();
+        $wc_active   = (empty($_POST['active'])) ? false : true;
+        $wc_details  = (empty($_POST['details'])) ? false : true;
+        $wc_wpm      = (int) $_POST['wpm'];
+        $wc_interval = (int) $_POST['interval'];
+        dcCore::app()->blog->settings->wordcount->put('wc_active', $wc_active, 'boolean');
+        dcCore::app()->blog->settings->wordcount->put('wc_details', $wc_details, 'boolean');
+        dcCore::app()->blog->settings->wordcount->put('wc_wpm', ($wc_wpm ?: 230), 'integer');
+        dcCore::app()->blog->settings->wordcount->put('wc_autorefresh', $wc_autorefresh, 'boolean');
+        dcCore::app()->blog->settings->wordcount->put('wc_interval', ($wc_interval ?: 60), 'integer');
+        dcCore::app()->blog->triggerBlog();
         $msg = __('Configuration successfully updated.');
     } catch (Exception $e) {
-        $core->error->add($e->getMessage());
+        dcCore::app()->error->add($e->getMessage());
     }
 }
 ?>
@@ -52,8 +51,8 @@ if (!empty($_POST['saveconfig'])) {
 <?php
 echo dcPage::breadcrumb(
     [
-        html::escapeHTML($core->blog->name) => '',
-        __('Word Count')                    => '',
+        html::escapeHTML(dcCore::app()->blog->name) => '',
+        __('Word Count')                            => '',
     ]
 );
 ?>
@@ -75,17 +74,20 @@ echo dcPage::breadcrumb(
     <label class="classic" for="details"><?php echo __('Show details (excerpt and content)'); ?></label>
   </p>
   <p>
-    <label for="wpm" class="classic"><?php echo __('Average words per minute (reading):'); ?></label>
-    <?php echo form::field('wpm', 3, 4, (int) $wc_wpm); ?>
+    <label for="wpm" class="classic"><?php echo __('Average words per minute (reading, usually 230):'); ?></label>
+    <?php echo form::number('wpm', 1, 9999, (int) $wc_wpm); ?>
   </p>
-  <p class="form-note"><?php echo __('Leave empty for default (230 words per minute)'); ?></p>
   <p>
     <?php echo form::checkbox('autorefresh', 1, $wc_autorefresh); ?>
     <label class="classic" for="autorefresh"><?php echo __('Auto refresh counters'); ?></label>
   </p>
+  <p>
+    <label for="interval" class="classic"><?php echo __('Autorefresh interval in seconds (usually 60):'); ?></label>
+    <?php echo form::number('interval', 15, 999, (int) $wc_interval); ?>
+  </p>
 
   <p><input type="hidden" name="p" value="wordCount" />
-  <?php echo $core->formNonce(); ?>
+  <?php echo dcCore::app()->formNonce(); ?>
   <input type="submit" name="saveconfig" value="<?php echo __('Save configuration'); ?>" />
   </p>
   </form>

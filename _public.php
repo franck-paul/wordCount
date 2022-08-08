@@ -29,7 +29,7 @@ if (!defined('DC_RC_PATH')) {
 
 require __DIR__ . '/_widgets.php';
 
-$core->tpl->addValue('WordCount', ['tplWordCount', 'WordCount']);
+dcCore::app()->tpl->addValue('WordCount', ['tplWordCount', 'WordCount']);
 
 class tplWordCount
 {
@@ -45,22 +45,19 @@ class tplWordCount
         // Get filters formatter string
         $f = $GLOBALS['core']->tpl->getFilters($attr);
 
-        return '<?php echo ' . sprintf($f, 'libWordCount::getCounters(
-      $_ctx->posts->getExcerpt()." ".$_ctx->posts->getContent(),' .
-            ($wpm ?: '$core->blog->settings->wordcount->wc_wpm') . ',true,' .
+        return '<?php echo ' . sprintf($f, 'libWordCount::getCounters(dcCore::app()->ctx->posts->getExcerpt()." ".dcCore::app()->ctx->posts->getContent(),' .
+            ($wpm ?: 'dcCore::app()->blog->settings->wordcount->wc_wpm') . ',true,' .
             $chars . ',' . $words . ',' . $folios . ',' . $time . ',' . $list . ')') . '; ?>';
     }
 
     public static function widgetWordCount($w)
     {
-        global $core, $_ctx;
-
         if ($w->offline) {
             // Widget offline
             return;
         }
 
-        switch ($core->url->type) {
+        switch (dcCore::app()->url->type) {
             case 'post':
                 if ($w->where != 0 && $w->where != 1) {
                     // Don't display for post
@@ -85,8 +82,8 @@ class tplWordCount
 
         // Get counters
         $counters = libWordCount::getCounters(
-            $_ctx->posts->getExcerpt() . ' ' . $_ctx->posts->getContent(),
-            ($w->wpm ? (int) $w->wpm : $core->blog->settings->wordcount->wc_wpm),
+            dcCore::app()->ctx->posts->getExcerpt() . ' ' . dcCore::app()->ctx->posts->getContent(),
+            ($w->wpm ? (int) $w->wpm : dcCore::app()->blog->settings->wordcount->wc_wpm),
             true,
             $w->chars,
             $w->words,

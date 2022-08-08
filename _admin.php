@@ -23,33 +23,33 @@ $_menu['Blog']->addItem(
     'plugin.php?p=wordCount',
     [urldecode(dcPage::getPF('wordCount/icon.svg')), urldecode(dcPage::getPF('wordCount/icon-dark.svg'))],
     preg_match('/plugin.php\?p=wordCount(&.*)?$/', $_SERVER['REQUEST_URI']),
-    $core->auth->check('contentadmin', $core->blog->id)
+    dcCore::app()->auth->check('contentadmin', dcCore::app()->blog->id)
 );
 
 require __DIR__ . '/_widgets.php';
 
 // Add behaviour callback for post
-$core->addBehavior('adminPostForm', ['adminWordCount', 'wordCount']);
-$core->addBehavior('adminPostHeaders', ['adminWordCount', 'adminPostHeaders']);
+dcCore::app()->addBehavior('adminPostForm', ['adminWordCount', 'wordCount']);
+dcCore::app()->addBehavior('adminPostHeaders', ['adminWordCount', 'adminPostHeaders']);
 // Add behaviour callback for page
-$core->addBehavior('adminPageForm', ['adminWordCount', 'wordCount']);
-$core->addBehavior('adminPageHeaders', ['adminWordCount', 'adminPostHeaders']);
+dcCore::app()->addBehavior('adminPageForm', ['adminWordCount', 'wordCount']);
+dcCore::app()->addBehavior('adminPageHeaders', ['adminWordCount', 'adminPostHeaders']);
 
-if ($core->blog->settings->wordcount->wc_active && $core->blog->settings->wordcount->wc_autorefresh) {
+if (dcCore::app()->blog->settings->wordcount->wc_active && dcCore::app()->blog->settings->wordcount->wc_autorefresh) {
     // Register REST methods
-    $core->rest->addFunction('wordCountGetCounters', ['restWordCount', 'getCounters']);
+    dcCore::app()->rest->addFunction('wordCountGetCounters', ['restWordCount', 'getCounters']);
 }
 
 class adminWordCount
 {
     public static function adminPostHeaders()
     {
-        global $core;
-
-        if ($core->blog->settings->wordcount->wc_active) {
-            $ret = dcPage::cssModuleLoad('wordCount/style.css', 'screen', $core->getVersion('wordCount'));
-            if ($core->blog->settings->wordcount->wc_autorefresh) {
-                $ret .= dcPage::jsModuleLoad('wordCount/js/service.js', $core->getVersion('wordCount'));
+        if (dcCore::app()->blog->settings->wordcount->wc_active) {
+            $ret = dcPage::cssModuleLoad('wordCount/style.css', 'screen', dcCore::app()->getVersion('wordCount'));
+            if (dcCore::app()->blog->settings->wordcount->wc_autorefresh) {
+                $interval = (int) (dcCore::app()->blog->settings->wordcount->wc_interval ?? 60);
+                $ret .= dcPage::jsJson('wordcount', ['interval' => $interval]) .
+                    dcPage::jsModuleLoad('wordCount/js/service.js', dcCore::app()->getVersion('wordCount'));
             }
 
             return $ret;
@@ -58,13 +58,11 @@ class adminWordCount
 
     public static function wordCount($post)
     {
-        global $core;
-
-        if ($core->blog->settings->wordcount->wc_active) {
-            $details = $core->blog->settings->wordcount->wc_details;
+        if (dcCore::app()->blog->settings->wordcount->wc_active) {
+            $details = dcCore::app()->blog->settings->wordcount->wc_details;
             echo '<div class="wordcount"><details open><summary>' . __('Word Count') . '</summary><p>';
             if ($post != null) {
-                $wpm             = $core->blog->settings->wordcount->wc_wpm;
+                $wpm             = dcCore::app()->blog->settings->wordcount->wc_wpm;
                 $countersExcerpt = $details ? libWordCount::getCounters($post->post_excerpt_xhtml, $wpm) : '';
                 $countersContent = $details ? libWordCount::getCounters($post->post_content_xhtml, $wpm) : '';
                 $text            = ($post->post_excerpt_xhtml != '' ? $post->post_excerpt_xhtml . ' ' : '');

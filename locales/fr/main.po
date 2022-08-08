@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 wordCount module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-11 08:13+0200\n"
+"POT-Creation-Date: 2022-08-07 19:11+0200\n"
 "PO-Revision-Date: 2013-09-18 16:03+0100\n"
 "Last-Translator: Franck Paul <carnet.franck.paul@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,6 +22,12 @@ msgstr "Compteurs de caractères, mots et folios, temps de lecture des billets e
 
 msgid "Word Count"
 msgstr "Compteur de mots"
+
+msgid "Excerpt:"
+msgstr "Résumé :"
+
+msgid "Content:"
+msgstr "Contenu :"
 
 msgid "Total:"
 msgstr "Total :"
@@ -59,7 +65,6 @@ msgstr "Temps de lecture"
 msgid "Average words per minute (reading):"
 msgstr "Nombre de mot lus en moyenne par minute :"
 
-#, fuzzy
 msgid "Use <ul>/<li> markup"
 msgstr "Utiliser une liste non ordonnée"
 
@@ -116,11 +121,17 @@ msgstr[1] "%d minutes"
 msgid "Enable Word Count for this blog"
 msgstr "Activer le compteur de mots pour ce blog"
 
+msgid "Options"
+msgstr ""
+
 msgid "Show details (excerpt and content)"
 msgstr "Afficher les détails (extrait et contenu)"
 
-msgid "Leave empty for default (230 words per minute)"
-msgstr "Laisser vide pour utiliser la valeur par défaut (230 mots par minute)"
+msgid "Average words per minute (reading, usually 230):"
+msgstr "Nombre de mot lus en moyenne par minute (habituellement 230) :"
 
 msgid "Auto refresh counters"
 msgstr "Rafraichissement automatique des compteurs"
+
+msgid "Autorefresh interval in seconds (usually 60):"
+msgstr "Intervalle de rafraichissement automatique en secondes (habituellement 60) :"

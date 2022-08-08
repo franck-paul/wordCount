@@ -22,17 +22,16 @@ class restWordCount
      * @param      dcCore  $core   The core
      * @param      array   $get    The get
      *
-     * @return     xmlTag  The xml tag.
+     * @return     The payload.
      */
-    public static function getCounters($core, $get)
+    public static function getCounters($core = null, $get)
     {
-        global $core;
+        $payload = [
+            'ret' => false,
+        ];
 
-        $rsp      = new xmlTag('check');
-        $rsp->ret = false;
-
-        if ($core->blog->settings->wordcount->wc_active) {
-            $details = $core->blog->settings->wordcount->wc_details;
+        if (dcCore::app()->blog->settings->wordcount->wc_active) {
+            $details = dcCore::app()->blog->settings->wordcount->wc_details;
 
             $excerpt = $_GET['excerpt'] ?? null;
             $content = $_GET['content'] ?? null;
@@ -41,7 +40,7 @@ class restWordCount
             // Convert textarea's content to HTML
             switch ($format) {
                 case 'wiki':
-                    $core->initWikiPost();
+                    dcCore::app()->initWikiPost();
 
                     break;
 
@@ -52,20 +51,20 @@ class restWordCount
             }
 
             if ($excerpt) {
-                $excerpt_html = $core->callFormater($format, $excerpt);
-                $excerpt_html = $core->HTMLfilter($excerpt_html);
+                $excerpt_html = dcCore::app()->callFormater($format, $excerpt);
+                $excerpt_html = dcCore::app()->HTMLfilter($excerpt_html);
             } else {
                 $excerpt_html = '';
             }
 
             if ($content) {
-                $content_html = $core->callFormater($format, $content);
-                $content_html = $core->HTMLfilter($content_html);
+                $content_html = dcCore::app()->callFormater($format, $content);
+                $content_html = dcCore::app()->HTMLfilter($content_html);
             } else {
                 $content_html = '';
             }
             # --BEHAVIOR-- coreAfterPostContentFormat
-            $core->callBehavior('coreAfterPostContentFormat', [
+            dcCore::app()->callBehavior('coreAfterPostContentFormat', [
                 'excerpt'       => &$excerpt,
                 'content'       => &$content,
                 'excerpt_xhtml' => &$excerpt_html,
@@ -75,7 +74,7 @@ class restWordCount
             $html = '';
 
             if ($excerpt !== null || $content !== null) {
-                $wpm = $core->blog->settings->wordcount->wc_wpm;
+                $wpm = dcCore::app()->blog->settings->wordcount->wc_wpm;
 
                 $countersExcerpt = $details ? libWordCount::getCounters($excerpt_html, $wpm) : '';
                 $countersContent = $details ? libWordCount::getCounters($content_html, $wpm) : '';
@@ -95,10 +94,12 @@ class restWordCount
                 $html .= __('Counters:') . ' ' . '0';
             }
 
-            $rsp->html = $html;
-            $rsp->ret  = true;
+            $payload = [
+                'ret'  => true,
+                'html' => $html,
+            ];
         }
 
-        return $rsp;
+        return $payload;
     }
 }

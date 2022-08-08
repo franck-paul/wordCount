@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 wordCount module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-11 08:13+0200\n"
+"POT-Creation-Date: 2022-08-07 19:11+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,138 +17,164 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: ../hg-plugins/wordCount//_admin.php:15
-msgid "Counts characters, words and folios of edited entry"
+#: ../git-plugins/wordCount/_admin.php:18
+msgid "Counts characters, words and folios, reading time of entry"
 msgstr ""
 
-#: ../hg-plugins/wordCount//_admin.php:15
-#: ../hg-plugins/wordCount//_admin.php:18
-#: ../hg-plugins/wordCount//_widgets.php:21
-#: ../hg-plugins/wordCount//index.php:46 ../hg-plugins/wordCount//index.php:54
+#: ../git-plugins/wordCount/_admin.php:18
+#: ../git-plugins/wordCount/_admin.php:22
+#: ../git-plugins/wordCount/_admin.php:61
+#: ../git-plugins/wordCount/_widgets.php:25
+#: ../git-plugins/wordCount/index.php:47 ../git-plugins/wordCount/index.php:55
 msgid "Word Count"
 msgstr ""
 
-#: ../hg-plugins/wordCount//_admin.php:62
+#: ../git-plugins/wordCount/_admin.php:71
+#: ../git-plugins/wordCount/_services.php:86
+msgid "Excerpt:"
+msgstr ""
+
+#: ../git-plugins/wordCount/_admin.php:72
+#: ../git-plugins/wordCount/_services.php:87
+msgid "Content:"
+msgstr ""
+
+#: ../git-plugins/wordCount/_admin.php:73
+#: ../git-plugins/wordCount/_services.php:88
 msgid "Total:"
 msgstr ""
 
-#: ../hg-plugins/wordCount//_admin.php:64
+#: ../git-plugins/wordCount/_admin.php:75
+#: ../git-plugins/wordCount/_admin.php:78
+#: ../git-plugins/wordCount/_services.php:90
+#: ../git-plugins/wordCount/_services.php:93
 msgid "Counters:"
 msgstr ""
 
-#: ../hg-plugins/wordCount//_widgets.php:22
+#: ../git-plugins/wordCount/_widgets.php:26
 msgid "Statistics"
 msgstr ""
 
-#: ../hg-plugins/wordCount//_widgets.php:24
+#: ../git-plugins/wordCount/_widgets.php:29
 msgid "Display for:"
 msgstr ""
 
-#: ../hg-plugins/wordCount//_widgets.php:26
+#: ../git-plugins/wordCount/_widgets.php:33
 msgid "Posts and pages"
 msgstr ""
 
-#: ../hg-plugins/wordCount//_widgets.php:27
+#: ../git-plugins/wordCount/_widgets.php:34
 msgid "Posts only"
 msgstr ""
 
-#: ../hg-plugins/wordCount//_widgets.php:28
+#: ../git-plugins/wordCount/_widgets.php:35
 msgid "Page only"
 msgstr ""
 
-#: ../hg-plugins/wordCount//_widgets.php:31
+#: ../git-plugins/wordCount/_widgets.php:38
 msgid "Number of characters"
 msgstr ""
 
-#: ../hg-plugins/wordCount//_widgets.php:32
+#: ../git-plugins/wordCount/_widgets.php:39
 msgid "Number of words"
 msgstr ""
 
-#: ../hg-plugins/wordCount//_widgets.php:33
+#: ../git-plugins/wordCount/_widgets.php:40
 msgid "Number of folios"
 msgstr ""
 
-#: ../hg-plugins/wordCount//_widgets.php:34
+#: ../git-plugins/wordCount/_widgets.php:41
 msgid "Reading time"
 msgstr ""
 
-#: ../hg-plugins/wordCount//_widgets.php:35
-#: ../hg-plugins/wordCount//index.php:72
+#: ../git-plugins/wordCount/_widgets.php:42
 msgid "Average words per minute (reading):"
 msgstr ""
 
-#: ../hg-plugins/wordCount//_widgets.php:37
+#: ../git-plugins/wordCount/_widgets.php:43
 msgid "Use <ul>/<li> markup"
 msgstr ""
 
-#: ../hg-plugins/wordCount//inc/lib.wordcount.php:41
+#: ../git-plugins/wordCount/inc/lib.wordcount.php:51
 #, php-format
 msgid "%d character"
 msgid_plural "%d characters"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../hg-plugins/wordCount//inc/lib.wordcount.php:46
+#: ../git-plugins/wordCount/inc/lib.wordcount.php:56
 #, php-format
 msgid "%d word"
 msgid_plural "%d words"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../hg-plugins/wordCount//inc/lib.wordcount.php:51
+#: ../git-plugins/wordCount/inc/lib.wordcount.php:61
 msgid "1 folio"
 msgid_plural "n folios"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../hg-plugins/wordCount//inc/lib.wordcount.php:54
+#: ../git-plugins/wordCount/inc/lib.wordcount.php:64
 #, php-format
 msgid "&frac12; %s"
 msgstr ""
 
-#: ../hg-plugins/wordCount//inc/lib.wordcount.php:57
+#: ../git-plugins/wordCount/inc/lib.wordcount.php:67
 #, php-format
 msgid "1 %s"
 msgstr ""
 
-#: ../hg-plugins/wordCount//inc/lib.wordcount.php:60
+#: ../git-plugins/wordCount/inc/lib.wordcount.php:70
 #, php-format
 msgid "1 &frac12; %s"
 msgstr ""
 
-#: ../hg-plugins/wordCount//inc/lib.wordcount.php:64
+#: ../git-plugins/wordCount/inc/lib.wordcount.php:74
 #, php-format
 msgid "%d &frac12; folio"
 msgid_plural "%d &frac12; folios"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../hg-plugins/wordCount//inc/lib.wordcount.php:67
+#: ../git-plugins/wordCount/inc/lib.wordcount.php:78
 #, php-format
 msgid "%d folio"
 msgid_plural "%d folios"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../hg-plugins/wordCount//inc/lib.wordcount.php:74
+#: ../git-plugins/wordCount/inc/lib.wordcount.php:85
 msgid "less than one minute"
 msgstr ""
 
-#: ../hg-plugins/wordCount//inc/lib.wordcount.php:77
+#: ../git-plugins/wordCount/inc/lib.wordcount.php:88
 #, php-format
 msgid "%d minute"
 msgid_plural "%d minutes"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../hg-plugins/wordCount//index.php:64
+#: ../git-plugins/wordCount/index.php:69
 msgid "Enable Word Count for this blog"
 msgstr ""
 
-#: ../hg-plugins/wordCount//index.php:69
+#: ../git-plugins/wordCount/index.php:71
+msgid "Options"
+msgstr ""
+
+#: ../git-plugins/wordCount/index.php:74
 msgid "Show details (excerpt and content)"
 msgstr ""
 
-#: ../hg-plugins/wordCount//index.php:75
-msgid "Leave empty for default (230 words per minute)"
+#: ../git-plugins/wordCount/index.php:77
+msgid "Average words per minute (reading, usually 230):"
+msgstr ""
+
+#: ../git-plugins/wordCount/index.php:82
+msgid "Auto refresh counters"
+msgstr ""
+
+#: ../git-plugins/wordCount/index.php:85
+msgid "Autorefresh interval in seconds (usually 60):"
 msgstr ""

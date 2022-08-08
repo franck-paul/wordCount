@@ -1,40 +1,41 @@
-/*global $, dotclear */
+/*global dotclear */
 'use strict';
 
-dotclear.wordCountGetCounters = () => {
-  $.get('services.php', {
-    f: 'wordCountGetCounters',
-    xd_check: dotclear.nonce,
-    excerpt: $('#post_excerpt').val(),
-    content: $('#post_content').val(),
-    format: $('#post_format').val(),
-  })
-    .done((data) => {
-      if ($('rsp[status=failed]', data).length > 0) {
-        // For debugging purpose only:
-        // window.console.log($('rsp', data).attr('message'));
-        window.console.log('Dotclear REST server error');
-      } else {
-        const ret = Number($('rsp>check', data).attr('ret'));
-        if (ret) {
-          const html = $('rsp>check', data).attr('html');
-          const $container = $('div.wordcount details p');
-          if ($container) {
-            // Replace current counters
-            $container.empty().append(html);
-          }
-        }
-      }
-    })
-    .fail((jqXHR, textStatus, errorThrown) => {
-      window.console.log(`AJAX ${textStatus} (status: ${jqXHR.status} ${errorThrown})`);
-    })
-    .always(() => {
-      // Nothing here
-    });
-};
+window.addEventListener('load', () => {
+  // Set interval between two counters calculation
+  dotclear.wordcount = dotclear.getData('wordcount');
 
-$(() => {
-  // Set 30 seconds interval between two counters calculation
-  dotclear.wordCountGetCounters_Timer = setInterval(dotclear.wordCountGetCounters, 60 * 1000);
+  dotclear.wordcount.getCounters = () => {
+    dotclear.services(
+      'wordCountGetCounters',
+      (data) => {
+        const response = JSON.parse(data);
+        if (response?.success) {
+          if (response?.payload.ret) {
+            // Replace current counters
+            const p = document.querySelector('div.wordcount details p');
+            if (p) {
+              p.innerHTML = response.payload.html;
+            }
+          }
+        } else {
+          // DEBUG: console.log(response?.message);
+          console.log('Dotclear REST server error');
+          return;
+        }
+      },
+      (error) => {
+        console.log(error);
+      },
+      true, // Use GET method
+      {
+        json: 1, // Use JSON format for payload
+        excerpt: document.querySelector('#post_excerpt').value,
+        content: document.querySelector('#post_content').value,
+        format: document.querySelector('#post_format').value,
+      },
+    );
+  };
+
+  dotclear.wordcount.timer = setInterval(dotclear.wordcount.getCounters, (dotclear.wordcount?.interval || 60) * 1000);
 });
