@@ -18,7 +18,7 @@ if (!defined('DC_CONTEXT_ADMIN')) {
 __('Word Count') . __('Counts characters, words and folios, reading time of entry');
 
 // Add menu item in blog menu
-$_menu['Blog']->addItem(
+dcCore::app()->menu[dcAdmin::MENU_BLOG]->addItem(
     __('Word Count'),
     'plugin.php?p=wordCount',
     [urldecode(dcPage::getPF('wordCount/icon.svg')), urldecode(dcPage::getPF('wordCount/icon-dark.svg'))],
