@@ -75,7 +75,7 @@ echo dcPage::breadcrumb(
   </p>
   <p>
     <label for="wpm" class="classic"><?php echo __('Average words per minute (reading, usually 230):'); ?></label>
-    <?php echo form::number('wpm', 1, 9999, (int) $wc_wpm); ?>
+    <?php echo form::number('wpm', 1, 9999, (string) $wc_wpm); ?>
   </p>
   <p>
     <?php echo form::checkbox('autorefresh', 1, $wc_autorefresh); ?>
@@ -83,7 +83,7 @@ echo dcPage::breadcrumb(
   </p>
   <p>
     <label for="interval" class="classic"><?php echo __('Autorefresh interval in seconds (usually 60):'); ?></label>
-    <?php echo form::number('interval', 15, 999, (int) $wc_interval); ?>
+    <?php echo form::number('interval', 15, 999, (string) $wc_interval); ?>
   </p>
 
   <p><input type="hidden" name="p" value="wordCount" />

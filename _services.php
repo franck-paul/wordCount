@@ -21,9 +21,9 @@ class restWordCount
      *
      * @param      array   $get    The get
      *
-     * @return     The payload.
+     * @return     array   The payload.
      */
-    public static function getCounters($get)
+    public static function getCounters($get): array
     {
         $payload = [
             'ret' => false,

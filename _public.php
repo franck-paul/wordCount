@@ -43,7 +43,7 @@ class tplWordCount
         $wpm    = isset($attr['wpm']) ? (int) $attr['wpm'] : 0;
         $list   = isset($attr['list']) ? (int) $attr['list'] : 0;
         // Get filters formatter string
-        $f = $GLOBALS['core']->tpl->getFilters($attr);
+        $f = dcCore::app()->tpl->getFilters($attr);
 
         return '<?php echo ' . sprintf($f, 'libWordCount::getCounters(dcCore::app()->ctx->posts->getExcerpt()." ".dcCore::app()->ctx->posts->getContent(),' .
             ($wpm ?: 'dcCore::app()->blog->settings->wordcount->wc_wpm') . ',true,' .
