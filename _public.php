@@ -33,7 +33,7 @@ dcCore::app()->tpl->addValue('WordCount', ['tplWordCount', 'WordCount']);
 
 class tplWordCount
 {
-    public static function WordCount($attr)
+    public static function WordCount($attr): string
     {
         // Check attributes
         $chars  = isset($attr['chars']) ? (int) $attr['chars'] : 0;
@@ -50,31 +50,31 @@ class tplWordCount
             $chars . ',' . $words . ',' . $folios . ',' . $time . ',' . $list . ')') . '; ?>';
     }
 
-    public static function widgetWordCount($w)
+    public static function widgetWordCount($w): string
     {
         if ($w->offline) {
             // Widget offline
-            return;
+            return '';
         }
 
         switch (dcCore::app()->url->type) {
             case 'post':
                 if ($w->where != 0 && $w->where != 1) {
                     // Don't display for post
-                    return;
+                    return '';
                 }
 
                 break;
             case 'pages':
                 if ($w->where != 0 && $w->where != 2) {
                     // Don't display for page
-                    return;
+                    return '';
                 }
 
                 break;
             default:
                 // Other contexts, not managed here
-                return;
+                return '';
         }
 
         // Get widget title
