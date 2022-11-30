@@ -27,9 +27,7 @@ if (!defined('DC_RC_PATH')) {
 //
 // Example : <p><strong>{{tpl:lang reading time:}}</strong> {{tpl:WordCount words="0" time="1"}}</p>
 
-require __DIR__ . '/_widgets.php';
-
-dcCore::app()->tpl->addValue('WordCount', ['tplWordCount', 'WordCount']);
+require_once __DIR__ . '/_widgets.php';
 
 class tplWordCount
 {
@@ -102,3 +100,5 @@ class tplWordCount
         return $w->renderDiv($w->content_only, 'wordcount ' . $w->class, '', $res);
     }
 }
+
+dcCore::app()->tpl->addValue('WordCount', [tplWordCount::class, 'WordCount']);

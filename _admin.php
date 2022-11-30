@@ -23,21 +23,16 @@ dcCore::app()->menu[dcAdmin::MENU_BLOG]->addItem(
     'plugin.php?p=wordCount',
     [urldecode(dcPage::getPF('wordCount/icon.svg')), urldecode(dcPage::getPF('wordCount/icon-dark.svg'))],
     preg_match('/plugin.php\?p=wordCount(&.*)?$/', $_SERVER['REQUEST_URI']),
-    dcCore::app()->auth->check('contentadmin', dcCore::app()->blog->id)
+    dcCore::app()->auth->check(dcCore::app()->auth->makePermissions([
+        dcAuth::PERMISSION_CONTENT_ADMIN,
+    ]), dcCore::app()->blog->id)
 );
 
-require __DIR__ . '/_widgets.php';
-
-// Add behaviour callback for post
-dcCore::app()->addBehavior('adminPostForm', ['adminWordCount', 'wordCount']);
-dcCore::app()->addBehavior('adminPostHeaders', ['adminWordCount', 'adminPostHeaders']);
-// Add behaviour callback for page
-dcCore::app()->addBehavior('adminPageForm', ['adminWordCount', 'wordCount']);
-dcCore::app()->addBehavior('adminPageHeaders', ['adminWordCount', 'adminPostHeaders']);
+require_once __DIR__ . '/_widgets.php';
 
 if (dcCore::app()->blog->settings->wordcount->wc_active && dcCore::app()->blog->settings->wordcount->wc_autorefresh) {
     // Register REST methods
-    dcCore::app()->rest->addFunction('wordCountGetCounters', ['restWordCount', 'getCounters']);
+    dcCore::app()->rest->addFunction('wordCountGetCounters', [restWordCount::class, 'getCounters']);
 }
 
 class adminWordCount
@@ -83,3 +78,10 @@ class adminWordCount
         }
     }
 }
+
+// Add behaviour callback for post
+dcCore::app()->addBehavior('adminPostForm', [adminWordCount::class, 'wordCount']);
+dcCore::app()->addBehavior('adminPostHeaders', [adminWordCount::class, 'adminPostHeaders']);
+// Add behaviour callback for page
+dcCore::app()->addBehavior('adminPageForm', [adminWordCount::class, 'wordCount']);
+dcCore::app()->addBehavior('adminPageHeaders', [adminWordCount::class, 'adminPostHeaders']);

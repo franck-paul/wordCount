@@ -14,8 +14,6 @@ if (!defined('DC_RC_PATH')) {
     return;
 }
 
-dcCore::app()->addBehavior('initWidgets', ['widgetsWordCount', 'initWidgets']);
-
 class widgetsWordCount
 {
     public static function initWidgets($w)
@@ -46,3 +44,5 @@ class widgetsWordCount
             ->addOffline();
     }
 }
+
+dcCore::app()->addBehavior('initWidgets', [widgetsWordCount::class, 'initWidgets']);

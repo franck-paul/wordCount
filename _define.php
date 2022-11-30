@@ -15,18 +15,21 @@ if (!defined('DC_RC_PATH')) {
 }
 
 $this->registerModule(
-    'Word Count',                                                 // Name
-    'Counts characters, words and folios, reading time of entry', // Description
-    'Franck Paul',                                                // Author
-    '1.2',                                                        // Version
+    'Word Count',
+    'Counts characters, words and folios, reading time of entry',
+    'Franck Paul',
+    '2.0',
     [
-        'requires'    => [['core', '2.24']],                         // Dependencies
-        'permissions' => 'usage,contentadmin',                       // Permissions
-        'type'        => 'plugin',                                   // Type
-        'settings'    => [],
+        'requires'    => [['core', '2.24']],
+        'permissions' => dcCore::app()->auth->makePermissions([
+            dcAuth::PERMISSION_USAGE,
+            dcAuth::PERMISSION_CONTENT_ADMIN,
+        ]),
+        'type'     => 'plugin',
+        'settings' => [],
 
-        'details'    => 'https://open-time.net/?q=wordCount',        // Details URL
-        'support'    => 'https://github.com/franck-paul/wordCount',  // Support URL
+        'details'    => 'https://open-time.net/?q=wordCount',
+        'support'    => 'https://github.com/franck-paul/wordCount',
         'repository' => 'https://raw.githubusercontent.com/franck-paul/wordCount/master/dcstore.xml',
     ]
 );

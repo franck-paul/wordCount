@@ -63,7 +63,7 @@ echo dcPage::breadcrumb(
 ?>
 
 <div id="wc_options">
-  <form method="post" action="<?php echo $p_url; ?>">
+  <form method="post" action="<?php echo dcCore::app()->admin->getPageURL(); ?>">
   <p>
     <?php echo form::checkbox('active', 1, $wc_active); ?>
     <label class="classic" for="active"><?php echo __('Enable Word Count for this blog'); ?></label>

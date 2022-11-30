@@ -14,5 +14,7 @@ if (!defined('DC_RC_PATH')) {
     return;
 }
 
-$__autoload['libWordCount']  = __DIR__ . '/inc/lib.wordcount.php';
-$__autoload['restWordCount'] = __DIR__ . '/_services.php';
+Clearbricks::lib()->autoload([
+    'libWordCount'  => __DIR__ . '/inc/lib.wordcount.php',
+    'restWordCount' => __DIR__ . '/_services.php',
+]);
