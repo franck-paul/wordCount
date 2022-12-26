@@ -40,7 +40,7 @@ class adminWordCount
     public static function adminPostHeaders()
     {
         if (dcCore::app()->blog->settings->wordcount->wc_active) {
-            $ret = dcPage::cssModuleLoad('wordCount/style.css', 'screen', dcCore::app()->getVersion('wordCount'));
+            $ret = dcPage::cssModuleLoad('wordCount/css/style.css', 'screen', dcCore::app()->getVersion('wordCount'));
             if (dcCore::app()->blog->settings->wordcount->wc_autorefresh) {
                 $interval = (int) (dcCore::app()->blog->settings->wordcount->wc_interval ?? 60);
                 $ret .= dcPage::jsJson('wordcount', ['interval' => $interval]) .
