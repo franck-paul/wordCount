@@ -79,9 +79,11 @@ class adminWordCount
     }
 }
 
-// Add behaviour callback for post
-dcCore::app()->addBehavior('adminPostForm', [adminWordCount::class, 'wordCount']);
-dcCore::app()->addBehavior('adminPostHeaders', [adminWordCount::class, 'adminPostHeaders']);
-// Add behaviour callback for page
-dcCore::app()->addBehavior('adminPageForm', [adminWordCount::class, 'wordCount']);
-dcCore::app()->addBehavior('adminPageHeaders', [adminWordCount::class, 'adminPostHeaders']);
+dcCore::app()->addBehaviors([
+    // Add behaviour callback for post
+    'adminPostForm'    => [adminWordCount::class, 'wordCount'],
+    'adminPostHeaders' => [adminWordCount::class, 'adminPostHeaders'],
+    // Add behaviour callback for page
+    'adminPageForm'    => [adminWordCount::class, 'wordCount'],
+    'adminPageHeaders' => [adminWordCount::class, 'adminPostHeaders'],
+]);

@@ -14,24 +14,17 @@ if (!defined('DC_CONTEXT_ADMIN')) {
     return;
 }
 
-$new_version = dcCore::app()->plugins->moduleInfo('wordCount', 'version');
-$old_version = dcCore::app()->getVersion('wordCount');
-
-if (version_compare((string) $old_version, $new_version, '>=')) {
+if (!dcCore::app()->newVersion(basename(__DIR__), dcCore::app()->plugins->moduleInfo(basename(__DIR__), 'version'))) {
     return;
 }
 
 try {
-    dcCore::app()->blog->settings->addNamespace('wordcount');
-
     // Default state is active
     dcCore::app()->blog->settings->wordcount->put('wc_active', true, 'boolean', 'Active', false, true);
     dcCore::app()->blog->settings->wordcount->put('wc_details', false, 'boolean', 'Details', false, true);
     dcCore::app()->blog->settings->wordcount->put('wc_wpm', 230, 'integer', 'Average words per minute', false, true);
     dcCore::app()->blog->settings->wordcount->put('wc_autorefresh', true, 'boolean', 'Auto refresh counters', false, true);
     dcCore::app()->blog->settings->wordcount->put('wc_timeout', 60, 'integer', 'Interval between two refresh', false, true);
-
-    dcCore::app()->setVersion('wordCount', $new_version);
 
     return true;
 } catch (Exception $e) {

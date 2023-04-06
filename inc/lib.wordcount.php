@@ -10,12 +10,15 @@
  * @copyright Franck Paul carnet.franck.paul@gmail.com
  * @copyright GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
  */
+
+use Dotclear\Helper\Html\Html;
+
 class libWordCount
 {
     public static function splitWords($str)
     {
         $non_word = '\x{0000}-\x{002F}\x{003A}-\x{0040}\x{005b}-\x{0060}\x{007B}-\x{007E}\x{00A0}-\x{00BF}\s';
-        if (preg_match_all('/([^' . $non_word . ']{1,})/msu', html::clean($str), $match)) {
+        if (preg_match_all('/([^' . $non_word . ']{1,})/msu', Html::clean($str), $match)) {
             return $match[1];
         }
 
@@ -34,13 +37,13 @@ class libWordCount
     ) {
         $ret = '';
 
-        $chars = mb_strlen(html::clean($text));
+        $chars = mb_strlen(Html::clean($text));
         if ($chars > 0) {
             if ($double) {
                 $chars--;
             }
 
-            $words   = count(self::splitWords($text));
+            $words   = is_countable(self::splitWords($text)) ? count(self::splitWords($text)) : 0;
             $folios  = round($chars / 750) / 2.0;
             $reading = $words              / $wpm;
 

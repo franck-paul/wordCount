@@ -10,6 +10,9 @@
  * @copyright Franck Paul carnet.franck.paul@gmail.com
  * @copyright GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
  */
+
+use Dotclear\Helper\Html\Html;
+
 if (!defined('DC_CONTEXT_ADMIN')) {
     exit;
 }
@@ -24,8 +27,6 @@ $wc_interval    = (int) (dcCore::app()->blog->settings->wordcount->wc_interval ?
 // Saving new configuration
 if (!empty($_POST['saveconfig'])) {
     try {
-        dcCore::app()->blog->settings->addNamespace('wordcount');
-
         $wc_active   = (empty($_POST['active'])) ? false : true;
         $wc_details  = (empty($_POST['details'])) ? false : true;
         $wc_wpm      = (int) $_POST['wpm'];
@@ -51,7 +52,7 @@ if (!empty($_POST['saveconfig'])) {
 <?php
 echo dcPage::breadcrumb(
     [
-        html::escapeHTML(dcCore::app()->blog->name) => '',
+        Html::escapeHTML(dcCore::app()->blog->name) => '',
         __('Word Count')                            => '',
     ]
 );

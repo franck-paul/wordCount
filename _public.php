@@ -10,9 +10,8 @@
  * @copyright Franck Paul carnet.franck.paul@gmail.com
  * @copyright GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
  */
-if (!defined('DC_RC_PATH')) {
-    return;
-}
+
+use Dotclear\Helper\Html\Html;
 
 // Register template tag
 //
@@ -76,7 +75,7 @@ class tplWordCount
         }
 
         // Get widget title
-        $res = ($w->title ? $w->renderTitle(html::escapeHTML($w->title)) . "\n" : '');
+        $res = ($w->title ? $w->renderTitle(Html::escapeHTML($w->title)) . "\n" : '');
 
         // Get counters
         $counters = libWordCount::getCounters(
