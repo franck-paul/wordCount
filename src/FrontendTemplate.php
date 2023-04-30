@@ -11,25 +11,29 @@
  * @copyright GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
  */
 
+declare(strict_types=1);
+
+namespace Dotclear\Plugin\wordCount;
+
+use dcCore;
 use Dotclear\Helper\Html\Html;
+use Dotclear\Plugin\widgets\WidgetsElement;
 
-// Register template tag
-//
-// {{tpl:WordCount [attributes]}}
-// with attributes may be one or more of:
-// - chars="0|1" show number of characters (0 = default)
-// - words="0|1" show number of words (1 = default)
-// - folios="0|1" show number of folios (0 = default)
-// - time="0|1" : show estimated reading time (0 = default)
-// - wpm="nnn" : words per minute (blog setting by default)
-// - list="0|1" : use ul/li markup (0 = none)
-//
-// Example : <p><strong>{{tpl:lang reading time:}}</strong> {{tpl:WordCount words="0" time="1"}}</p>
-
-require_once __DIR__ . '/_widgets.php';
-
-class tplWordCount
+class FrontendTemplate
 {
+    // Register template tag
+    //
+    // {{tpl:WordCount [attributes]}}
+    // with attributes may be one or more of:
+    // - chars="0|1" show number of characters (0 = default)
+    // - words="0|1" show number of words (1 = default)
+    // - folios="0|1" show number of folios (0 = default)
+    // - time="0|1" : show estimated reading time (0 = default)
+    // - wpm="nnn" : words per minute (blog setting by default)
+    // - list="0|1" : use ul/li markup (0 = none)
+    //
+    // Example : <p><strong>{{tpl:lang reading time:}}</strong> {{tpl:WordCount words="0" time="1"}}</p>
+
     public static function WordCount($attr): string
     {
         // Check attributes
@@ -42,28 +46,35 @@ class tplWordCount
         // Get filters formatter string
         $f = dcCore::app()->tpl->getFilters($attr);
 
-        return '<?php echo ' . sprintf($f, 'libWordCount::getCounters(dcCore::app()->ctx->posts->getExcerpt()." ".dcCore::app()->ctx->posts->getContent(),' .
+        return '<?php echo ' . sprintf($f, Helper::class . '::getCounters(dcCore::app()->ctx->posts->getExcerpt()." ".dcCore::app()->ctx->posts->getContent(),' .
             ($wpm ?: 'dcCore::app()->blog->settings->wordcount->wc_wpm') . ',true,' .
             $chars . ',' . $words . ',' . $folios . ',' . $time . ',' . $list . ')') . '; ?>';
     }
 
-    public static function widgetWordCount($w): string
+    /**
+     * Render widget
+     *
+     * @param      \Dotclear\Plugin\widgets\WidgetsElement  $widget      The widget
+     *
+     * @return     string
+     */
+    public static function widgetWordCount(WidgetsElement $widget): string
     {
-        if ($w->offline) {
+        if ($widget->offline) {
             // Widget offline
             return '';
         }
 
         switch (dcCore::app()->url->type) {
             case 'post':
-                if ($w->where != 0 && $w->where != 1) {
+                if ($widget->where != 0 && $widget->where != 1) {
                     // Don't display for post
                     return '';
                 }
 
                 break;
             case 'pages':
-                if ($w->where != 0 && $w->where != 2) {
+                if ($widget->where != 0 && $widget->where != 2) {
                     // Don't display for page
                     return '';
                 }
@@ -75,29 +86,27 @@ class tplWordCount
         }
 
         // Get widget title
-        $res = ($w->title ? $w->renderTitle(Html::escapeHTML($w->title)) . "\n" : '');
+        $res = ($widget->title ? $widget->renderTitle(Html::escapeHTML($widget->title)) . "\n" : '');
 
         // Get counters
-        $counters = libWordCount::getCounters(
+        $counters = Helper::getCounters(
             dcCore::app()->ctx->posts->getExcerpt() . ' ' . dcCore::app()->ctx->posts->getContent(),
-            ($w->wpm ? (int) $w->wpm : dcCore::app()->blog->settings->wordcount->wc_wpm),
+            ($widget->wpm ? (int) $widget->wpm : dcCore::app()->blog->settings->wordcount->wc_wpm),
             true,
-            $w->chars,
-            $w->words,
-            $w->folios,
-            $w->time,
-            $w->list
+            $widget->chars,
+            $widget->words,
+            $widget->folios,
+            $widget->time,
+            $widget->list
         );
 
         // Assemble
-        if (!$w->list) {
+        if (!$widget->list) {
             $counters = '<p>' . $counters . '</p>' . "\n";
         }
         $res .= $counters;
 
         // Return final markup
-        return $w->renderDiv($w->content_only, 'wordcount ' . $w->class, '', $res);
+        return $widget->renderDiv($widget->content_only, 'wordcount ' . $widget->class, '', $res);
     }
 }
-
-dcCore::app()->tpl->addValue('WordCount', [tplWordCount::class, 'WordCount']);

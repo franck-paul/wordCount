@@ -10,9 +10,16 @@
  * @copyright Franck Paul carnet.franck.paul@gmail.com
  * @copyright GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
  */
-class widgetsWordCount
+
+declare(strict_types=1);
+
+namespace Dotclear\Plugin\wordCount;
+
+use Dotclear\Plugin\widgets\WidgetsStack;
+
+class Widgets
 {
-    public static function initWidgets($w)
+    public static function initWidgets(WidgetsStack $w)
     {
         // Widget for all series
         $w
@@ -40,5 +47,3 @@ class widgetsWordCount
             ->addOffline();
     }
 }
-
-dcCore::app()->addBehavior('initWidgets', [widgetsWordCount::class, 'initWidgets']);

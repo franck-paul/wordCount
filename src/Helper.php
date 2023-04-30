@@ -10,12 +10,22 @@
  * @copyright Franck Paul carnet.franck.paul@gmail.com
  * @copyright GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
  */
+declare(strict_types=1);
+
+namespace Dotclear\Plugin\wordCount;
 
 use Dotclear\Helper\Html\Html;
 
-class libWordCount
+class Helper
 {
-    public static function splitWords($str)
+    /**
+     * Splits words.
+     *
+     * @param      string  $str    The string
+     *
+     * @return     array
+     */
+    public static function splitWords(string $str): array
     {
         $non_word = '\x{0000}-\x{002F}\x{003A}-\x{0040}\x{005b}-\x{0060}\x{007B}-\x{007E}\x{00A0}-\x{00BF}\s';
         if (preg_match_all('/([^' . $non_word . ']{1,})/msu', Html::clean($str), $match)) {
@@ -25,16 +35,30 @@ class libWordCount
         return [];
     }
 
+    /**
+     * Gets the counters.
+     *
+     * @param      string  $text         The text
+     * @param      int     $wpm          The word per minute (average reading speed)
+     * @param      bool    $double       The double (true if $text is combination of two different parts, as excerpt and content)
+     * @param      bool    $show_chars   The show characters
+     * @param      bool    $show_words   The show words
+     * @param      bool    $show_folios  The show folios
+     * @param      bool    $show_time    The show time
+     * @param      bool    $use_list     The use list (ul/li if true, dash separated string if false)
+     *
+     * @return     string  The counters.
+     */
     public static function getCounters(
-        $text,
-        $wpm = 230,
-        $double = false,
-        $show_chars = true,
-        $show_words = true,
-        $show_folios = true,
-        $show_time = true,
-        $use_list = false
-    ) {
+        string $text,
+        int $wpm = 230,
+        bool $double = false,
+        bool $show_chars = true,
+        bool $show_words = true,
+        bool $show_folios = true,
+        bool $show_time = true,
+        bool $use_list = false
+    ): string {
         $ret = '';
 
         $chars = mb_strlen(Html::clean($text));
@@ -43,7 +67,7 @@ class libWordCount
                 $chars--;
             }
 
-            $words   = is_countable(self::splitWords($text)) ? count(self::splitWords($text)) : 0;
+            $words   = count(self::splitWords($text));
             $folios  = round($chars / 750) / 2.0;
             $reading = $words              / $wpm;
 

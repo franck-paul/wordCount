@@ -10,11 +10,17 @@
  * @copyright Franck Paul carnet.franck.paul@gmail.com
  * @copyright GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
  */
+declare(strict_types=1);
+
+namespace Dotclear\Plugin\wordCount;
+
+use dcCore;
+
 if (!defined('DC_CONTEXT_ADMIN')) {
     return;
 }
 
-class restWordCount
+class BackendRest
 {
     /**
      * Serve method to update current counters.
@@ -75,12 +81,12 @@ class restWordCount
             if ($excerpt !== null || $content !== null) {
                 $wpm = dcCore::app()->blog->settings->wordcount->wc_wpm;
 
-                $countersExcerpt = $details ? libWordCount::getCounters($excerpt_html, $wpm) : '';
-                $countersContent = $details ? libWordCount::getCounters($content_html, $wpm) : '';
+                $countersExcerpt = $details ? Helper::getCounters($excerpt_html, $wpm) : '';
+                $countersContent = $details ? Helper::getCounters($content_html, $wpm) : '';
 
                 $text = ($excerpt_html != '' ? $excerpt_html . ' ' : '');
                 $text .= $content_html;
-                $countersTotal = libWordCount::getCounters($text, $wpm, ($excerpt != ''));
+                $countersTotal = Helper::getCounters($text, $wpm, ($excerpt != ''));
 
                 if ($details) {
                     $html .= __('Excerpt:') . ' ' . ($countersExcerpt ?: '0') . '<br />';
