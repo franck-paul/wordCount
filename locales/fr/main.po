@@ -1,24 +1,29 @@
 # SOME DESCRIPTIVE TITLE.
 # This file is put in the public domain.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
+# Translators:
+# Franck Paul <carnet.franck.paul@gmail.com>, 2023
+# 
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 wordCount module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-07 19:11+0200\n"
-"PO-Revision-Date: 2013-09-18 16:03+0100\n"
-"Last-Translator: Franck Paul <carnet.franck.paul@gmail.com>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"POT-Creation-Date: 2023-04-30 12:50+0200\n"
+"PO-Revision-Date: 2023-04-30 10:55+0000\n"
+"Last-Translator: Franck Paul <carnet.franck.paul@gmail.com>, 2023\n"
+"Language-Team: French (https://app.transifex.com/open-time/teams/109573/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 1.5.7\n"
+"Language: fr\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 
 msgid "Counts characters, words and folios, reading time of entry"
-msgstr "Compteurs de caractères, mots et folios, temps de lecture des billets et des pages"
+msgstr ""
+"Compteurs de caractères, mots et folios, temps de lecture des billets et des"
+" pages"
 
 msgid "Word Count"
 msgstr "Compteur de mots"
@@ -35,6 +40,84 @@ msgstr "Total :"
 msgid "Counters:"
 msgstr "Compteurs :"
 
+#, php-format
+msgid "%d character"
+msgid_plural "%d characters"
+msgstr[0] "%d caractère"
+msgstr[1] "%d caractères"
+msgstr[2] "%d caractères"
+
+#, php-format
+msgid "%d word"
+msgid_plural "%d words"
+msgstr[0] "%d mot"
+msgstr[1] "%d mots"
+msgstr[2] "%d mots"
+
+msgid "1 folio"
+msgid_plural "n folios"
+msgstr[0] "folio"
+msgstr[1] "folios"
+msgstr[2] "folios"
+
+#, php-format
+msgid "&frac12; %s"
+msgstr "&frac12; %s"
+
+#, php-format
+msgid "1 %s"
+msgstr "1 %s"
+
+#, php-format
+msgid "1 &frac12; %s"
+msgstr "1 %s &frac12;"
+
+#, php-format
+msgid "%d &frac12; folio"
+msgid_plural "%d &frac12; folios"
+msgstr[0] "%d folio &frac12;"
+msgstr[1] "%d folios &frac12;"
+msgstr[2] "%d folios &frac12;"
+
+#, php-format
+msgid "%d folio"
+msgid_plural "%d folios"
+msgstr[0] "%d folio"
+msgstr[1] "%d folios"
+msgstr[2] "%d folios"
+
+msgid "less than one minute"
+msgstr "moins d'une minute"
+
+#, php-format
+msgid "%d minute"
+msgid_plural "%d minutes"
+msgstr[0] "%d minute"
+msgstr[1] "%d minutes"
+msgstr[2] "%d minutes"
+
+msgid "Enable Word Count for this blog"
+msgstr "Activer le compteur de mots pour ce blog"
+
+msgid "Options"
+msgstr "Options"
+
+msgid "Show details (excerpt and content)"
+msgstr "Afficher les détails (extrait et contenu)"
+
+msgid "Average words per minute (reading, usually 230):"
+msgstr "Nombre de mot lus en moyenne par minute (habituellement 230) :"
+
+msgid "Auto refresh counters"
+msgstr "Rafraichissement automatique des compteurs"
+
+msgid "Autorefresh interval in seconds (usually 60):"
+msgstr ""
+"Intervalle de rafraichissement automatique en secondes (habituellement 60) :"
+
+msgid "Save"
+msgstr "Enregistrer"
+
 msgid "Statistics"
 msgstr "Statistiques"
 
@@ -48,7 +131,7 @@ msgid "Posts only"
 msgstr "Billets seulement"
 
 msgid "Page only"
-msgstr "Pages seulemenet"
+msgstr "Pages seulement"
 
 msgid "Number of characters"
 msgstr "Nombre de caractères"
@@ -67,71 +150,3 @@ msgstr "Nombre de mot lus en moyenne par minute :"
 
 msgid "Use <ul>/<li> markup"
 msgstr "Utiliser une liste non ordonnée"
-
-#, php-format
-msgid "%d character"
-msgid_plural "%d characters"
-msgstr[0] "%d caractère"
-msgstr[1] "%d caractères"
-
-#, php-format
-msgid "%d word"
-msgid_plural "%d words"
-msgstr[0] "%d mot"
-msgstr[1] "%d mots"
-
-msgid "1 folio"
-msgid_plural "n folios"
-msgstr[0] "folio"
-msgstr[1] "folios"
-
-#, php-format
-msgid "&frac12; %s"
-msgstr "&frac12; %s"
-
-#, php-format
-msgid "1 %s"
-msgstr ""
-
-#, php-format
-msgid "1 &frac12; %s"
-msgstr "1 %s &frac12;"
-
-#, fuzzy, php-format
-msgid "%d &frac12; folio"
-msgid_plural "%d &frac12; folios"
-msgstr[0] "%d folio &frac12;"
-msgstr[1] "%d folios &frac12;"
-
-#, php-format
-msgid "%d folio"
-msgid_plural "%d folios"
-msgstr[0] "%d folio"
-msgstr[1] "%d folios"
-
-msgid "less than one minute"
-msgstr "moins d'une minute"
-
-#, php-format
-msgid "%d minute"
-msgid_plural "%d minutes"
-msgstr[0] "%d minute"
-msgstr[1] "%d minutes"
-
-msgid "Enable Word Count for this blog"
-msgstr "Activer le compteur de mots pour ce blog"
-
-msgid "Options"
-msgstr ""
-
-msgid "Show details (excerpt and content)"
-msgstr "Afficher les détails (extrait et contenu)"
-
-msgid "Average words per minute (reading, usually 230):"
-msgstr "Nombre de mot lus en moyenne par minute (habituellement 230) :"
-
-msgid "Auto refresh counters"
-msgstr "Rafraichissement automatique des compteurs"
-
-msgid "Autorefresh interval in seconds (usually 60):"
-msgstr "Intervalle de rafraichissement automatique en secondes (habituellement 60) :"
