@@ -63,7 +63,7 @@ class Backend extends dcNsProcess
             'adminPageHeaders' => [BackendBehaviors::class, 'adminPostHeaders'],
 
             // Widget
-            'initWidgets', [Widgets::class, 'initWidgets'],
+            'initWidgets' => [Widgets::class, 'initWidgets'],
         ]);
 
         return true;

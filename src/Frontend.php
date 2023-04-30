@@ -35,7 +35,7 @@ class Frontend extends dcNsProcess
         dcCore::app()->tpl->addValue('WordCount', [FrontendTemplate::class, 'WordCount']);
 
         dcCore::app()->addBehaviors([
-            'initWidgets', [Widgets::class, 'initWidgets'],
+            'initWidgets' => [Widgets::class, 'initWidgets'],
         ]);
 
         return true;
