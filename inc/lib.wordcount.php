@@ -51,12 +51,12 @@ class libWordCount
 
             if ($show_chars) {
                 // Characters
-                $counters[] = sprintf(__('%d character', '%d characters', $chars), (int) $chars);
+                $counters[] = sprintf(__('%d character', '%d characters', $chars), $chars);
             }
 
             if ($show_words) {
                 // Words
-                $counters[] = sprintf(__('%d word', '%d words', $words), (int) $words);
+                $counters[] = sprintf(__('%d word', '%d words', $words), $words);
             }
 
             if ($show_folios) {
