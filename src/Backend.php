@@ -42,7 +42,7 @@ class Backend extends dcNsProcess
         dcCore::app()->menu[dcAdmin::MENU_BLOG]->addItem(
             __('Word Count'),
             'plugin.php?p=wordCount',
-            [urldecode(dcPage::getPF('wordCount/icon.svg')), urldecode(dcPage::getPF('wordCount/icon-dark.svg'))],
+            [urldecode(dcPage::getPF(My::id() . '/icon.svg')), urldecode(dcPage::getPF(My::id() . '/icon-dark.svg'))],
             preg_match('/plugin.php\?p=wordCount(&.*)?$/', $_SERVER['REQUEST_URI']),
             dcCore::app()->auth->check(dcCore::app()->auth->makePermissions([
                 dcAuth::PERMISSION_CONTENT_ADMIN,

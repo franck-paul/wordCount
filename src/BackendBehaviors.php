@@ -22,7 +22,7 @@ class BackendBehaviors
     public static function adminPostHeaders()
     {
         if (dcCore::app()->blog->settings->wordcount->wc_active) {
-            $ret = dcPage::cssModuleLoad(My::id() . '/css/style.css', 'screen', dcCore::app()->getVersion('wordCount'));
+            $ret = dcPage::cssModuleLoad(My::id() . '/css/style.css', 'screen', dcCore::app()->getVersion(My::id()));
             if (dcCore::app()->blog->settings->wordcount->wc_autorefresh) {
                 $interval = (int) (dcCore::app()->blog->settings->wordcount->wc_interval ?? 60);
                 $ret .= dcPage::jsJson('wordcount', ['interval' => $interval]) .
