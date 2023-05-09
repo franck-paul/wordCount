@@ -15,7 +15,6 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\wordCount;
 
 use dcAdmin;
-use dcAuth;
 use dcCore;
 use dcNsProcess;
 use dcPage;
@@ -24,7 +23,7 @@ class Backend extends dcNsProcess
 {
     public static function init(): bool
     {
-        static::$init = defined('DC_CONTEXT_ADMIN');
+        static::$init = My::checkContext(My::BACKEND);
 
         // dead but useful code, in order to have translations
         __('Word Count') . __('Counts characters, words and folios, reading time of entry');
@@ -44,12 +43,11 @@ class Backend extends dcNsProcess
             'plugin.php?p=wordCount',
             [urldecode(dcPage::getPF(My::id() . '/icon.svg')), urldecode(dcPage::getPF(My::id() . '/icon-dark.svg'))],
             preg_match('/plugin.php\?p=wordCount(&.*)?$/', $_SERVER['REQUEST_URI']),
-            dcCore::app()->auth->check(dcCore::app()->auth->makePermissions([
-                dcAuth::PERMISSION_CONTENT_ADMIN,
-            ]), dcCore::app()->blog->id)
+            My::checkContext(My::MENU)
         );
 
-        if (dcCore::app()->blog->settings->wordcount->wc_active && dcCore::app()->blog->settings->wordcount->wc_autorefresh) {
+        $settings = dcCore::app()->blog->settings->get(My::id());
+        if ($settings->wc_active && $settings->wc_autorefresh) {
             // Register REST methods
             dcCore::app()->rest->addFunction('wordCountGetCounters', [BackendRest::class, 'getCounters']);
         }
@@ -61,10 +59,14 @@ class Backend extends dcNsProcess
             // Add behaviour callback for page
             'adminPageForm'    => [BackendBehaviors::class, 'wordCount'],
             'adminPageHeaders' => [BackendBehaviors::class, 'adminPostHeaders'],
-
-            // Widget
-            'initWidgets' => [Widgets::class, 'initWidgets'],
         ]);
+
+        if (My::checkContext(My::WIDGETS)) {
+            dcCore::app()->addBehaviors([
+                // Widget
+                'initWidgets' => [Widgets::class, 'initWidgets'],
+            ]);
+        }
 
         return true;
     }

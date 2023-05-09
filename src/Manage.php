@@ -38,9 +38,7 @@ class Manage extends dcNsProcess
      */
     public static function init(): bool
     {
-        // Manageable only by super-admin
-        static::$init = defined('DC_CONTEXT_ADMIN')
-            && My::phpCompliant();
+        static::$init = My::checkContext(My::MANAGE);
 
         return static::$init;
     }
@@ -54,29 +52,22 @@ class Manage extends dcNsProcess
             return false;
         }
 
-        $settings = dcCore::app()->blog->settings->wordcount;
-
-        // Getting current parameters
-        $wc_active      = (bool) $settings->wc_active;
-        $wc_details     = (bool) $settings->wc_details;
-        $wc_wpm         = (int) ($settings->wc_wpm ?? 230);
-        $wc_autorefresh = (bool) $settings->wc_autorefresh;
-        $wc_interval    = (int) ($settings->wc_interval ?? 60);
-
         // Saving new configuration
         if (!empty($_POST['saveconfig'])) {
             try {
-                $wc_active   = (empty($_POST['active'])) ? false : true;
-                $wc_details  = (empty($_POST['details'])) ? false : true;
-                $wc_wpm      = (int) $_POST['wpm'];
-                $wc_details  = (empty($_POST['autorefresh'])) ? false : true;
-                $wc_interval = (int) $_POST['interval'];
+                $settings = dcCore::app()->blog->settings->get(My::id());
 
-                $settings->put('wc_active', $wc_active, 'boolean');
-                $settings->put('wc_details', $wc_details, 'boolean');
-                $settings->put('wc_wpm', ($wc_wpm ?: 230), 'integer');
-                $settings->put('wc_autorefresh', $wc_autorefresh, 'boolean');
-                $settings->put('wc_interval', ($wc_interval ?: 60), 'integer');
+                $active      = (empty($_POST['active'])) ? false : true;
+                $details     = (empty($_POST['details'])) ? false : true;
+                $wpm         = (int) $_POST['wpm'];
+                $autorefresh = (empty($_POST['autorefresh'])) ? false : true;
+                $interval    = (int) $_POST['interval'];
+
+                $settings->put('active', $active, 'boolean');
+                $settings->put('details', $details, 'boolean');
+                $settings->put('wpm', ($wpm ?: 230), 'integer');
+                $settings->put('autorefresh', $autorefresh, 'boolean');
+                $settings->put('interval', ($interval ?: 60), 'integer');
 
                 dcCore::app()->blog->triggerBlog();
                 dcPage::addSuccessNotice(__('Configuration successfully updated.'));
@@ -86,13 +77,6 @@ class Manage extends dcNsProcess
                 dcCore::app()->error->add($e->getMessage());
             }
         }
-
-        // Get updated parameters
-        dcCore::app()->admin->wc_active      = $wc_active;
-        dcCore::app()->admin->wc_details     = $wc_details;
-        dcCore::app()->admin->wc_wpm         = $wc_wpm;
-        dcCore::app()->admin->wc_autorefresh = $wc_autorefresh;
-        dcCore::app()->admin->wc_interval    = $wc_interval;
 
         return true;
     }
@@ -105,6 +89,15 @@ class Manage extends dcNsProcess
         if (!static::$init) {
             return;
         }
+
+        // Getting current parameters
+        $settings = dcCore::app()->blog->settings->get(My::id());
+
+        $active      = (bool) $settings->active;
+        $details     = (bool) $settings->details;
+        $wpm         = (int) ($settings->wpm ?? 230);
+        $autorefresh = (bool) $settings->autorefresh;
+        $interval    = (int) ($settings->interval ?? 60);
 
         dcPage::openModule(__('Word Count'));
 
@@ -123,7 +116,7 @@ class Manage extends dcNsProcess
                 ->method('post')
                 ->fields([
                     (new Para())->items([
-                        (new Checkbox('active', dcCore::app()->admin->wc_active))
+                        (new Checkbox('active', $active))
                             ->value(1)
                             ->label((new Label(__('Enable Word Count for this blog'), Label::INSIDE_TEXT_AFTER))),
                     ]),
@@ -131,21 +124,21 @@ class Manage extends dcNsProcess
                         ->legend((new Legend(__('Options'))))
                         ->fields([
                             (new Para())->items([
-                                (new Checkbox('details', dcCore::app()->admin->wc_details))
+                                (new Checkbox('details', $details))
                                     ->value(1)
                                     ->label((new Label(__('Show details (excerpt and content)'), Label::INSIDE_TEXT_AFTER))),
                             ]),
                             (new Para())->items([
-                                (new Number('wpm', 1, 9999, dcCore::app()->admin->wc_wpm))
+                                (new Number('wpm', 1, 9999, $wpm))
                                     ->label((new Label(__('Average words per minute (reading, usually 230):'), Label::INSIDE_TEXT_BEFORE))),
                             ]),
                             (new Para())->items([
-                                (new Checkbox('autorefresh', dcCore::app()->admin->wc_autorefresh))
+                                (new Checkbox('autorefresh', $autorefresh))
                                     ->value(1)
                                     ->label((new Label(__('Auto refresh counters'), Label::INSIDE_TEXT_AFTER))),
                             ]),
                             (new Para())->items([
-                                (new Number('interval', 15, 999, (int) dcCore::app()->admin->wc_interval))
+                                (new Number('interval', 15, 999, (int) $interval))
                                     ->label((new Label(__('Autorefresh interval in seconds (usually 60):'), Label::INSIDE_TEXT_BEFORE))),
                             ]),
                         ]),

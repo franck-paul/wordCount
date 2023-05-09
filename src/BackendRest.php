@@ -35,8 +35,9 @@ class BackendRest
             'ret' => false,
         ];
 
-        if (dcCore::app()->blog->settings->wordcount->wc_active) {
-            $details = dcCore::app()->blog->settings->wordcount->wc_details;
+        $settings = dcCore::app()->blog->settings->get(My::id());
+        if ($settings->active) {
+            $details = $settings->details;
 
             $excerpt = $get['excerpt'] ?? null;
             $content = $get['content'] ?? null;
@@ -79,7 +80,7 @@ class BackendRest
             $html = '';
 
             if ($excerpt !== null || $content !== null) {
-                $wpm = dcCore::app()->blog->settings->wordcount->wc_wpm;
+                $wpm = $settings->wpm;
 
                 $countersExcerpt = $details ? Helper::getCounters($excerpt_html, $wpm) : '';
                 $countersContent = $details ? Helper::getCounters($content_html, $wpm) : '';

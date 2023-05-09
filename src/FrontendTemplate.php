@@ -46,8 +46,8 @@ class FrontendTemplate
         // Get filters formatter string
         $f = dcCore::app()->tpl->getFilters($attr);
 
-        return '<?php echo ' . sprintf($f, Helper::class . '::getCounters(dcCore::app()->ctx->posts->getExcerpt()." ".dcCore::app()->ctx->posts->getContent(),' .
-            ($wpm ?: 'dcCore::app()->blog->settings->wordcount->wc_wpm') . ',true,' .
+        return '<?php $settings = dcCore::app()->blog->settings->get(\'' . My::id() . '\'); echo ' . sprintf($f, Helper::class . '::getCounters(dcCore::app()->ctx->posts->getExcerpt()." ".dcCore::app()->ctx->posts->getContent(),' .
+            ($wpm ?: '$settings->wpm') . ',true,' .
             $chars . ',' . $words . ',' . $folios . ',' . $time . ',' . $list . ')') . '; ?>';
     }
 
@@ -89,9 +89,10 @@ class FrontendTemplate
         $res = ($widget->title ? $widget->renderTitle(Html::escapeHTML($widget->title)) . "\n" : '');
 
         // Get counters
+        $settings = dcCore::app()->blog->settings->get(My::id());
         $counters = Helper::getCounters(
             dcCore::app()->ctx->posts->getExcerpt() . ' ' . dcCore::app()->ctx->posts->getContent(),
-            ($widget->wpm ? (int) $widget->wpm : dcCore::app()->blog->settings->wordcount->wc_wpm),
+            ($widget->wpm ? (int) $widget->wpm : $settings->wpm),
             true,
             $widget->chars,
             $widget->words,

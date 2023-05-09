@@ -21,10 +21,11 @@ class BackendBehaviors
 {
     public static function adminPostHeaders()
     {
-        if (dcCore::app()->blog->settings->wordcount->wc_active) {
+        $settings = dcCore::app()->blog->settings->get(My::id());
+        if ($settings->active) {
             $ret = dcPage::cssModuleLoad(My::id() . '/css/style.css', 'screen', dcCore::app()->getVersion(My::id()));
-            if (dcCore::app()->blog->settings->wordcount->wc_autorefresh) {
-                $interval = (int) (dcCore::app()->blog->settings->wordcount->wc_interval ?? 60);
+            if ($settings->autorefresh) {
+                $interval = (int) ($settings->interval ?? 60);
                 $ret .= dcPage::jsJson('wordcount', ['interval' => $interval]) .
                     dcPage::jsModuleLoad(My::id() . '/js/service.js', dcCore::app()->getVersion('wordCount'));
             }
@@ -35,11 +36,12 @@ class BackendBehaviors
 
     public static function wordCount($post)
     {
-        if (dcCore::app()->blog->settings->wordcount->wc_active) {
-            $details = dcCore::app()->blog->settings->wordcount->wc_details;
+        $settings = dcCore::app()->blog->settings->get(My::id());
+        if ($settings->active) {
+            $details = $settings->details;
             echo '<div class="wordcount"><details open><summary>' . __('Word Count') . '</summary><p>';
             if ($post != null) {
-                $wpm             = dcCore::app()->blog->settings->wordcount->wc_wpm;
+                $wpm             = $settings->wpm;
                 $countersExcerpt = $details ? Helper::getCounters($post->post_excerpt_xhtml, $wpm) : '';
                 $countersContent = $details ? Helper::getCounters($post->post_content_xhtml, $wpm) : '';
                 $text            = ($post->post_excerpt_xhtml != '' ? $post->post_excerpt_xhtml . ' ' : '');
