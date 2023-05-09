@@ -47,7 +47,7 @@ class Backend extends dcNsProcess
         );
 
         $settings = dcCore::app()->blog->settings->get(My::id());
-        if ($settings->wc_active && $settings->wc_autorefresh) {
+        if ($settings->active && $settings->autorefresh) {
             // Register REST methods
             dcCore::app()->rest->addFunction('wordCountGetCounters', [BackendRest::class, 'getCounters']);
         }
