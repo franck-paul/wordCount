@@ -17,7 +17,6 @@ namespace Dotclear\Plugin\wordCount;
 use dcAdmin;
 use dcCore;
 use dcNsProcess;
-use dcPage;
 
 class Backend extends dcNsProcess
 {
@@ -40,9 +39,9 @@ class Backend extends dcNsProcess
         // Add menu item in blog menu
         dcCore::app()->menu[dcAdmin::MENU_BLOG]->addItem(
             __('Word Count'),
-            'plugin.php?p=wordCount',
-            [urldecode(dcPage::getPF(My::id() . '/icon.svg')), urldecode(dcPage::getPF(My::id() . '/icon-dark.svg'))],
-            preg_match('/plugin.php\?p=wordCount(&.*)?$/', $_SERVER['REQUEST_URI']),
+            My::makeUrl(),
+            My::icons(),
+            preg_match(My::urlScheme(), $_SERVER['REQUEST_URI']),
             My::checkContext(My::MENU)
         );
 
