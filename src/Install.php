@@ -67,8 +67,6 @@ class Install extends dcNsProcess
             $settings->put('wpm', 230, 'integer', 'Average words per minute', false, true);
             $settings->put('autorefresh', true, 'boolean', 'Auto refresh counters', false, true);
             $settings->put('timeout', 60, 'integer', 'Interval between two refresh', false, true);
-
-            return true;
         } catch (Exception $e) {
             dcCore::app()->error->add($e->getMessage());
         }
