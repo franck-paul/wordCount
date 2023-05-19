@@ -62,7 +62,7 @@ class FrontendWidgets
         $settings = dcCore::app()->blog->settings->get(My::id());
         $counters = Helper::getCounters(
             dcCore::app()->ctx->posts->getExcerpt() . ' ' . dcCore::app()->ctx->posts->getContent(),
-            ($widget->wpm ? (int) $widget->wpm : $settings->wpm),
+            ($widget->wpm ? (int) $widget->wpm : (int) $settings->wpm),
             true,
             $widget->chars,
             $widget->words,
