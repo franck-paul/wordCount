@@ -78,6 +78,6 @@ class FrontendWidgets
         $res .= $counters;
 
         // Return final markup
-        return $widget->renderDiv($widget->content_only, 'wordcount ' . $widget->class, '', $res);
+        return $widget->renderDiv((bool) $widget->content_only, 'wordcount ' . $widget->class, '', $res);
     }
 }
