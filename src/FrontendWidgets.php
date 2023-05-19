@@ -64,11 +64,11 @@ class FrontendWidgets
             dcCore::app()->ctx->posts->getExcerpt() . ' ' . dcCore::app()->ctx->posts->getContent(),
             ($widget->wpm ? (int) $widget->wpm : (int) $settings->wpm),
             true,
-            $widget->chars,
-            $widget->words,
-            $widget->folios,
-            $widget->time,
-            $widget->list
+            (bool) $widget->chars,
+            (bool) $widget->words,
+            (bool) $widget->folios,
+            (bool) $widget->time,
+            (bool) $widget->list
         );
 
         // Assemble
