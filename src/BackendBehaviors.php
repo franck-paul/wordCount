@@ -25,7 +25,7 @@ class BackendBehaviors
         if ($settings->active) {
             $ret = dcPage::cssModuleLoad(My::id() . '/css/style.css', 'screen', dcCore::app()->getVersion(My::id()));
             if ($settings->autorefresh) {
-                $interval = (int) ($settings->interval ?? 60);
+                $interval = (int) ($settings->timeout ?? 60);
                 $ret .= dcPage::jsJson('wordcount', ['interval' => $interval]) .
                     dcPage::jsModuleLoad(My::id() . '/js/service.js', dcCore::app()->getVersion('wordCount'));
             }
