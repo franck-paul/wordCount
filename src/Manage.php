@@ -16,8 +16,9 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\wordCount;
 
 use dcCore;
-use dcNsProcess;
-use dcPage;
+use Dotclear\Core\Backend\Notices;
+use Dotclear\Core\Backend\Page;
+use Dotclear\Core\Process;
 use Dotclear\Helper\Html\Form\Checkbox;
 use Dotclear\Helper\Html\Form\Div;
 use Dotclear\Helper\Html\Form\Fieldset;
@@ -30,17 +31,14 @@ use Dotclear\Helper\Html\Form\Submit;
 use Dotclear\Helper\Html\Html;
 use Exception;
 
-class Manage extends dcNsProcess
+class Manage extends Process
 {
-    protected static $init = false; /** @deprecated since 2.27 */
     /**
      * Initializes the page.
      */
     public static function init(): bool
     {
-        static::$init = My::checkContext(My::MANAGE);
-
-        return static::$init;
+        return self::status(My::checkContext(My::MANAGE));
     }
 
     /**
@@ -48,7 +46,7 @@ class Manage extends dcNsProcess
      */
     public static function process(): bool
     {
-        if (!static::$init) {
+        if (!self::status()) {
             return false;
         }
 
@@ -70,8 +68,8 @@ class Manage extends dcNsProcess
                 $settings->put('interval', ($interval ?: 60), 'integer');
 
                 dcCore::app()->blog->triggerBlog();
-                dcPage::addSuccessNotice(__('Configuration successfully updated.'));
-                dcCore::app()->adminurl->redirect('admin.plugin.' . My::id());
+                Notices::addSuccessNotice(__('Configuration successfully updated.'));
+                dcCore::app()->admin->url->redirect('admin.plugin.' . My::id());
             } catch (Exception $e) {
                 dcCore::app()->error->add($e->getMessage());
             }
@@ -85,7 +83,7 @@ class Manage extends dcNsProcess
      */
     public static function render(): void
     {
-        if (!static::$init) {
+        if (!self::status()) {
             return;
         }
 
@@ -98,15 +96,15 @@ class Manage extends dcNsProcess
         $autorefresh = (bool) $settings->autorefresh;
         $interval    = (int) ($settings->interval ?? 60);
 
-        dcPage::openModule(__('Word Count'));
+        Page::openModule(__('Word Count'));
 
-        echo dcPage::breadcrumb(
+        echo Page::breadcrumb(
             [
                 Html::escapeHTML(dcCore::app()->blog->name) => '',
                 __('Word Count')                            => '',
             ]
         );
-        echo dcPage::notices();
+        echo Notices::getNotices();
 
         echo (new Div('options'))
             ->items([
@@ -150,6 +148,6 @@ class Manage extends dcNsProcess
             ])
             ->render();
 
-        dcPage::closeModule();
+        Page::closeModule();
     }
 }

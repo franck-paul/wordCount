@@ -23,7 +23,7 @@ class Widgets
     {
         // Widget for all series
         $w
-            ->create('wordcount', __('Word Count'), [FrontendWidgets::class, 'widgetWordCount'], null, __('Word Count'))
+            ->create('wordcount', __('Word Count'), FrontendWidgets::widgetWordCount(...), null, __('Word Count'))
             ->addTitle(__('Statistics'))
             ->setting(
                 'where',

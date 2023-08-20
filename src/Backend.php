@@ -14,33 +14,30 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\wordCount;
 
-use dcAdmin;
 use dcCore;
-use dcNsProcess;
+use Dotclear\Core\Backend\Menus;
+use Dotclear\Core\Process;
 
-class Backend extends dcNsProcess
+class Backend extends Process
 {
-    protected static $init = false; /** @deprecated since 2.27 */
     public static function init(): bool
     {
-        static::$init = My::checkContext(My::BACKEND);
-
         // dead but useful code, in order to have translations
         __('Word Count') . __('Counts characters, words and folios, reading time of entry');
 
-        return static::$init;
+        return self::status(My::checkContext(My::BACKEND));
     }
 
     public static function process(): bool
     {
-        if (!static::$init) {
+        if (!self::status()) {
             return false;
         }
 
         // Add menu item in blog menu
-        dcCore::app()->menu[dcAdmin::MENU_BLOG]->addItem(
+        dcCore::app()->admin->menus[Menus::MENU_BLOG]->addItem(
             __('Word Count'),
-            My::makeUrl(),
+            My::manageUrl(),
             My::icons(),
             preg_match(My::urlScheme(), $_SERVER['REQUEST_URI']),
             My::checkContext(My::MENU)
@@ -49,22 +46,22 @@ class Backend extends dcNsProcess
         $settings = dcCore::app()->blog->settings->get(My::id());
         if ($settings->active && $settings->autorefresh) {
             // Register REST methods
-            dcCore::app()->rest->addFunction('wordCountGetCounters', [BackendRest::class, 'getCounters']);
+            dcCore::app()->rest->addFunction('wordCountGetCounters', BackendRest::getCounters(...));
         }
 
         dcCore::app()->addBehaviors([
             // Add behaviour callback for post
-            'adminPostForm'    => [BackendBehaviors::class, 'wordCount'],
-            'adminPostHeaders' => [BackendBehaviors::class, 'adminPostHeaders'],
+            'adminPostForm'    => BackendBehaviors::wordCount(...),
+            'adminPostHeaders' => BackendBehaviors::adminPostHeaders(...),
             // Add behaviour callback for page
-            'adminPageForm'    => [BackendBehaviors::class, 'wordCount'],
-            'adminPageHeaders' => [BackendBehaviors::class, 'adminPostHeaders'],
+            'adminPageForm'    => BackendBehaviors::wordCount(...),
+            'adminPageHeaders' => BackendBehaviors::adminPostHeaders(...),
         ]);
 
         if (My::checkContext(My::WIDGETS)) {
             dcCore::app()->addBehaviors([
                 // Widget
-                'initWidgets' => [Widgets::class, 'initWidgets'],
+                'initWidgets' => Widgets::initWidgets(...),
             ]);
         }
 

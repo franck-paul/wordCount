@@ -15,7 +15,7 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\wordCount;
 
 use dcCore;
-use dcPage;
+use Dotclear\Core\Backend\Page;
 
 class BackendBehaviors
 {
@@ -23,11 +23,11 @@ class BackendBehaviors
     {
         $settings = dcCore::app()->blog->settings->get(My::id());
         if ($settings->active) {
-            $ret = dcPage::cssModuleLoad(My::id() . '/css/style.css', 'screen', dcCore::app()->getVersion(My::id()));
+            $ret = My::cssLoad('style.css');
             if ($settings->autorefresh) {
                 $interval = (int) ($settings->timeout ?? 60);
-                $ret .= dcPage::jsJson('wordcount', ['interval' => $interval]) .
-                    dcPage::jsModuleLoad(My::id() . '/js/service.js', dcCore::app()->getVersion('wordCount'));
+                $ret .= Page::jsJson('wordcount', ['interval' => $interval]) .
+                    My::jsLoad('service.js');
             }
 
             return $ret;
