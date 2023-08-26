@@ -53,7 +53,7 @@ class Manage extends Process
         // Saving new configuration
         if (!empty($_POST['saveconfig'])) {
             try {
-                $settings = dcCore::app()->blog->settings->get(My::id());
+                $settings = My::settings();
 
                 $active      = (empty($_POST['active'])) ? false : true;
                 $details     = (empty($_POST['details'])) ? false : true;
@@ -88,7 +88,7 @@ class Manage extends Process
         }
 
         // Getting current parameters
-        $settings = dcCore::app()->blog->settings->get(My::id());
+        $settings = My::settings();
 
         $active      = (bool) $settings->active;
         $details     = (bool) $settings->details;
@@ -96,7 +96,7 @@ class Manage extends Process
         $autorefresh = (bool) $settings->autorefresh;
         $interval    = (int) ($settings->interval ?? 60);
 
-        Page::openModule(__('Word Count'));
+        Page::openModule(My::name());
 
         echo Page::breadcrumb(
             [
@@ -142,7 +142,7 @@ class Manage extends Process
                     (new Para())->items([
                         (new Submit(['saveconfig'], __('Save')))
                             ->accesskey('s'),
-                        dcCore::app()->formNonce(false),
+                        ... My::hiddenFields(),
                     ]),
                 ]),
             ])

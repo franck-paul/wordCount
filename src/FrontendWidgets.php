@@ -59,7 +59,7 @@ class FrontendWidgets
         $res = ($widget->title ? $widget->renderTitle(Html::escapeHTML($widget->title)) . "\n" : '');
 
         // Get counters
-        $settings = dcCore::app()->blog->settings->get(My::id());
+        $settings = My::settings();
         $counters = Helper::getCounters(
             dcCore::app()->ctx->posts->getExcerpt() . ' ' . dcCore::app()->ctx->posts->getContent(),
             ($widget->wpm ? (int) $widget->wpm : (int) $settings->wpm),

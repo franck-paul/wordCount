@@ -48,7 +48,7 @@ class Install extends Process
                     }
                 };
 
-                $settings = dcCore::app()->blog->settings->get(My::id());
+                $settings = My::settings();
 
                 $rename('active', $settings);
                 $rename('details', $settings);
@@ -58,7 +58,7 @@ class Install extends Process
             }
 
             // Default state is active
-            $settings = dcCore::app()->blog->settings->get(My::id());
+            $settings = My::settings();
 
             $settings->put('active', true, 'boolean', 'Active', false, true);
             $settings->put('details', false, 'boolean', 'Details', false, true);

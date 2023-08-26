@@ -35,15 +35,9 @@ class Backend extends Process
         }
 
         // Add menu item in blog menu
-        dcCore::app()->admin->menus[Menus::MENU_BLOG]->addItem(
-            __('Word Count'),
-            My::manageUrl(),
-            My::icons(),
-            preg_match(My::urlScheme(), $_SERVER['REQUEST_URI']),
-            My::checkContext(My::MENU)
-        );
+        My::addBackendMenuItem(Menus::MENU_BLOG);
 
-        $settings = dcCore::app()->blog->settings->get(My::id());
+        $settings = My::settings();
         if ($settings->active && $settings->autorefresh) {
             // Register REST methods
             dcCore::app()->rest->addFunction('wordCountGetCounters', BackendRest::getCounters(...));

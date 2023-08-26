@@ -14,14 +14,13 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\wordCount;
 
-use dcCore;
 use Dotclear\Core\Backend\Page;
 
 class BackendBehaviors
 {
     public static function adminPostHeaders()
     {
-        $settings = dcCore::app()->blog->settings->get(My::id());
+        $settings = My::settings();
         if ($settings->active) {
             $ret = My::cssLoad('style.css');
             if ($settings->autorefresh) {
@@ -36,7 +35,7 @@ class BackendBehaviors
 
     public static function wordCount($post)
     {
-        $settings = dcCore::app()->blog->settings->get(My::id());
+        $settings = My::settings();
         if ($settings->active) {
             $details = $settings->details;
             echo '<div class="wordcount"><details open><summary>' . __('Word Count') . '</summary><p>';

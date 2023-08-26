@@ -35,7 +35,7 @@ class BackendRest
             'ret' => false,
         ];
 
-        $settings = dcCore::app()->blog->settings->get(My::id());
+        $settings = My::settings();
         if ($settings->active) {
             $details = $settings->details;
 
