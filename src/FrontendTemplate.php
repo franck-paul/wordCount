@@ -15,24 +15,34 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\wordCount;
 
+use ArrayObject;
 use dcCore;
 
 class FrontendTemplate
 {
-    // Register template tag
-    //
-    // {{tpl:WordCount [attributes]}}
-    // with attributes may be one or more of:
-    // - chars="0|1" show number of characters (0 = default)
-    // - words="0|1" show number of words (1 = default)
-    // - folios="0|1" show number of folios (0 = default)
-    // - time="0|1" : show estimated reading time (0 = default)
-    // - wpm="nnn" : words per minute (blog setting by default)
-    // - list="0|1" : use ul/li markup (0 = none)
-    //
-    // Example : <p><strong>{{tpl:lang reading time:}}</strong> {{tpl:WordCount words="0" time="1"}}</p>
-
-    public static function WordCount($attr): string
+    /**
+     * Register template tag
+     *
+     * {{tpl:WordCount [attributes]}}
+     * with attributes may be one or more of:
+     * - chars="0|1" show number of characters (0 = default)
+     * - words="0|1" show number of words (1 = default)
+     * - folios="0|1" show number of folios (0 = default)
+     * - time="0|1" : show estimated reading time (0 = default)
+     * - wpm="nnn" : words per minute (blog setting by default)
+     * - list="0|1" : use ul/li markup (0 = none)
+     *
+     * Example :
+     *
+     * ```html
+     * <p><strong>{{tpl:lang reading time:}}</strong> {{tpl:WordCount words="0" time="1"}}</p>
+     * ```
+     *
+     * @param      array<string, mixed>|\ArrayObject<string, mixed>  $attr   The attribute
+     *
+     * @return     string
+     */
+    public static function WordCount(array|ArrayObject $attr): string
     {
         // Check attributes
         $chars  = isset($attr['chars']) ? (int) $attr['chars'] : 0;

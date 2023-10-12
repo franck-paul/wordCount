@@ -23,7 +23,7 @@ class Helper
      *
      * @param      string  $str    The string
      *
-     * @return     array
+     * @return     array<string>
      */
     public static function splitWords(string $str): array
     {

@@ -15,10 +15,16 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\wordCount;
 
 use Dotclear\Core\Backend\Page;
+use Dotclear\Database\MetaRecord;
 
 class BackendBehaviors
 {
-    public static function adminPostHeaders()
+    /**
+     * adminPostHeaders behavior callback
+     *
+     * @return     string
+     */
+    public static function adminPostHeaders(): string
     {
         $settings = My::settings();
         if ($settings->active) {
@@ -31,9 +37,18 @@ class BackendBehaviors
 
             return $ret;
         }
+
+        return '';
     }
 
-    public static function wordCount($post)
+    /**
+     * wordCount  behavior callback
+     *
+     * @param      MetaRecord|null  $post   The post
+     *
+     * @return     string
+     */
+    public static function wordCount(?MetaRecord $post): string
     {
         $settings = My::settings();
         if ($settings->active) {
@@ -59,5 +74,7 @@ class BackendBehaviors
             }
             echo '</p></details></div>';
         }
+
+        return '';
     }
 }

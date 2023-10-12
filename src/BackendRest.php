@@ -25,9 +25,9 @@ class BackendRest
     /**
      * Serve method to update current counters.
      *
-     * @param      array   $get    The get
+     * @param      array<string, string>   $get    The get
      *
-     * @return     array   The payload.
+     * @return     array<string, mixed>    The payload.
      */
     public static function getCounters($get): array
     {
