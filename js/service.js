@@ -6,7 +6,7 @@ window.addEventListener('load', () => {
   dotclear.wordcount = dotclear.getData('wordcount');
 
   dotclear.wordcount.getCounters = () => {
-    dotclear.jsonServicesGet(
+    dotclear.jsonServicesPost(
       'wordCountGetCounters',
       (payload) => {
         if (payload.ret) {

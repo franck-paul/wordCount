@@ -26,10 +26,11 @@ class BackendRest
      * Serve method to update current counters.
      *
      * @param      array<string, string>   $get    The get
+     * @param      array<string, string>   $post   The post
      *
      * @return     array<string, mixed>    The payload.
      */
-    public static function getCounters($get): array
+    public static function getCounters(array $get, array $post): array
     {
         $payload = [
             'ret' => false,
@@ -39,9 +40,9 @@ class BackendRest
         if ($settings->active) {
             $details = $settings->details;
 
-            $excerpt = $get['excerpt'] ?? null;
-            $content = $get['content'] ?? null;
-            $format  = $get['format']  ?? 'xhtml';
+            $excerpt = $post['excerpt'] ?? null;
+            $content = $post['content'] ?? null;
+            $format  = $post['format']  ?? 'xhtml';
 
             // Convert textarea's content to HTML
             switch ($format) {
