@@ -16,10 +16,6 @@ namespace Dotclear\Plugin\wordCount;
 
 use dcCore;
 
-if (!defined('DC_CONTEXT_ADMIN')) {
-    return;
-}
-
 class BackendRest
 {
     /**

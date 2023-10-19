@@ -54,7 +54,7 @@ class FrontendTemplate
         // Get filters formatter string
         $f = dcCore::app()->tpl->getFilters($attr);
 
-        return '<?php $settings = dcCore::app()->blog->settings->get(\'' . My::id() . '\'); echo ' . sprintf($f, Helper::class . '::getCounters(dcCore::app()->ctx->posts->getExcerpt()." ".dcCore::app()->ctx->posts->getContent(),' .
+        return '<?php $settings = App::blog()->settings()->get(\'' . My::id() . '\'); echo ' . sprintf($f, Helper::class . '::getCounters(dcCore::app()->ctx->posts->getExcerpt()." ".dcCore::app()->ctx->posts->getContent(),' .
             ($wpm ?: '$settings->wpm') . ',true,' .
             $chars . ',' . $words . ',' . $folios . ',' . $time . ',' . $list . ')') . '; ?>';
     }

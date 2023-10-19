@@ -16,6 +16,7 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\wordCount;
 
 use dcCore;
+use Dotclear\App;
 use Dotclear\Core\Backend\Notices;
 use Dotclear\Core\Backend\Page;
 use Dotclear\Core\Process;
@@ -67,7 +68,7 @@ class Manage extends Process
                 $settings->put('autorefresh', $autorefresh, 'boolean');
                 $settings->put('interval', ($interval ?: 60), 'integer');
 
-                dcCore::app()->blog->triggerBlog();
+                App::blog()->triggerBlog();
                 Notices::addSuccessNotice(__('Configuration successfully updated.'));
                 dcCore::app()->adminurl->redirect('admin.plugin.' . My::id());
             } catch (Exception $e) {
@@ -100,8 +101,8 @@ class Manage extends Process
 
         echo Page::breadcrumb(
             [
-                Html::escapeHTML(dcCore::app()->blog->name) => '',
-                __('Word Count')                            => '',
+                Html::escapeHTML(App::blog()->name()) => '',
+                __('Word Count')                      => '',
             ]
         );
         echo Notices::getNotices();
