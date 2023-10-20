@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\wordCount;
 
-use dcCore;
+use Dotclear\App;
 
 class BackendRest
 {
@@ -43,7 +43,7 @@ class BackendRest
             // Convert textarea's content to HTML
             switch ($format) {
                 case 'wiki':
-                    dcCore::app()->initWikiPost();
+                    App::filter()->initWikiPost();
 
                     break;
 
@@ -54,20 +54,20 @@ class BackendRest
             }
 
             if ($excerpt) {
-                $excerpt_html = dcCore::app()->callFormater($format, $excerpt);
-                $excerpt_html = dcCore::app()->HTMLfilter($excerpt_html);
+                $excerpt_html = App::formater()->callEditorFormater('dcLegacyEditor', $format, $excerpt);
+                $excerpt_html = App::filter()->HTMLfilter($excerpt_html);
             } else {
                 $excerpt_html = '';
             }
 
             if ($content) {
-                $content_html = dcCore::app()->callFormater($format, $content);
-                $content_html = dcCore::app()->HTMLfilter($content_html);
+                $content_html = App::formater()->callEditorFormater('dcLegacyEditor', $format, $content);
+                $content_html = App::filter()->HTMLfilter($content_html);
             } else {
                 $content_html = '';
             }
             # --BEHAVIOR-- coreAfterPostContentFormat
-            dcCore::app()->callBehavior('coreAfterPostContentFormat', [
+            App::behavior()->callBehavior('coreAfterPostContentFormat', [
                 'excerpt'       => &$excerpt,
                 'content'       => &$content,
                 'excerpt_xhtml' => &$excerpt_html,

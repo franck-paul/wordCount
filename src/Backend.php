@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\wordCount;
 
-use dcCore;
+use Dotclear\App;
 use Dotclear\Core\Backend\Menus;
 use Dotclear\Core\Process;
 
@@ -40,10 +40,10 @@ class Backend extends Process
         $settings = My::settings();
         if ($settings->active && $settings->autorefresh) {
             // Register REST methods
-            dcCore::app()->rest->addFunction('wordCountGetCounters', BackendRest::getCounters(...));
+            App::rest()->addFunction('wordCountGetCounters', BackendRest::getCounters(...));
         }
 
-        dcCore::app()->addBehaviors([
+        App::behavior()->addBehaviors([
             // Add behaviour callback for post
             'adminPostForm'    => BackendBehaviors::wordCount(...),
             'adminPostHeaders' => BackendBehaviors::adminPostHeaders(...),
@@ -53,7 +53,7 @@ class Backend extends Process
         ]);
 
         if (My::checkContext(My::WIDGETS)) {
-            dcCore::app()->addBehaviors([
+            App::behavior()->addBehaviors([
                 // Widget
                 'initWidgets' => Widgets::initWidgets(...),
             ]);

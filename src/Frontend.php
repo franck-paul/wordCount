@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\wordCount;
 
-use dcCore;
+use Dotclear\App;
 use Dotclear\Core\Process;
 
 class Frontend extends Process
@@ -36,9 +36,9 @@ class Frontend extends Process
             return false;
         }
 
-        dcCore::app()->tpl->addValue('WordCount', FrontendTemplate::WordCount(...));
+        App::frontend()->template()->addValue('WordCount', FrontendTemplate::WordCount(...));
 
-        dcCore::app()->addBehaviors([
+        App::behavior()->addBehaviors([
             'initWidgets' => Widgets::initWidgets(...),
         ]);
 

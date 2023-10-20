@@ -15,7 +15,6 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\wordCount;
 
-use dcCore;
 use Dotclear\App;
 use Dotclear\Core\Backend\Notices;
 use Dotclear\Core\Backend\Page;
@@ -70,9 +69,9 @@ class Manage extends Process
 
                 App::blog()->triggerBlog();
                 Notices::addSuccessNotice(__('Configuration successfully updated.'));
-                dcCore::app()->adminurl->redirect('admin.plugin.' . My::id());
+                My::redirect();
             } catch (Exception $e) {
-                dcCore::app()->error->add($e->getMessage());
+                App::error()->add($e->getMessage());
             }
         }
 
@@ -110,7 +109,7 @@ class Manage extends Process
         echo (new Div('options'))
             ->items([
                 (new Form('options-form'))
-                ->action(dcCore::app()->admin->getPageURL())
+                ->action(App::backend()->getPageURL())
                 ->method('post')
                 ->fields([
                     (new Para())->items([

@@ -15,7 +15,7 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\wordCount;
 
-use dcCore;
+use Dotclear\App;
 use Dotclear\Helper\Html\Html;
 use Dotclear\Plugin\widgets\WidgetsElement;
 
@@ -35,7 +35,7 @@ class FrontendWidgets
             return '';
         }
 
-        switch (dcCore::app()->url->type) {
+        switch (App::url()->type) {
             case 'post':
                 if ($widget->where != 0 && $widget->where != 1) {
                     // Don't display for post
@@ -61,7 +61,7 @@ class FrontendWidgets
         // Get counters
         $settings = My::settings();
         $counters = Helper::getCounters(
-            dcCore::app()->ctx->posts->getExcerpt() . ' ' . dcCore::app()->ctx->posts->getContent(),
+            App::frontend()->context()->posts->getExcerpt() . ' ' . App::frontend()->context()->posts->getContent(),
             ($widget->wpm ? (int) $widget->wpm : (int) $settings->wpm),
             true,
             (bool) $widget->chars,

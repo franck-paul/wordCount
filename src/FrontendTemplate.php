@@ -16,7 +16,7 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\wordCount;
 
 use ArrayObject;
-use dcCore;
+use Dotclear\App;
 
 class FrontendTemplate
 {
@@ -52,9 +52,9 @@ class FrontendTemplate
         $wpm    = isset($attr['wpm']) ? (int) $attr['wpm'] : 0;
         $list   = isset($attr['list']) ? (int) $attr['list'] : 0;
         // Get filters formatter string
-        $f = dcCore::app()->tpl->getFilters($attr);
+        $f = App::frontend()->template()->getFilters($attr);
 
-        return '<?php $settings = App::blog()->settings()->get(\'' . My::id() . '\'); echo ' . sprintf($f, Helper::class . '::getCounters(dcCore::app()->ctx->posts->getExcerpt()." ".dcCore::app()->ctx->posts->getContent(),' .
+        return '<?php $settings = App::blog()->settings()->get(\'' . My::id() . '\'); echo ' . sprintf($f, Helper::class . '::getCounters(App::frontend()->context()->posts->getExcerpt()." ".App::frontend()->context()->posts->getContent(),' .
             ($wpm ?: '$settings->wpm') . ',true,' .
             $chars . ',' . $words . ',' . $folios . ',' . $time . ',' . $list . ')') . '; ?>';
     }
