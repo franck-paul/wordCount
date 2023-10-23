@@ -37,14 +37,14 @@ class FrontendWidgets
 
         switch (App::url()->type) {
             case 'post':
-                if ($widget->where != 0 && $widget->where != 1) {
+                if ($widget->get('where') != 0 && $widget->get('where') != 1) {
                     // Don't display for post
                     return '';
                 }
 
                 break;
             case 'pages':
-                if ($widget->where != 0 && $widget->where != 2) {
+                if ($widget->get('where') != 0 && $widget->get('where') != 2) {
                     // Don't display for page
                     return '';
                 }
@@ -62,17 +62,17 @@ class FrontendWidgets
         $settings = My::settings();
         $counters = Helper::getCounters(
             App::frontend()->context()->posts->getExcerpt() . ' ' . App::frontend()->context()->posts->getContent(),
-            ($widget->wpm ? (int) $widget->wpm : (int) $settings->wpm),
+            ($widget->get('wpm') ? (int) $widget->get('wpm') : (int) $settings->wpm),
             true,
-            (bool) $widget->chars,
-            (bool) $widget->words,
-            (bool) $widget->folios,
-            (bool) $widget->time,
-            (bool) $widget->list
+            (bool) $widget->get('chars'),
+            (bool) $widget->get('words'),
+            (bool) $widget->get('folios'),
+            (bool) $widget->get('time'),
+            (bool) $widget->get('list')
         );
 
         // Assemble
-        if (!$widget->list) {
+        if (!$widget->get('list')) {
             $counters = '<p>' . $counters . '</p>' . "\n";
         }
         $res .= $counters;
