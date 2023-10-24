@@ -14,7 +14,7 @@ $this->registerModule(
     'Word Count',
     'Counts characters, words and folios, reading time of entry',
     'Franck Paul',
-    '5.0',
+    '5.1',
     [
         'requires'    => [['core', '2.28']],
         'permissions' => 'My',
