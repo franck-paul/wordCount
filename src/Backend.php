@@ -15,7 +15,6 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\wordCount;
 
 use Dotclear\App;
-use Dotclear\Core\Backend\Menus;
 use Dotclear\Core\Process;
 
 class Backend extends Process
@@ -35,7 +34,7 @@ class Backend extends Process
         }
 
         // Add menu item in blog menu
-        My::addBackendMenuItem(Menus::MENU_BLOG);
+        My::addBackendMenuItem(App::backend()->menus()::MENU_BLOG);
 
         $settings = My::settings();
         if ($settings->active && $settings->autorefresh) {
