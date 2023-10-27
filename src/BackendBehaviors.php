@@ -72,6 +72,7 @@ class BackendBehaviors
             } else {
                 echo __('Counters:') . ' ' . '0';
             }
+
             echo '</p></details></div>';
         }
 

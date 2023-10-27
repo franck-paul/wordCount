@@ -66,6 +66,7 @@ class BackendRest
             } else {
                 $content_html = '';
             }
+
             # --BEHAVIOR-- coreAfterPostContentFormat
             App::behavior()->callBehavior('coreAfterPostContentFormat', [
                 'excerpt'       => &$excerpt,

@@ -55,10 +55,10 @@ class Manage extends Process
             try {
                 $settings = My::settings();
 
-                $active      = (empty($_POST['active'])) ? false : true;
-                $details     = (empty($_POST['details'])) ? false : true;
+                $active      = !empty($_POST['active']);
+                $details     = !empty($_POST['details']);
                 $wpm         = (int) $_POST['wpm'];
-                $autorefresh = (empty($_POST['autorefresh'])) ? false : true;
+                $autorefresh = !empty($_POST['autorefresh']);
                 $interval    = (int) $_POST['interval'];
 
                 $settings->put('active', $active, 'boolean');

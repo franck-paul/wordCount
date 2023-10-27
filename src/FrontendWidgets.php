@@ -35,7 +35,7 @@ class FrontendWidgets
             return '';
         }
 
-        switch (App::url()->type) {
+        switch (App::url()->getType()) {
             case 'post':
                 if ($widget->get('where') != 0 && $widget->get('where') != 1) {
                     // Don't display for post
@@ -75,6 +75,7 @@ class FrontendWidgets
         if (!$widget->get('list')) {
             $counters = '<p>' . $counters . '</p>' . "\n";
         }
+
         $res .= $counters;
 
         // Return final markup

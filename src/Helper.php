@@ -64,7 +64,7 @@ class Helper
         $chars = mb_strlen(Html::clean($text));
         if ($chars > 0) {
             if ($double) {
-                $chars--;
+                --$chars;
             }
 
             $words   = count(self::splitWords($text));
@@ -95,7 +95,7 @@ class Helper
                 } elseif ($folios < 2.0) {
                     // Less than 2 folios
                     $counters[] = sprintf(__('1 &frac12; %s'), $l10n_folios);
-                } elseif (floor($folios) != $folios) {
+                } elseif (floor($folios) !== $folios) {
                     // Folios and a part of one
                     $folios     = (int) floor($folios);
                     $counters[] = sprintf(__('%d &frac12; folio', '%d &frac12; folios', $folios), $folios);
@@ -109,19 +109,20 @@ class Helper
             if ($show_time) {
                 // Reading time
                 if ($reading < 1) {
-                    $counters[] = sprintf(__('less than one minute'));
+                    $counters[] = __('less than one minute');
                 } else {
                     $reading    = (int) round($reading);
                     $counters[] = sprintf(__('%d minute', '%d minutes', $reading), $reading);
                 }
             }
 
-            if (count($counters)) {
+            if ($counters !== []) {
                 if ($use_list) {
                     $ret = '<ul>';
                     foreach ($counters as $value) {
                         $ret .= '<li>' . $value . '</li>';
                     }
+
                     $ret .= '</ul>';
                 } else {
                     $ret = implode(' - ', $counters);

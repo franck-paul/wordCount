@@ -42,7 +42,7 @@ class Install extends Process
                 }
 
                 // Change settings names (remove wc_ prefix in them)
-                $rename = function (string $name, BlogWorkspaceInterface $settings): void {
+                $rename = static function (string $name, BlogWorkspaceInterface $settings) : void {
                     if ($settings->settingExists('wc_' . $name, true)) {
                         $settings->rename('wc_' . $name, $name);
                     }
@@ -65,8 +65,8 @@ class Install extends Process
             $settings->put('wpm', 230, 'integer', 'Average words per minute', false, true);
             $settings->put('autorefresh', true, 'boolean', 'Auto refresh counters', false, true);
             $settings->put('timeout', 60, 'integer', 'Interval between two refresh', false, true);
-        } catch (Exception $e) {
-            App::error()->add($e->getMessage());
+        } catch (Exception $exception) {
+            App::error()->add($exception->getMessage());
         }
 
         return true;
