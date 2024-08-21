@@ -63,8 +63,8 @@ class BackendBehaviors
                 $countersTotal = Helper::getCounters($text, $wpm, ($post->post_excerpt_xhtml != ''));
 
                 if ($details) {
-                    echo __('Excerpt:') . ' ' . ($countersExcerpt ?: '0') . '<br />';
-                    echo __('Content:') . ' ' . ($countersContent ?: '0') . '<br />';
+                    echo __('Excerpt:') . ' ' . ($countersExcerpt ?: '0') . '<br>';
+                    echo __('Content:') . ' ' . ($countersContent ?: '0') . '<br>';
                     echo __('Total:') . ' ' . ($countersTotal ?: '0');
                 } else {
                     echo __('Counters:') . ' ' . ($countersTotal ?: '0');

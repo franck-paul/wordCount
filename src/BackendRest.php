@@ -88,8 +88,8 @@ class BackendRest
                 $countersTotal = Helper::getCounters($text, $wpm, ($excerpt != ''));
 
                 if ($details) {
-                    $html .= __('Excerpt:') . ' ' . ($countersExcerpt ?: '0') . '<br />';
-                    $html .= __('Content:') . ' ' . ($countersContent ?: '0') . '<br />';
+                    $html .= __('Excerpt:') . ' ' . ($countersExcerpt ?: '0') . '<br>';
+                    $html .= __('Content:') . ' ' . ($countersContent ?: '0') . '<br>';
                     $html .= __('Total:') . ' ' . ($countersTotal ?: '0');
                 } else {
                     $html .= __('Counters:') . ' ' . ($countersTotal ?: '0');
