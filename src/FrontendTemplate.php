@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @brief wordCount, a plugin for Dotclear 2
  *
@@ -39,8 +40,6 @@ class FrontendTemplate
      * ```
      *
      * @param      array<string, mixed>|\ArrayObject<string, mixed>  $attr   The attribute
-     *
-     * @return     string
      */
     public static function WordCount(array|ArrayObject $attr): string
     {

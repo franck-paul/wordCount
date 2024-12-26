@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @brief wordCount, a plugin for Dotclear 2
  *
@@ -21,8 +22,6 @@ class BackendBehaviors
 {
     /**
      * adminPostHeaders behavior callback
-     *
-     * @return     string
      */
     public static function adminPostHeaders(): string
     {
@@ -45,8 +44,6 @@ class BackendBehaviors
      * wordCount  behavior callback
      *
      * @param      MetaRecord|null  $post   The post
-     *
-     * @return     string
      */
     public static function wordCount(?MetaRecord $post): string
     {

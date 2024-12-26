@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @brief wordCount, a plugin for Dotclear 2
  *
@@ -135,7 +136,7 @@ class Manage extends Process
                                     ->label((new Label(__('Auto refresh counters'), Label::INSIDE_TEXT_AFTER))),
                             ]),
                             (new Para())->items([
-                                (new Number('interval', 15, 999, (int) $interval))
+                                (new Number('interval', 15, 999, $interval))
                                     ->label((new Label(__('Autorefresh interval in seconds (usually 60):'), Label::INSIDE_TEXT_BEFORE))),
                             ]),
                         ]),

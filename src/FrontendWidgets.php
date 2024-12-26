@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @brief wordCount, a plugin for Dotclear 2
  *
@@ -24,9 +25,7 @@ class FrontendWidgets
     /**
      * Render widget
      *
-     * @param      \Dotclear\Plugin\widgets\WidgetsElement  $widget      The widget
-     *
-     * @return     string
+     * @param      WidgetsElement  $widget      The widget
      */
     public static function widgetWordCount(WidgetsElement $widget): string
     {
