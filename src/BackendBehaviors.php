@@ -17,6 +17,12 @@ namespace Dotclear\Plugin\wordCount;
 
 use Dotclear\Core\Backend\Page;
 use Dotclear\Database\MetaRecord;
+use Dotclear\Helper\Html\Form\Details;
+use Dotclear\Helper\Html\Form\Div;
+use Dotclear\Helper\Html\Form\Para;
+use Dotclear\Helper\Html\Form\Single;
+use Dotclear\Helper\Html\Form\Summary;
+use Dotclear\Helper\Html\Form\Text;
 
 class BackendBehaviors
 {
@@ -50,27 +56,40 @@ class BackendBehaviors
         $settings = My::settings();
         if ($settings->active) {
             $details = $settings->details;
-            echo '<div class="wordcount"><details open><summary>' . __('Word Count') . '</summary><p>';
+            $infos   = [];
             if ($post != null) {
                 $wpm             = $settings->wpm;
                 $countersExcerpt = $details ? Helper::getCounters($post->post_excerpt_xhtml, $wpm) : '';
                 $countersContent = $details ? Helper::getCounters($post->post_content_xhtml, $wpm) : '';
-                $text            = ($post->post_excerpt_xhtml != '' ? $post->post_excerpt_xhtml . ' ' : '');
-                $text .= $post->post_content_xhtml;
+
+                $text = ($post->post_excerpt_xhtml != '' ? $post->post_excerpt_xhtml . ' ' : '') . $post->post_content_xhtml;
+
                 $countersTotal = Helper::getCounters($text, $wpm, ($post->post_excerpt_xhtml != ''));
 
                 if ($details) {
-                    echo __('Excerpt:') . ' ' . ($countersExcerpt ?: '0') . '<br>';
-                    echo __('Content:') . ' ' . ($countersContent ?: '0') . '<br>';
-                    echo __('Total:') . ' ' . ($countersTotal ?: '0');
+                    $infos[] = __('Excerpt:') . ' ' . ($countersExcerpt ?: '0');
+                    $infos[] = __('Content:') . ' ' . ($countersContent ?: '0');
+                    $infos[] = __('Total:') . ' ' . ($countersTotal ?: '0');
                 } else {
-                    echo __('Counters:') . ' ' . ($countersTotal ?: '0');
+                    $infos[] = __('Counters:') . ' ' . ($countersTotal ?: '0');
                 }
             } else {
-                echo __('Counters:') . ' ' . '0';
+                $infos[] = __('Counters:') . ' ' . '0';
             }
 
-            echo '</p></details></div>';
+            echo (new Div())
+                ->class('wordcount')
+                ->items([
+                    (new Details())
+                        ->open(true)
+                        ->summary(new Summary(__('Word Count')))
+                        ->items([
+                            (new Para())
+                                ->separator((new Single('br'))->render())
+                                ->items(array_map(fn ($item): Text => (new Text(null, $item)), $infos)),
+                        ]),
+                ])
+            ->render();
         }
 
         return '';

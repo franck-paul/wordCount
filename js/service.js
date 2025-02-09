@@ -18,12 +18,13 @@ window.addEventListener('load', () => {
         }
       },
       {
-        excerpt: document.querySelector('#post_excerpt').value,
-        content: document.querySelector('#post_content').value,
-        format: document.querySelector('#post_format').value,
+        excerpt: document.getElementById('post_excerpt')?.value,
+        content: document.getElementById('post_content')?.value,
+        format: document.getElementById('post_format')?.value,
       },
     );
   };
 
+  // Update every minute (default) or using given interval
   dotclear.wordcount.timer = setInterval(dotclear.wordcount.getCounters, (dotclear.wordcount?.interval || 60) * 1000);
 });
