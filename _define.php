@@ -26,5 +26,6 @@ $this->registerModule(
         'details'    => 'https://open-time.net/?q=wordCount',
         'support'    => 'https://github.com/franck-paul/wordCount',
         'repository' => 'https://raw.githubusercontent.com/franck-paul/wordCount/main/dcstore.xml',
+        'license'    => 'gpl2',
     ]
 );

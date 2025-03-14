@@ -17,6 +17,8 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\wordCount;
 
 use Dotclear\App;
+use Dotclear\Helper\Html\Form\Para;
+use Dotclear\Helper\Html\Form\Text;
 use Dotclear\Helper\Html\Html;
 use Dotclear\Plugin\widgets\WidgetsElement;
 
@@ -36,14 +38,14 @@ class FrontendWidgets
 
         switch (App::url()->getType()) {
             case 'post':
-                if ($widget->get('where') != 0 && $widget->get('where') != 1) {
+                if ((int) $widget->get('where') !== 0 && (int) $widget->get('where') !== 1) {
                     // Don't display for post
                     return '';
                 }
 
                 break;
             case 'pages':
-                if ($widget->get('where') != 0 && $widget->get('where') != 2) {
+                if ((int) $widget->get('where') !== 0 && (int) $widget->get('where') !== 2) {
                     // Don't display for page
                     return '';
                 }
@@ -72,12 +74,16 @@ class FrontendWidgets
 
         // Assemble
         if (!$widget->get('list')) {
-            $counters = '<p>' . $counters . '</p>' . "\n";
+            $counters = (new Para())
+                ->items([
+                    (new Text(null, $counters)),
+                ])
+            ->render();
         }
 
         $res .= $counters;
 
         // Return final markup
-        return $widget->renderDiv((bool) $widget->content_only, 'wordcount ' . $widget->class, '', $res);
+        return $widget->renderDiv((bool) $widget->content_only, implode(' ', ['wordcount', $widget->class]), '', $res);
     }
 }

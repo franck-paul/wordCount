@@ -53,8 +53,6 @@ class FrontendTemplate
         // Get filters formatter string
         $f = App::frontend()->template()->getFilters($attr);
 
-        return '<?php $settings = App::blog()->settings()->get(\'' . My::id() . '\'); echo ' . sprintf($f, Helper::class . '::getCounters(App::frontend()->context()->posts->getExcerpt()." ".App::frontend()->context()->posts->getContent(),' .
-            ($wpm ?: '$settings->wpm') . ',true,' .
-            $chars . ',' . $words . ',' . $folios . ',' . $time . ',' . $list . ')') . '; ?>';
+        return '<?php $settings = App::blog()->settings()->get(\'' . My::id() . '\'); echo ' . sprintf($f, Helper::class . '::getCounters(App::frontend()->context()->posts->getExcerpt()." ".App::frontend()->context()->posts->getContent(),' . ($wpm ?: '$settings->wpm') . ',true,' . $chars . ',' . $words . ',' . $folios . ',' . $time . ',' . $list . ')') . '; ?>';
     }
 }

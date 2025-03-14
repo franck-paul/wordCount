@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @brief wordCount, a plugin for Dotclear 2
  *
@@ -14,6 +15,8 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\wordCount;
 
+use Dotclear\Helper\Html\Form\Li;
+use Dotclear\Helper\Html\Form\Ul;
 use Dotclear\Helper\Html\Html;
 
 class Helper
@@ -118,12 +121,11 @@ class Helper
 
             if ($counters !== []) {
                 if ($use_list) {
-                    $ret = '<ul>';
-                    foreach ($counters as $value) {
-                        $ret .= '<li>' . $value . '</li>';
-                    }
-
-                    $ret .= '</ul>';
+                    $ret = (new Ul())
+                        ->items([
+                            ... array_map(fn ($item) => (new Li())->text($item), $counters),
+                        ])
+                        ->render();
                 } else {
                     $ret = implode(' - ', $counters);
                 }
