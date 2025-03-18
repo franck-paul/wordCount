@@ -17,7 +17,7 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\wordCount;
 
 use ArrayObject;
-use Dotclear\App;
+use Dotclear\Plugin\TemplateHelper\Code;
 
 class FrontendTemplate
 {
@@ -44,15 +44,25 @@ class FrontendTemplate
     public static function WordCount(array|ArrayObject $attr): string
     {
         // Check attributes
-        $chars  = isset($attr['chars']) ? (int) $attr['chars'] : 0;
-        $words  = isset($attr['words']) ? (int) $attr['words'] : 1;
-        $folios = isset($attr['folios']) ? (int) $attr['folios'] : 0;
-        $time   = isset($attr['time']) ? (int) $attr['time'] : 0;
+        $chars  = isset($attr['chars']) && (bool) $attr['chars'];
+        $words  = isset($attr['words']) ? (bool) $attr['words'] : true;
+        $folios = isset($attr['folios']) && (bool) $attr['folios'];
+        $time   = isset($attr['time'])   && (bool) $attr['time'];
         $wpm    = isset($attr['wpm']) ? (int) $attr['wpm'] : 0;
-        $list   = isset($attr['list']) ? (int) $attr['list'] : 0;
-        // Get filters formatter string
-        $f = App::frontend()->template()->getFilters($attr);
+        $list   = isset($attr['list']) && (bool) $attr['list'];
 
-        return '<?php $settings = App::blog()->settings()->get(\'' . My::id() . '\'); echo ' . sprintf($f, Helper::class . '::getCounters(App::frontend()->context()->posts->getExcerpt()." ".App::frontend()->context()->posts->getContent(),' . ($wpm ?: '$settings->wpm') . ',true,' . $chars . ',' . $words . ',' . $folios . ',' . $time . ',' . $list . ')') . '; ?>';
+        return Code::getPHPTemplateValueCode(
+            FrontendTemplateCode::WordCount(...),
+            [
+                My::id(),
+                $wpm,
+                $chars,
+                $words,
+                $folios,
+                $time,
+                $list,
+            ],
+            $attr,
+        );
     }
 }
