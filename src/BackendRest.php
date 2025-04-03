@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @brief wordCount, a plugin for Dotclear 2
  *
@@ -67,12 +68,12 @@ class BackendRest
                 $content_html = '';
             }
 
-            # --BEHAVIOR-- coreAfterPostContentFormat
-            App::behavior()->callBehavior('coreAfterPostContentFormat', [
-                'excerpt'       => &$excerpt,
-                'content'       => &$content,
-                'excerpt_xhtml' => &$excerpt_html,
-                'content_xhtml' => &$content_html,
+            # --BEHAVIOR-- coreContentFilter -- string, array<int, array<int, string>> -- since 2.34
+            App::behavior()->callBehavior('coreContentFilter', 'post', [
+                [&$excerpt, $format],
+                [&$content, $format],
+                [&$excerpt_html, 'html'],
+                [&$content_html, 'html'],
             ]);
 
             $html = '';
