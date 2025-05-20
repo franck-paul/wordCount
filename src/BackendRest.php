@@ -70,15 +70,13 @@ class BackendRest
 
             # --BEHAVIOR-- coreContentFilter -- string, array<int, array<int, string>> -- since 2.34
             App::behavior()->callBehavior('coreContentFilter', 'post', [
-                [&$excerpt, $format],
-                [&$content, $format],
                 [&$excerpt_html, 'html'],
                 [&$content_html, 'html'],
             ]);
 
             $html = '';
 
-            if ($excerpt !== null || $content !== null) {
+            if ($excerpt_html !== '' || $content_html !== '') {
                 $wpm = $settings->wpm;
 
                 $countersExcerpt = $details ? Helper::getCounters($excerpt_html, $wpm) : '';
