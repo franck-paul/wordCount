@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @brief wordCount, a plugin for Dotclear 2
  *
@@ -23,7 +24,7 @@ class Widgets
     {
         // Widget for all series
         $w
-            ->create('wordcount', __('Word Count'), FrontendWidgets::widgetWordCount(...), null, __('Word Count'))
+            ->create('wordcount', __('Word Count'), FrontendWidgets::widgetWordCount(...), null, __('Word Count'), My::id())
             ->addTitle(__('Statistics'))
             ->setting(
                 'where',
