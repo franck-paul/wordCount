@@ -16,6 +16,8 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\wordCount;
 
 use Dotclear\Helper\Html\Form\Li;
+use Dotclear\Helper\Html\Form\Set;
+use Dotclear\Helper\Html\Form\Span;
 use Dotclear\Helper\Html\Form\Ul;
 use Dotclear\Helper\Html\Html;
 
@@ -78,44 +80,57 @@ class Helper
 
             if ($show_chars) {
                 // Characters
-                $counters[] = sprintf(__('%d character', '%d characters', $chars), $chars);
+                $class      = 'characters';
+                $counters[] = (new Span(sprintf(__('%d character', '%d characters', $chars), $chars)))
+                    ->class($class);
             }
 
             if ($show_words) {
                 // Words
-                $counters[] = sprintf(__('%d word', '%d words', $words), $words);
+                $class      = 'words';
+                $counters[] = (new Span(sprintf(__('%d word', '%d words', $words), $words)))
+                    ->class($class);
             }
 
             if ($show_folios) {
                 // Folios
+                $class       = 'folios';
                 $l10n_folios = __('1 folio', 'n folios', 1);
                 if ($folios <= 0.5) {
                     // Less or equal 1/2 folio
-                    $counters[] = sprintf(__('&frac12; %s'), $l10n_folios);
+                    $counters[] = (new Span(sprintf(__('&frac12; %s'), $l10n_folios)))
+                        ->class($class);
                 } elseif ($folios <= 1.0) {
                     // Less or equal 1 folio
-                    $counters[] = sprintf(__('1 %s'), $l10n_folios);
+                    $counters[] = (new Span(sprintf(__('1 %s'), $l10n_folios)))
+                        ->class($class);
                 } elseif ($folios < 2.0) {
                     // Less than 2 folios
-                    $counters[] = sprintf(__('1 &frac12; %s'), $l10n_folios);
+                    $counters[] = (new Span(sprintf(__('1 &frac12; %s'), $l10n_folios)))
+                        ->class($class);
                 } elseif (floor($folios) !== $folios) {
                     // Folios and a part of one
                     $folios     = (int) floor($folios);
-                    $counters[] = sprintf(__('%d &frac12; folio', '%d &frac12; folios', $folios), $folios);
+                    $counters[] = (new Span(sprintf(__('%d &frac12; folio', '%d &frac12; folios', $folios), $folios)))
+                        ->class($class);
                 } else {
                     // Folios
                     $folios     = (int) $folios;
-                    $counters[] = sprintf(__('%d folio', '%d folios', $folios), $folios);
+                    $counters[] = (new Span(sprintf(__('%d folio', '%d folios', $folios), $folios)))
+                        ->class($class);
                 }
             }
 
             if ($show_time) {
                 // Reading time
+                $class = 'time';
                 if ($reading < 1) {
-                    $counters[] = __('less than one minute');
+                    $counters[] = (new Span(__('less than one minute')))
+                        ->class($class);
                 } else {
                     $reading    = (int) round($reading);
-                    $counters[] = sprintf(__('%d minute', '%d minutes', $reading), $reading);
+                    $counters[] = (new Span(sprintf(__('%d minute', '%d minutes', $reading), $reading)))
+                        ->class($class);
                 }
             }
 
@@ -123,11 +138,14 @@ class Helper
                 if ($use_list) {
                     $ret = (new Ul())
                         ->items([
-                            ... array_map(fn ($item) => (new Li())->text($item), $counters),
+                            ... array_map(fn ($item) => (new Li())->items([$item]), $counters),
                         ])
-                        ->render();
+                    ->render();
                 } else {
-                    $ret = implode(' - ', $counters);
+                    $ret = (new Set())
+                        ->separator(' - ')
+                        ->items($counters)
+                    ->render();
                 }
             }
         }
