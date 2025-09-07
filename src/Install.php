@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @brief wordCount, a plugin for Dotclear 2
  *
@@ -15,12 +16,14 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\wordCount;
 
 use Dotclear\App;
-use Dotclear\Core\Process;
+use Dotclear\Helper\Process\TraitProcess;
 use Dotclear\Interface\Core\BlogWorkspaceInterface;
 use Exception;
 
-class Install extends Process
+class Install
 {
+    use TraitProcess;
+
     public static function init(): bool
     {
         return self::status(My::checkContext(My::INSTALL));
@@ -42,7 +45,7 @@ class Install extends Process
                 }
 
                 // Change settings names (remove wc_ prefix in them)
-                $rename = static function (string $name, BlogWorkspaceInterface $settings) : void {
+                $rename = static function (string $name, BlogWorkspaceInterface $settings): void {
                     if ($settings->settingExists('wc_' . $name, true)) {
                         $settings->rename('wc_' . $name, $name);
                     }
