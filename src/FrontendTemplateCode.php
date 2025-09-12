@@ -47,7 +47,7 @@ class FrontendTemplateCode
             $_time_,
             $_list_
         );
-        echo \Dotclear\Core\Frontend\Ctx::global_filters(
+        echo App::frontend()->context()::global_filters(
             $wordcount_buffer,
             $_params_,
             $_tag_
