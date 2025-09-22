@@ -17,8 +17,6 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\wordCount;
 
 use Dotclear\App;
-use Dotclear\Core\Backend\Notices;
-use Dotclear\Core\Backend\Page;
 use Dotclear\Helper\Html\Form\Checkbox;
 use Dotclear\Helper\Html\Form\Div;
 use Dotclear\Helper\Html\Form\Fieldset;
@@ -71,7 +69,7 @@ class Manage
                 $settings->put('interval', ($interval ?: 60), 'integer');
 
                 App::blog()->triggerBlog();
-                Notices::addSuccessNotice(__('Configuration successfully updated.'));
+                App::backend()->notices()->addSuccessNotice(__('Configuration successfully updated.'));
                 My::redirect();
             } catch (Exception $e) {
                 App::error()->add($e->getMessage());
@@ -99,15 +97,15 @@ class Manage
         $autorefresh = (bool) $settings->autorefresh;
         $interval    = (int) ($settings->interval ?? 60);
 
-        Page::openModule(My::name());
+        App::backend()->page()->openModule(My::name());
 
-        echo Page::breadcrumb(
+        echo App::backend()->page()->breadcrumb(
             [
                 Html::escapeHTML(App::blog()->name()) => '',
                 __('Word Count')                      => '',
             ]
         );
-        echo Notices::getNotices();
+        echo App::backend()->notices()->getNotices();
 
         echo (new Div('options'))
             ->items([
@@ -151,6 +149,6 @@ class Manage
             ])
             ->render();
 
-        Page::closeModule();
+        App::backend()->page()->closeModule();
     }
 }

@@ -15,7 +15,7 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\wordCount;
 
-use Dotclear\Core\Backend\Page;
+use Dotclear\App;
 use Dotclear\Database\MetaRecord;
 use Dotclear\Helper\Html\Form\Details;
 use Dotclear\Helper\Html\Form\Div;
@@ -36,7 +36,7 @@ class BackendBehaviors
             $ret = My::cssLoad('style.css');
             if ($settings->autorefresh) {
                 $interval = (int) ($settings->timeout ?? 60);
-                $ret .= Page::jsJson('wordcount', ['interval' => $interval]) .
+                $ret .= App::backend()->page()->jsJson('wordcount', ['interval' => $interval]) .
                     My::jsLoad('service.js');
             }
 
