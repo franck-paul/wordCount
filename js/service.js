@@ -1,11 +1,11 @@
 /*global dotclear */
 'use strict';
 
-window.addEventListener('load', () => {
+dotclear.ready(() => {
   // Set interval between two counters calculation
   dotclear.wordcount = dotclear.getData('wordcount');
 
-  dotclear.wordcount.getCounters = () => {
+  const getCounters = () => {
     dotclear.jsonServicesPost(
       'wordCountGetCounters',
       (payload) => {
@@ -26,5 +26,5 @@ window.addEventListener('load', () => {
   };
 
   // Update every minute (default) or using given interval
-  dotclear.wordcount.timer = setInterval(dotclear.wordcount.getCounters, (dotclear.wordcount?.interval || 60) * 1000);
+  dotclear.wordcount.timer = setInterval(getCounters, (dotclear.wordcount?.interval || 60) * 1000);
 });
