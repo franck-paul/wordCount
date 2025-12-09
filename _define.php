@@ -15,9 +15,9 @@ $this->registerModule(
     'Word Count',
     'Counts characters, words and folios, reading time of entry',
     'Franck Paul',
-    '7.2',
+    '7.3',
     [
-        'date'     => '2025-09-22T10:21:46+0200',
+        'date'     => '2025-12-09T12:16:46+0100',
         'requires' => [
             ['core', '2.36'],
             ['TemplateHelper'],
