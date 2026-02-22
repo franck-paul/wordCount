@@ -3,7 +3,6 @@
 [![Release](https://img.shields.io/github/v/release/franck-paul/wordCount)](https://github.com/franck-paul/wordCount/releases)
 [![Date](https://img.shields.io/github/release-date/franck-paul/wordCount)](https://github.com/franck-paul/wordCount/releases)
 [![Issues](https://img.shields.io/github/issues/franck-paul/wordCount)](https://github.com/franck-paul/wordCount/issues)
-[![Dotaddict](https://img.shields.io/badge/dotaddict-official-green.svg)](https://plugins.dotaddict.org/dc2/details/wordCount)
 [![License](https://img.shields.io/github/license/franck-paul/wordCount)](https://github.com/franck-paul/wordCount/blob/master/LICENSE)
 
 Affiche le nombre de caractères, de mots, de folios et la durée estimée de lecture d'un billet sur la base d'une moyenne de 230 mots lu par minute (valeur réglable pour le blog dans les options du plugin).
