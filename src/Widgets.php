@@ -41,7 +41,7 @@ class Widgets
             ->setting('words', __('Number of words'), 1, 'check')
             ->setting('folios', __('Number of folios'), 0, 'check')
             ->setting('time', __('Reading time'), 0, 'check')
-            ->setting('wpm', __('Average words per minute (reading):'), '')
+            ->setting('wpm', __('Average words per minute (reading):'), 0, 'number')
             ->setting('list', __('Use <ul>/<li> markup'), 0, 'check')
             ->addContentOnly()
             ->addClass()
