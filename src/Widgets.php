@@ -29,12 +29,12 @@ class Widgets
             ->setting(
                 'where',
                 __('Display for:'),
-                0,
+                My::WIDGET_POSTS_AND_PAGES,
                 'combo',
                 [
-                    __('Posts and pages') => 0,
-                    __('Posts only')      => 1,
-                    __('Page only')       => 2,
+                    __('Posts and pages') => My::WIDGET_POSTS_AND_PAGES,
+                    __('Posts only')      => My::WIDGET_POSTS_ONLY,
+                    __('Page only')       => My::WIDGET_PAGES_ONLY,
                 ]
             )
             ->setting('chars', __('Number of characters'), 0, 'check')

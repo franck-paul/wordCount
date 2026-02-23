@@ -17,6 +17,7 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\wordCount;
 
 use Dotclear\App;
+use Dotclear\Database\MetaRecord;
 use Dotclear\Helper\Html\Form\Para;
 use Dotclear\Helper\Html\Form\Text;
 use Dotclear\Helper\Html\Html;
@@ -36,16 +37,17 @@ class FrontendWidgets
             return '';
         }
 
+        $where = is_numeric($where = $widget->get('where')) ? (int) $where : My::WIDGET_POSTS_AND_PAGES;
         switch (App::url()->getType()) {
             case 'post':
-                if ((int) $widget->get('where') !== 0 && (int) $widget->get('where') !== 1) {
+                if ($where !== My::WIDGET_POSTS_AND_PAGES && $where !== My::WIDGET_POSTS_ONLY) {
                     // Don't display for post
                     return '';
                 }
 
                 break;
             case 'pages':
-                if ((int) $widget->get('where') !== 0 && (int) $widget->get('where') !== 2) {
+                if ($where !== My::WIDGET_POSTS_AND_PAGES && $where !== My::WIDGET_PAGES_ONLY) {
                     // Don't display for page
                     return '';
                 }
@@ -61,27 +63,35 @@ class FrontendWidgets
 
         // Get counters
         $settings = My::settings();
-        $counters = Helper::getCounters(
-            App::frontend()->context()->posts->getExcerpt() . ' ' . App::frontend()->context()->posts->getContent(),
-            ($widget->get('wpm') ? (int) $widget->get('wpm') : (int) $settings->wpm),
-            true,
-            (bool) $widget->get('chars'),
-            (bool) $widget->get('words'),
-            (bool) $widget->get('folios'),
-            (bool) $widget->get('time'),
-            (bool) $widget->get('list')
-        );
 
-        // Assemble
-        if (!$widget->get('list')) {
-            $counters = (new Para())
-                ->items([
-                    (new Text(null, $counters)),
-                ])
-            ->render();
+        if (App::frontend()->context()->posts instanceof MetaRecord) {
+            $wpm = is_numeric($wpm = $widget->get('wpm')) ? (int) $wpm : (is_numeric($wpm = $settings->wpm) ? (int) $wpm : My::DEFAULT_WPM);
+
+            $excerpt = is_string($excerpt = App::frontend()->context()->posts->getExcerpt()) ? $excerpt : '';
+            $content = is_string($content = App::frontend()->context()->posts->getContent()) ? $content : '';
+
+            $counters = Helper::getCounters(
+                $excerpt . ' ' . $content,
+                $wpm,
+                true,
+                (bool) $widget->get('chars'),
+                (bool) $widget->get('words'),
+                (bool) $widget->get('folios'),
+                (bool) $widget->get('time'),
+                (bool) $widget->get('list')
+            );
+
+            // Assemble
+            if (!$widget->get('list')) {
+                $counters = (new Para())
+                    ->items([
+                        (new Text(null, $counters)),
+                    ])
+                ->render();
+            }
+
+            $res .= $counters;
         }
-
-        $res .= $counters;
 
         // Return final markup
         return $widget->renderDiv((bool) $widget->content_only, implode(' ', ['wordcount', $widget->class]), '', $res);

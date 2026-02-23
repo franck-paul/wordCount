@@ -77,7 +77,7 @@ class BackendRest
             $html = '';
 
             if ($excerpt_html !== '' || $content_html !== '') {
-                $wpm = $settings->wpm;
+                $wpm = is_numeric($wpm = $settings->wpm) ? (int) $wpm : My::DEFAULT_WPM;
 
                 $countersExcerpt = $details ? Helper::getCounters($excerpt_html, $wpm) : '';
                 $countersContent = $details ? Helper::getCounters($content_html, $wpm) : '';

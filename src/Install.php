@@ -65,9 +65,9 @@ class Install
 
             $settings->put('active', true, 'boolean', 'Active', false, true);
             $settings->put('details', false, 'boolean', 'Details', false, true);
-            $settings->put('wpm', 230, 'integer', 'Average words per minute', false, true);
+            $settings->put('wpm', My::DEFAULT_WPM, 'integer', 'Average words per minute', false, true);
             $settings->put('autorefresh', true, 'boolean', 'Auto refresh counters', false, true);
-            $settings->put('timeout', 60, 'integer', 'Interval between two refresh', false, true);
+            $settings->put('timeout', My::DEFAULT_INTERVAL, 'integer', 'Interval between two refresh', false, true);
         } catch (Exception $exception) {
             App::error()->add($exception->getMessage());
         }

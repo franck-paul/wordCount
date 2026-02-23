@@ -26,5 +26,5 @@ dotclear.ready(() => {
   };
 
   // Update every minute (default) or using given interval
-  dotclear.wordcount.timer = setInterval(getCounters, (dotclear.wordcount?.interval || 60) * 1000);
+  dotclear.wordcount.timer = setInterval(getCounters, (dotclear.wordcount?.timeout || 60) * 1000);
 });

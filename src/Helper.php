@@ -56,7 +56,7 @@ class Helper
      */
     public static function getCounters(
         string $text,
-        int $wpm = 230,
+        int $wpm = My::DEFAULT_WPM,
         bool $double = false,
         bool $show_chars = true,
         bool $show_words = true,
@@ -65,6 +65,10 @@ class Helper
         bool $use_list = false
     ): string {
         $ret = '';
+
+        if ($wpm === 0) {
+            $wpm = My::DEFAULT_WPM;
+        }
 
         $chars = mb_strlen(Html::clean($text));
         if ($chars > 0) {

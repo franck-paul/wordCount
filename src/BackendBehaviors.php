@@ -35,8 +35,8 @@ class BackendBehaviors
         if ($settings->active) {
             $ret = My::cssLoad('style.css');
             if ($settings->autorefresh) {
-                $interval = (int) ($settings->timeout ?? 60);
-                $ret .= App::backend()->page()->jsJson('wordcount', ['interval' => $interval]) .
+                $timeout = is_numeric($timeout = $settings->timeout) ? (int) $timeout : My::DEFAULT_INTERVAL;
+                $ret .= App::backend()->page()->jsJson('wordcount', ['timeout' => $timeout]) .
                     My::jsLoad('service.js');
             }
 
@@ -57,14 +57,18 @@ class BackendBehaviors
         if ($settings->active) {
             $details = $settings->details;
             $infos   = [];
-            if ($post != null) {
-                $wpm             = $settings->wpm;
-                $countersExcerpt = $details ? Helper::getCounters($post->post_excerpt_xhtml, $wpm) : '';
-                $countersContent = $details ? Helper::getCounters($post->post_content_xhtml, $wpm) : '';
+            if ($post instanceof MetaRecord) {
+                $wpm = is_numeric($wpm = $settings->wpm) ? (int) $wpm : My::DEFAULT_WPM;
 
-                $text = ($post->post_excerpt_xhtml != '' ? $post->post_excerpt_xhtml . ' ' : '') . $post->post_content_xhtml;
+                $excerpt = is_string($excerpt = $post->post_excerpt_xhtml) ? $excerpt : '';
+                $content = is_string($content = $post->post_content_xhtml) ? $content : '';
 
-                $countersTotal = Helper::getCounters($text, $wpm, ($post->post_excerpt_xhtml != ''));
+                $countersExcerpt = $details ? Helper::getCounters($excerpt, $wpm) : '';
+                $countersContent = $details ? Helper::getCounters($content, $wpm) : '';
+
+                $text = implode(' ', array_filter([$excerpt, $content]));
+
+                $countersTotal = Helper::getCounters($text, $wpm, ($excerpt !== ''));
 
                 if ($details) {
                     $infos[] = __('Excerpt:') . ' ' . ($countersExcerpt ?: '0');

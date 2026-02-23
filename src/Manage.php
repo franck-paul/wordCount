@@ -58,15 +58,15 @@ class Manage
 
                 $active      = !empty($_POST['active']);
                 $details     = !empty($_POST['details']);
-                $wpm         = (int) $_POST['wpm'];
+                $wpm         = is_numeric($wpm = $_POST['wpm']) ? (int) $wpm : My::DEFAULT_WPM;
                 $autorefresh = !empty($_POST['autorefresh']);
-                $interval    = (int) $_POST['interval'];
+                $timeout     = is_numeric($timeout = $_POST['timeout']) ? (int) $timeout : My::DEFAULT_INTERVAL;
 
                 $settings->put('active', $active, 'boolean');
                 $settings->put('details', $details, 'boolean');
-                $settings->put('wpm', ($wpm ?: 230), 'integer');
+                $settings->put('wpm', $wpm, 'integer');
                 $settings->put('autorefresh', $autorefresh, 'boolean');
-                $settings->put('interval', ($interval ?: 60), 'integer');
+                $settings->put('timeout', $timeout, 'integer');
 
                 App::blog()->triggerBlog();
                 App::backend()->notices()->addSuccessNotice(__('Configuration successfully updated.'));
@@ -93,9 +93,9 @@ class Manage
 
         $active      = (bool) $settings->active;
         $details     = (bool) $settings->details;
-        $wpm         = (int) ($settings->wpm ?? 230);
+        $wpm         = is_numeric($wpm = $settings->wpm) ? (int) $wpm : My::DEFAULT_WPM;
         $autorefresh = (bool) $settings->autorefresh;
-        $interval    = (int) ($settings->interval ?? 60);
+        $timeout     = is_numeric($timeout = $settings->timeout) ? (int) $timeout : My::DEFAULT_INTERVAL;
 
         App::backend()->page()->openModule(My::name());
 
@@ -136,7 +136,7 @@ class Manage
                                     ->label((new Label(__('Auto refresh counters'), Label::INSIDE_TEXT_AFTER))),
                             ]),
                             (new Para())->items([
-                                (new Number('interval', 15, 999, $interval))
+                                (new Number('timeout', 15, 999, $timeout))
                                     ->label((new Label(__('Autorefresh interval in seconds (usually 60):'), Label::INSIDE_TEXT_BEFORE))),
                             ]),
                         ]),

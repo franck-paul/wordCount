@@ -36,22 +36,30 @@ class FrontendTemplateCode
         array $_params_,
         string $_tag_
     ): void {
-        $wordcount_settings = App::blog()->settings()->get($_id_);
-        $wordcount_buffer   = \Dotclear\Plugin\wordCount\Helper::getCounters(
-            App::frontend()->context()->posts->getExcerpt() . ' ' . App::frontend()->context()->posts->getContent(),
-            $_wpm_ ?: $wordcount_settings->wpm,
-            true,
-            $_chars_,
-            $_words_,
-            $_folios_,
-            $_time_,
-            $_list_
-        );
-        echo App::frontend()->context()::global_filters(
-            $wordcount_buffer,
-            $_params_,
-            $_tag_
-        );
-        unset($wordcount_buffer, $wordcount_settings);
+        if (App::frontend()->context()->posts instanceof \Dotclear\Database\MetaRecord) {
+            $wordcount_settings = App::blog()->settings()->get($_id_);
+
+            $wordcount_wpm = is_numeric($wpm = $wordcount_settings->wpm) ? (int) $wpm : 0;
+
+            $wordcount_excerpt = is_string($wordcount_excerpt = App::frontend()->context()->posts->getExcerpt()) ? $wordcount_excerpt : '';
+            $wordcount_content = is_string($wordcount_content = App::frontend()->context()->posts->getContent()) ? $wordcount_content : '';
+
+            $wordcount_buffer = \Dotclear\Plugin\wordCount\Helper::getCounters(
+                $wordcount_excerpt . ' ' . $wordcount_content,
+                $_wpm_ ?: $wordcount_wpm,
+                true,
+                $_chars_,
+                $_words_,
+                $_folios_,
+                $_time_,
+                $_list_
+            );
+            echo App::frontend()->context()::global_filters(
+                $wordcount_buffer,
+                $_params_,
+                $_tag_
+            );
+            unset($wordcount_buffer, $wordcount_settings);
+        }
     }
 }
