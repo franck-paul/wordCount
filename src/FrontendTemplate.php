@@ -48,8 +48,8 @@ class FrontendTemplate
         $words  = isset($attr['words']) ? (bool) $attr['words'] : true;
         $folios = isset($attr['folios']) && (bool) $attr['folios'];
         $time   = isset($attr['time'])   && (bool) $attr['time'];
-        $wpm    = is_numeric($wpm = $attr['wpm']) ? (int) $wpm : 0;
-        $list   = isset($attr['list']) && (bool) $attr['list'];
+        $wpm    = isset($attr['wpm'])    && is_numeric($wpm = $attr['wpm']) ? (int) $wpm : 0;
+        $list   = isset($attr['list'])   && (bool) $attr['list'];
 
         return Code::getPHPTemplateValueCode(
             FrontendTemplateCode::WordCount(...),
