@@ -62,11 +62,11 @@ class Manage
                 $autorefresh = !empty($_POST['autorefresh']);
                 $timeout     = is_numeric($timeout = $_POST['timeout']) ? (int) $timeout : My::DEFAULT_INTERVAL;
 
-                $settings->put('active', $active, 'boolean');
-                $settings->put('details', $details, 'boolean');
-                $settings->put('wpm', $wpm, 'integer');
-                $settings->put('autorefresh', $autorefresh, 'boolean');
-                $settings->put('timeout', $timeout, 'integer');
+                $settings->put('active', $active, App::blogWorkspace()::NS_BOOL);
+                $settings->put('details', $details, App::blogWorkspace()::NS_BOOL);
+                $settings->put('wpm', $wpm, App::blogWorkspace()::NS_INT);
+                $settings->put('autorefresh', $autorefresh, App::blogWorkspace()::NS_BOOL);
+                $settings->put('timeout', $timeout, App::blogWorkspace()::NS_INT);
 
                 App::blog()->triggerBlog();
                 App::backend()->notices()->addSuccessNotice(__('Configuration successfully updated.'));

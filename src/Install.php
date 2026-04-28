@@ -63,11 +63,11 @@ class Install
             // Default state is active
             $settings = My::settings();
 
-            $settings->put('active', true, 'boolean', 'Active', false, true);
-            $settings->put('details', false, 'boolean', 'Details', false, true);
-            $settings->put('wpm', My::DEFAULT_WPM, 'integer', 'Average words per minute', false, true);
-            $settings->put('autorefresh', true, 'boolean', 'Auto refresh counters', false, true);
-            $settings->put('timeout', My::DEFAULT_INTERVAL, 'integer', 'Interval between two refresh', false, true);
+            $settings->put('active', true, App::blogWorkspace()::NS_BOOL, 'Active', false, true);
+            $settings->put('details', false, App::blogWorkspace()::NS_BOOL, 'Details', false, true);
+            $settings->put('wpm', My::DEFAULT_WPM, App::blogWorkspace()::NS_INT, 'Average words per minute', false, true);
+            $settings->put('autorefresh', true, App::blogWorkspace()::NS_BOOL, 'Auto refresh counters', false, true);
+            $settings->put('timeout', My::DEFAULT_INTERVAL, App::blogWorkspace()::NS_INT, 'Interval between two refresh', false, true);
         } catch (Exception $exception) {
             App::error()->add($exception->getMessage());
         }
