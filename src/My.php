@@ -40,6 +40,8 @@ class My extends MyPlugin
      * Widget available contexts
      */
     public const WIDGET_POSTS_AND_PAGES = 0;
-    public const WIDGET_POSTS_ONLY      = 1;
-    public const WIDGET_PAGES_ONLY      = 2;
+
+    public const WIDGET_POSTS_ONLY = 1;
+
+    public const WIDGET_PAGES_ONLY = 2;
 }
