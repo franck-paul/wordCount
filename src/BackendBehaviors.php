@@ -60,8 +60,8 @@ class BackendBehaviors
             if ($post instanceof MetaRecord) {
                 $wpm = is_numeric($wpm = $settings->wpm) ? (int) $wpm : My::DEFAULT_WPM;
 
-                $excerpt = is_string($excerpt = $post->post_excerpt_xhtml) ? $excerpt : '';
-                $content = is_string($content = $post->post_content_xhtml) ? $content : '';
+                $excerpt = $post->strField('post_excerpt_xhtml');
+                $content = $post->strField('post_content_xhtml');
 
                 $countersExcerpt = $details ? Helper::getCounters($excerpt, $wpm) : '';
                 $countersContent = $details ? Helper::getCounters($content, $wpm) : '';
