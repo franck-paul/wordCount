@@ -91,11 +91,11 @@ class Manage
         // Getting current parameters
         $settings = My::settings();
 
-        $active      = (bool) $settings->active;
-        $details     = (bool) $settings->details;
-        $wpm         = is_numeric($wpm = $settings->wpm) ? (int) $wpm : My::DEFAULT_WPM;
-        $autorefresh = (bool) $settings->autorefresh;
-        $timeout     = is_numeric($timeout = $settings->timeout) ? (int) $timeout : My::DEFAULT_INTERVAL;
+        $active      = $settings->getBool('active', false);
+        $details     = $settings->getBool('details', false);
+        $wpm         = $settings->getInt('wpm', false) ?: My::DEFAULT_WPM;
+        $autorefresh = $settings->getBool('autorefresh', false);
+        $timeout     = $settings->getInt('timeout', false) ?: My::DEFAULT_INTERVAL;
 
         App::backend()->page()->openModule(My::name());
 

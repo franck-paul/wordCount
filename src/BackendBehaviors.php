@@ -32,10 +32,10 @@ class BackendBehaviors
     public static function adminPostHeaders(): string
     {
         $settings = My::settings();
-        if ($settings->active) {
+        if ($settings->getBool('active')) {
             $ret = My::cssLoad('style.css');
-            if ($settings->autorefresh) {
-                $timeout = is_numeric($timeout = $settings->timeout) ? (int) $timeout : My::DEFAULT_INTERVAL;
+            if ($settings->getBool('autorefresh')) {
+                $timeout = $settings->getInt('timeout', false) ?: My::DEFAULT_INTERVAL;
                 $ret .= App::backend()->page()->jsJson('wordcount', ['timeout' => $timeout]) .
                     My::jsLoad('service.js');
             }
@@ -54,11 +54,11 @@ class BackendBehaviors
     public static function wordCount(?MetaRecord $post): string
     {
         $settings = My::settings();
-        if ($settings->active) {
-            $details = $settings->details;
+        if ($settings->getBool('active')) {
+            $details = $settings->getBool('details');
             $infos   = [];
             if ($post instanceof MetaRecord) {
-                $wpm = is_numeric($wpm = $settings->wpm) ? (int) $wpm : My::DEFAULT_WPM;
+                $wpm = $settings->getInt('wpm', false) ?: My::DEFAULT_WPM;
 
                 $excerpt = $post->strField('post_excerpt_xhtml');
                 $content = $post->strField('post_content_xhtml');

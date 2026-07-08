@@ -65,7 +65,7 @@ class FrontendWidgets
         $settings = My::settings();
 
         if (App::frontend()->context()->posts instanceof MetaRecord) {
-            $wpm = is_numeric($wpm = $widget->get('wpm')) ? (int) $wpm : (is_numeric($wpm = $settings->wpm) ? (int) $wpm : My::DEFAULT_WPM);
+            $wpm = is_numeric($wpm = $widget->get('wpm')) ? (int) $wpm : ($settings->getInt('wpm', false) ?: My::DEFAULT_WPM);
 
             $excerpt = is_string($excerpt = App::frontend()->context()->posts->getExcerpt()) ? $excerpt : '';
             $content = is_string($content = App::frontend()->context()->posts->getContent()) ? $content : '';

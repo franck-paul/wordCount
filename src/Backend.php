@@ -42,7 +42,7 @@ class Backend
         My::addBackendMenuItem(Menus::MENU_BLOG);
 
         $settings = My::settings();
-        if ($settings->active && $settings->autorefresh) {
+        if ($settings->getBool('active') && $settings->getBool('autorefresh')) {
             // Register REST methods
             App::rest()->addFunction('wordCountGetCounters', BackendRest::getCounters(...));
         }

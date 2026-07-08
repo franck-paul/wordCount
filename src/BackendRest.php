@@ -34,8 +34,8 @@ class BackendRest
         ];
 
         $settings = My::settings();
-        if ($settings->active) {
-            $details = $settings->details;
+        if ($settings->getBool('active')) {
+            $details = $settings->getBool('details');
 
             $excerpt = $post['excerpt'] ?? null;
             $content = $post['content'] ?? null;
@@ -77,7 +77,7 @@ class BackendRest
             $html = '';
 
             if ($excerpt_html !== '' || $content_html !== '') {
-                $wpm = is_numeric($wpm = $settings->wpm) ? (int) $wpm : My::DEFAULT_WPM;
+                $wpm = $settings->getInt('wpm', false) ?: My::DEFAULT_WPM;
 
                 $countersExcerpt = $details ? Helper::getCounters($excerpt_html, $wpm) : '';
                 $countersContent = $details ? Helper::getCounters($content_html, $wpm) : '';
