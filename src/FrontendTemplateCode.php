@@ -41,8 +41,8 @@ class FrontendTemplateCode
 
             $wordcount_wpm = $wordcount_settings->getInt('wpm', false);
 
-            $wordcount_excerpt = is_string($wordcount_excerpt = App::frontend()->context()->posts->getExcerpt()) ? $wordcount_excerpt : '';
-            $wordcount_content = is_string($wordcount_content = App::frontend()->context()->posts->getContent()) ? $wordcount_content : '';
+            $wordcount_excerpt = App::frontend()->context()->posts->getExcerpt();
+            $wordcount_content = App::frontend()->context()->posts->getContent();
 
             $wordcount_buffer = \Dotclear\Plugin\wordCount\Helper::getCounters(
                 $wordcount_excerpt . ' ' . $wordcount_content,
